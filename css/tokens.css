@@ -1,0 +1,73 @@
+/* ============================================================
+   The Party Pair — Design tokens
+   Palette: Cape Cod postcard meets modern girly maximalism
+   ============================================================ */
+
+@font-face {
+  font-family: 'Melodrama';
+  src: url('../assets/fonts/Melodrama-Variable.woff2') format('woff2');
+  font-weight: 300 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('../assets/fonts/GeneralSans-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('../assets/fonts/GeneralSans-VariableItalic.woff2') format('woff2');
+  font-weight: 200 700;
+  font-style: italic;
+  font-display: swap;
+}
+:root {
+  /* Color — pear-logo palette (shared with V2) */
+  --ink: #2b2129;
+  --ink-soft: #6e6069;
+  --shell: #fdf9f6;
+  --shell-deep: #f5eae6;
+  --rose: #de64a5;
+  --rose-deep: #c2528f;
+  --peri: #a9bce6;
+  --peri-deep: #7d92cc;
+  --butter: #f5d98f;
+  --butter-deep: #d0aa4f;
+  --seafoam: #cde9df;
+  --leaf: #8fc4b7;
+  --white: #fffdfc;
+
+  /* Type */
+  --font-display: 'Melodrama', Georgia, serif;
+  --font-body: 'General Sans', -apple-system, 'Segoe UI', sans-serif;
+
+  --text-hero: clamp(2.9rem, 10vw, 6.75rem);
+  --text-h2: clamp(2.1rem, 6vw, 3.9rem);
+  --text-h3: clamp(1.35rem, 3.5vw, 1.85rem);
+  --text-lead: clamp(1.06rem, 2.4vw, 1.3rem);
+  --text-body: clamp(1rem, 2.2vw, 1.09rem);
+  --text-small: 0.875rem;
+
+  /* Space & shape */
+  --space-section: clamp(4.5rem, 12vw, 8.5rem);
+  --gutter: clamp(1.25rem, 4.5vw, 2.5rem);
+  --content-max: 72rem;
+  --narrow-max: 46rem;
+  --radius-lg: 1.75rem;
+  --radius-md: 1.125rem;
+  --radius-pill: 999px;
+
+  /* Elevation — soft long ink shadows */
+  --shadow-card: 0 2px 4px rgba(43, 33, 41, 0.05), 0 12px 32px rgba(43, 33, 41, 0.09);
+  --shadow-pop: 0 4px 10px rgba(43, 33, 41, 0.10), 0 22px 60px rgba(43, 33, 41, 0.18);
+  --shadow-cta: 0 4px 0 var(--rose-deep), 0 10px 24px rgba(222, 100, 165, 0.35);
+
+  /* Motion */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-quick: 180ms;
+  --dur-med: 420ms;
+  --dur-slow: 800ms;
+}

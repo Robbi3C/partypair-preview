@@ -1,0 +1,123 @@
+/* ============================================================
+   V3 overrides — loaded after the shared V1 stylesheets.
+   Scope: audit fixes, restrained pastel underline strokes,
+   the services "menu", calmer easing. Everything else inherits.
+   ============================================================ */
+
+:root {
+  /* detector fix: exponential ease-out instead of bounce */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Audit fixes ---------- */
+
+/* Header: no duplicate CTA on mobile — hero + sticky bar cover it */
+@media (max-width: 40em) {
+  .site-header .btn { display: none; }
+  .site-header__inner { padding-right: 1.1rem; }
+}
+
+/* Footer links: comfortable touch targets */
+.site-footer ul a { display: inline-block; padding-block: 0.3rem; }
+.site-footer .footer-title {
+  font-size: 0.76rem;
+  font-weight: 660;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--butter);
+  margin-bottom: 0.6rem;
+}
+
+/* ---------- Pastel underline strokes (from V2, used sparingly) ---------- */
+.uline {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 100% 0.34em;
+  transition: background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+a.uline:hover, .uline[data-open-inquiry]:hover { background-size: 0% 0.34em; cursor: pointer; }
+.uline--pink      { background-image: linear-gradient(var(--pink-300, #f2a9cc), var(--pink-300, #f2a9cc)); }
+.uline--mint      { background-image: linear-gradient(var(--seafoam), var(--seafoam)); }
+.uline--hydrangea { background-image: linear-gradient(var(--peri), var(--peri)); }
+.uline--butter    { background-image: linear-gradient(var(--butter), var(--butter)); }
+
+/* ---------- Section headings without eyebrows ---------- */
+.section-intro { max-width: var(--narrow-max); margin-inline: auto; text-align: center; margin-bottom: 3rem; }
+.section-intro .lead { margin-top: 1rem; }
+
+/* ---------- Services menu ---------- */
+.services { background: var(--ink); color: var(--shell); }
+.services .section-intro { color: var(--shell); }
+.services .section-intro .lead { color: rgba(253, 249, 246, 0.78); }
+
+.menu-card {
+  max-width: 52rem;
+  margin-inline: auto;
+  background: var(--shell);
+  color: var(--ink);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+  padding: clamp(1.8rem, 5vw, 3rem);
+}
+.menu-groups {
+  display: grid;
+  gap: 1.9rem;
+}
+@media (min-width: 46em) {
+  .menu-groups { grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 4vw, 3rem); }
+}
+.menu-group h3 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.45rem;
+  font-weight: 560;
+  color: var(--ink);
+  margin-bottom: 0.7rem;
+}
+.menu-group ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.15rem;
+}
+.menu-group li {
+  font-weight: 500;
+  padding-block: 0.28rem;
+}
+/* on stacked mobile, a quiet rule separates the groups */
+@media (max-width: 45.99em) {
+  .menu-group + .menu-group { border-top: 1px dashed rgba(43, 33, 41, 0.18); padding-top: 1.6rem; }
+}
+.menu-card .just-ask {
+  margin-top: 2.1rem;
+  padding-top: 1.6rem;
+  border-top: 1px dashed rgba(43, 33, 41, 0.25);
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  text-wrap: balance;
+}
+.menu-card .just-ask strong { color: var(--ink); }
+.menu-card .btn { display: flex; width: min(100%, 24rem); margin: 1.6rem auto 0; }
+
+/* ---------- Lead magnet, recolored for contrast (AA fix) ---------- */
+.magnet--v3 { background: var(--shell-deep); color: var(--ink); }
+.magnet--v3 h2, .magnet--v3 .lead { color: var(--ink); }
+.magnet--v3 .lead { color: var(--ink-soft); }
+.magnet--v3 .magnet__list .tick { color: var(--rose); }
+.magnet--v3 .magnet-form .btn { background: var(--rose); color: var(--white); box-shadow: var(--shadow-cta); }
+.magnet--v3 .magnet-form .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--rose-deep); }
+.magnet--v3 .magnet-form input { border: 2px solid rgba(43, 33, 41, 0.14); }
+.magnet--v3 .magnet-form input:focus { border-color: var(--peri); box-shadow: 0 0 0 4px rgba(169, 188, 230, 0.3); }
+.magnet--v3 .form-note { color: var(--ink-soft); }
+.magnet--v3 .form-note a { color: var(--rose-deep); }
+
+/* ---------- Small polish ---------- */
+.hero__lead strong { font-weight: 620; }
+.finale .lead a { color: inherit; }
+
+/* Accent principle: ink text carries the words, pastel carries the emphasis.
+   Overrides the shared stylesheet's colored-text accents on this page. */
+.hero h1 .swash { color: inherit; }

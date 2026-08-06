@@ -1,0 +1,12 @@
+{
+  "_readme": "Feed for the 'from the gram' grid. Entries with an 'embed' URL render as native Instagram embeds (videos play inline; works because the account is public — no login or API needed). To refresh: open instagram.com/partypairdecorations, copy post/reel URLs, paste here. Entries with 'image' render as local photo cards (fallback / Behold path).",
+  "profileUrl": "https://www.instagram.com/partypairdecorations/",
+  "posts": [
+    { "embed": "https://www.instagram.com/partypairdecorations/reel/Dbb2Sg2RBIH/" },
+    { "embed": "https://www.instagram.com/partypairdecorations/p/DbqxjmhxLNU/" },
+    { "embed": "https://www.instagram.com/partypairdecorations/reel/DbZPTyDRgFU/" },
+    { "embed": "https://www.instagram.com/partypairdecorations/p/DbdSej5lfcs/" },
+    { "embed": "https://www.instagram.com/partypairdecorations/reel/DbTYnZWRbaZ/" },
+    { "embed": "https://www.instagram.com/partypairdecorations/p/DaaVb-kFZeF/" }
+  ]
+}

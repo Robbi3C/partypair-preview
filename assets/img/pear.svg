@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 100">
+  <defs>
+    <linearGradient id="pearstripes" x1="0" y1="0" x2="0.25" y2="1">
+      <stop offset="0"    stop-color="#f7cfe0"/>
+      <stop offset="0.26" stop-color="#f7cfe0"/>
+      <stop offset="0.26" stop-color="#ffffff"/>
+      <stop offset="0.30" stop-color="#ffffff"/>
+      <stop offset="0.30" stop-color="#f2a9cc"/>
+      <stop offset="0.52" stop-color="#f2a9cc"/>
+      <stop offset="0.52" stop-color="#ffffff"/>
+      <stop offset="0.56" stop-color="#ffffff"/>
+      <stop offset="0.56" stop-color="#e982b8"/>
+      <stop offset="0.76" stop-color="#e982b8"/>
+      <stop offset="0.76" stop-color="#ffffff"/>
+      <stop offset="0.80" stop-color="#ffffff"/>
+      <stop offset="0.80" stop-color="#de64a5"/>
+      <stop offset="1"    stop-color="#de64a5"/>
+    </linearGradient>
+  </defs>
+  <path d="M47 24c-2-7 1-13 8-17" fill="none" stroke="#8fc4b7" stroke-width="5" stroke-linecap="round"/>
+  <path d="M52 12C40 2 22 4 14 14c10 8 28 8 38-2Z" fill="#8fc4b7" transform="rotate(-8 33 9)"/>
+  <path d="M45 22c8 0 13 7 12 16-1 7 3 12 8 18 6 8 9 15 9 22 0 13-13 21-29 21S16 91 16 78c0-7 3-14 9-22 5-6 9-11 8-18-1-9 4-16 12-16Z" fill="url(#pearstripes)"/>
+</svg>
