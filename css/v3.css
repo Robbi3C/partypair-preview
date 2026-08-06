@@ -114,6 +114,82 @@ a.uline:hover, .uline[data-open-inquiry]:hover { background-size: 0% 0.34em; cur
 .magnet--v3 .form-note { color: var(--ink-soft); }
 .magnet--v3 .form-note a { color: var(--rose-deep); }
 
+/* ---------- Services tabs (mobile) ----------
+   Segmented control with a sliding pastel pill. On ≥46em the three
+   columns are all visible and the control disappears. */
+.menu-tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--shell-deep);
+  border-radius: var(--radius-pill);
+  padding: 0.3rem;
+  margin-bottom: 1.5rem;
+  isolation: isolate;
+}
+.menu-tabs__pill {
+  position: absolute;
+  inset-block: 0.3rem;
+  left: 0.3rem;
+  width: calc((100% - 0.6rem) / 3);
+  border-radius: var(--radius-pill);
+  background: var(--pink-100, #f7cfe0);
+  box-shadow: var(--shadow-card);
+  transform: translateX(calc(var(--idx, 0) * 100%));
+  transition: transform var(--dur-med) var(--ease-out), background-color var(--dur-med) var(--ease-out);
+  z-index: 0;
+}
+.menu-tabs[data-idx='1'] .menu-tabs__pill { background: var(--seafoam); }
+.menu-tabs[data-idx='2'] .menu-tabs__pill { background: var(--peri); }
+.menu-tabs__tab {
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: none;
+  min-height: 44px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  font-weight: 560;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color var(--dur-quick) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.menu-tabs__tab[aria-selected='true'] { color: var(--ink); }
+
+@media (max-width: 45.99em) {
+  .menu-group { display: none; }
+  .menu-group.is-active {
+    display: block;
+    animation: panel-in var(--dur-med) var(--ease-out);
+  }
+  .menu-group.is-active.from-right { animation-name: panel-in-right; }
+  .menu-group h3 { display: none; }         /* the tab carries the label */
+  .menu-group + .menu-group { border-top: 0; padding-top: 0; }
+  .menu-group li { padding-block: 0.45rem; text-align: center; font-size: 1.05rem; }
+  .menu-groups { touch-action: pan-y; }
+}
+@keyframes panel-in {
+  from { opacity: 0; transform: translateX(-18px); }
+}
+@keyframes panel-in-right {
+  from { opacity: 0; transform: translateX(18px); }
+}
+@media (min-width: 46em) {
+  .menu-tabs { display: none; }
+}
+
+/* ---------- About monogram, plain (no circle, no caption) ---------- */
+.about__monogram--plain {
+  aspect-ratio: auto;
+  background: none;
+  border-radius: 0;
+  padding-block: 1rem;
+}
+.about__monogram--plain img { width: clamp(8rem, 20vw, 11rem); }
+
 /* ---------- Small polish ---------- */
 .hero__lead strong { font-weight: 620; }
 .finale .lead a { color: inherit; }

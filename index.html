@@ -79,7 +79,7 @@
   <!-- ============ Header ============ -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="brand" href="./"><img class="brand__pear" src="assets/img/pear.svg" alt="" width="90" height="100">The Party <em>Pair</em></a>
+      <a class="brand" href="./"><img class="brand__pear" src="assets/img/pear.svg" alt="" width="90" height="100"><span>The Party <em>Pair</em></span></a>
       <nav class="site-nav" aria-label="Main">
         <a href="#moment">The Moment</a>
         <a href="#services">Services</a>
@@ -158,8 +158,14 @@
           <p class="lead">No preset packages. Every weekend is designed around one specific bride — coastal, colorful, classy or cowgirl. When she opens that door, it feels like <em>her</em>.</p>
         </div>
         <div class="menu-card reveal">
+          <div class="menu-tabs" role="tablist" aria-label="What we do" style="--idx: 0">
+            <span class="menu-tabs__pill" aria-hidden="true"></span>
+            <button class="menu-tabs__tab" role="tab" id="tab-style" aria-controls="panel-style" aria-selected="true">We style</button>
+            <button class="menu-tabs__tab" role="tab" id="tab-stock" aria-controls="panel-stock" aria-selected="false" tabindex="-1">We stock</button>
+            <button class="menu-tabs__tab" role="tab" id="tab-handle" aria-controls="panel-handle" aria-selected="false" tabindex="-1">We handle</button>
+          </div>
           <div class="menu-groups">
-            <div class="menu-group">
+            <div class="menu-group is-active" role="tabpanel" id="panel-style" aria-labelledby="tab-style">
               <h3><span class="uline uline--pink">We style</span></h3>
               <ul>
                 <li>Bride room décor</li>
@@ -169,7 +175,7 @@
                 <li>Champagne towers</li>
               </ul>
             </div>
-            <div class="menu-group">
+            <div class="menu-group" role="tabpanel" id="panel-stock" aria-labelledby="tab-stock">
               <h3><span class="uline uline--mint">We stock</span></h3>
               <ul>
                 <li>The fridge</li>
@@ -179,7 +185,7 @@
                 <li>S'mores nights</li>
               </ul>
             </div>
-            <div class="menu-group">
+            <div class="menu-group" role="tabpanel" id="panel-handle" aria-labelledby="tab-handle">
               <h3><span class="uline uline--hydrangea">We handle</span></h3>
               <ul>
                 <li>Gift bag assembly</li>
@@ -223,10 +229,9 @@
     <section class="section about" id="about">
       <div class="container about__grid">
         <div class="reveal">
-          <figure class="about__monogram">
+          <div class="about__monogram about__monogram--plain">
             <img src="assets/img/pear.svg" alt="The Party Pair striped pear logo" width="90" height="100">
-            <figcaption>est. Cape Cod</figcaption>
-          </figure>
+          </div>
         </div>
         <div class="reveal">
           <h2>We're the pair.</h2>
@@ -315,7 +320,7 @@
   <footer class="site-footer">
     <div class="container site-footer__grid">
       <div>
-        <a class="brand" href="./"><img class="brand__pear" src="assets/img/pear.svg" alt="" width="90" height="100">The Party <em>Pair</em></a>
+        <a class="brand" href="./"><img class="brand__pear" src="assets/img/pear.svg" alt="" width="90" height="100"><span>The Party <em>Pair</em></span></a>
         <p style="margin-top: 1rem; max-width: 34ch">Pre-arrival bachelorette décor &amp; concierge — helping bachelorette group chats across Cape Cod &amp; beyond. 🍐</p>
       </div>
       <div>
@@ -323,7 +328,7 @@
         <ul>
           <li><a href="#moment">The Moment</a></li>
           <li><a href="#services">Services</a></li>
-          <li><a href="guide.html">Cape Cod Bach Guide</a></li>
+          <li><a href="#guide">The Free Guide</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </div>

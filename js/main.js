@@ -10,6 +10,7 @@ import { initHeroShader } from './shader.js';
 import { initScrollEffects } from './scroll.js';
 import { initForms } from './form.js';
 import { initInstaFeed } from './instafeed.js';
+import { initMenuTabs } from './menu-tabs.js';
 import { burstFrom } from './confetti.js';
 
 function initModal() {
@@ -55,4 +56,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initCelebrations();
 
   initInstaFeed();
+  initMenuTabs();
 });
