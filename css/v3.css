@@ -181,14 +181,52 @@ a.uline:hover, .uline[data-open-inquiry]:hover { background-size: 0% 0.34em; cur
   .menu-tabs { display: none; }
 }
 
-/* ---------- "We're the pair" lockup — badge-size pear beside the heading ---------- */
+/* ---------- "We're the pair" lockup ----------
+   Desktop: pear beside a single-line heading.
+   Mobile: bigger pear, bigger type, heading stacked on two lines. */
 .pair-lockup {
   display: flex;
   align-items: center;
   gap: clamp(0.9rem, 3vw, 1.4rem);
 }
-.pair-lockup img { width: clamp(3.4rem, 9vw, 4.3rem); height: auto; flex-shrink: 0; }
+.pair-lockup img { width: 4.1rem; height: auto; flex-shrink: 0; }
 .pair-lockup h2 { line-height: 0.96; }
+@media (max-width: 45.99em) {
+  .pair-lockup img { width: 5.4rem; }
+  .pair-lockup h2 { font-size: clamp(2.7rem, 12vw, 3.4rem); }
+  .pair-lockup__line { display: block; }
+}
+
+/* ---------- Byline signature (article-author style) ---------- */
+.byline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.8rem;
+}
+.byline__photo {
+  width: 3.6rem;
+  height: 3.6rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--shell-deep);
+  border: 1.5px dashed rgba(43, 33, 41, 0.3);   /* placeholder until their real photo */
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.byline__photo img { width: 55%; height: auto; }
+.byline__names {
+  font-weight: 620;
+  line-height: 1.35;
+}
+.byline__sig {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 540;
+  color: var(--rose);
+  font-size: 1.1em;
+}
 
 /* ---------- Small polish ---------- */
 .hero__lead strong { font-weight: 620; }
