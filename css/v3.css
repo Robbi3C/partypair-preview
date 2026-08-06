@@ -181,14 +181,14 @@ a.uline:hover, .uline[data-open-inquiry]:hover { background-size: 0% 0.34em; cur
   .menu-tabs { display: none; }
 }
 
-/* ---------- About monogram, plain (no circle, no caption) ---------- */
-.about__monogram--plain {
-  aspect-ratio: auto;
-  background: none;
-  border-radius: 0;
-  padding-block: 1rem;
+/* ---------- "We're the pair" lockup — badge-size pear beside the heading ---------- */
+.pair-lockup {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 3vw, 1.4rem);
 }
-.about__monogram--plain img { width: clamp(8rem, 20vw, 11rem); }
+.pair-lockup img { width: clamp(3.4rem, 9vw, 4.3rem); height: auto; flex-shrink: 0; }
+.pair-lockup h2 { line-height: 0.96; }
 
 /* ---------- Small polish ---------- */
 .hero__lead strong { font-weight: 620; }
