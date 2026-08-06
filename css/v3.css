@@ -187,10 +187,15 @@ a.uline:hover, .uline[data-open-inquiry]:hover { background-size: 0% 0.34em; cur
 .pair-lockup {
   display: flex;
   align-items: center;
-  gap: clamp(0.9rem, 3vw, 1.4rem);
+  gap: clamp(0.9rem, 3vw, 1.6rem);
 }
 .pair-lockup img { width: 4.1rem; height: auto; flex-shrink: 0; }
 .pair-lockup h2 { line-height: 0.96; }
+@media (min-width: 46em) {
+  .pair-lockup { justify-content: center; margin-bottom: 0.6rem; }
+  .pair-lockup img { width: 5.4rem; }
+  .pair-lockup h2 { font-size: clamp(2.6rem, 5vw, 4.2rem); }
+}
 @media (max-width: 45.99em) {
   .pair-lockup img { width: 5.4rem; }
   .pair-lockup h2 { font-size: clamp(2.7rem, 12vw, 3.4rem); }
