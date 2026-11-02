@@ -1,0 +1,119 @@
+/* ============================================================
+   Relaunch sections + inner pages. Loaded after v3.css, which
+   still supplies the shared look (underlines, section intros,
+   services menu, "the pair" lockup, byline).
+   ============================================================ */
+
+/* ---------- Inner-page heading: title + one line, then straight
+   into the content (clears the fixed header pill) ---------- */
+.page-head {
+  width: min(100% - 2 * var(--gutter), var(--content-max));
+  margin-inline: auto;
+  padding-top: clamp(7rem, 16vw, 9rem);
+  text-align: center;
+}
+.page-head h1 {
+  font-size: clamp(2.5rem, 7vw, 4.2rem);
+  max-width: 18ch;
+  margin-inline: auto;
+}
+.page-head .lead {
+  max-width: 46ch;
+  margin: 1rem auto 0;
+}
+.page-head { padding-bottom: clamp(2.5rem, 6vw, 3.5rem); }
+
+/* a page that opens straight into a content section (Behind the Decor)
+   still has to clear the fixed header pill */
+.section--first { padding-top: clamp(7.5rem, 16vw, 10rem); }
+
+/* ---------- Section backgrounds, top to bottom ---------- */
+.reviews { background: var(--shell-deep); }
+.booking { background: var(--white); }
+
+/* ---------- Services teaser (homepage) ---------- */
+.offer-trio {
+  display: grid;
+  gap: 2.2rem;
+  max-width: 62rem;
+  margin-inline: auto;
+  list-style: none;
+  padding: 0;
+}
+@media (min-width: 52em) {
+  .offer-trio { grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .offer-trio li { padding-inline: clamp(1.5rem, 3vw, 2.5rem); }
+  .offer-trio li + li { border-left: 1px dashed rgba(253, 249, 246, 0.22); }
+}
+.offer-trio h3 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 560;
+  font-size: clamp(1.9rem, 4vw, 2.5rem);
+  color: var(--shell);
+  margin-bottom: 0.7rem;
+}
+.offer-trio p {
+  color: rgba(253, 249, 246, 0.78);
+  font-size: 1rem;
+}
+@media (max-width: 51.99em) {
+  .offer-trio { text-align: center; }
+}
+
+.services-teaser__foot {
+  display: grid;
+  justify-items: center;
+  gap: 1.3rem;
+  margin-top: clamp(2.8rem, 6vw, 3.8rem);
+  text-align: center;
+}
+.services-teaser__foot p { color: rgba(253, 249, 246, 0.72); text-wrap: balance; }
+.services-teaser__foot strong { color: var(--shell); }
+
+.btn .icon {
+  width: 1.1em;
+  height: 1.1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: translate var(--dur-quick) var(--ease-out);
+}
+.btn:hover .icon { translate: 3px 0; }
+
+/* ---------- FAQ: smooth open where supported ---------- */
+.faq-item { interpolate-size: allow-keywords; }
+.faq-item::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size var(--dur-med) var(--ease-out),
+    content-visibility var(--dur-med) allow-discrete;
+}
+.faq-item[open]::details-content { block-size: auto; }
+.faq-item summary:hover { color: var(--rose-deep); }
+.faq__head { margin-bottom: 2.5rem; display: grid; justify-items: center; gap: 1.4rem; }
+.faq__more {
+  margin-top: 1.8rem;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+}
+.faq__more a { color: var(--rose-deep); font-weight: 560; }
+
+/* multi-paragraph answers */
+.faq-item__body p + p { margin-top: 0.75rem; }
+
+/* ---------- Placeholder sections: heading + description only ---------- */
+.section-intro:last-child { margin-bottom: 0; }
+
+/* ---------- Modal + footer (styles that used to be inline) ---------- */
+.modal__title { font-size: clamp(1.8rem, 5vw, 2.4rem); margin-bottom: 0.6rem; padding-right: 2.6rem; }
+.modal__lead { color: var(--ink-soft); margin-bottom: 1.5rem; }
+.modal__form { display: grid; gap: 1rem; }
+.modal__close { display: grid; place-items: center; }
+.modal__close path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.field__optional { font-weight: 420; color: var(--ink-soft); }
+.site-footer__blurb { margin-top: 1rem; max-width: 34ch; }

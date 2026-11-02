@@ -1,0 +1,172 @@
+/* ============================================================
+   HERO C — full-bleed lifestyle photo with the hero copy on top.
+   Four takes, set by the preview switch (html[data-hero="c1…c4"]):
+
+   C1 "Morning light"  photo fills the hero under a light veil; copy
+                       centred low, over the outfits.
+   C2 "The note"       photo left clean; copy on a paper card,
+                       bottom-left, like a note on the welcome table.
+   C3 "Rose-tinted"    photo washed in rose; big white headline,
+                       left-aligned.
+   C4 "Into the light" C2's copy without the card: text on white at
+                       the left, the photo fading in from the white
+                       towards the right (top-down on phones).
+
+   Shared layout + type (alignment, headline size, one-screen fit, the
+   phone stack C2/C4 use): css/hero.css. This file sets each take's
+   headline cap (--hero-h1-max), copy width and photo treatment.
+
+   The photo is .hero__bg in index.html. PLACEHOLDER IMAGE: replace
+   assets/img/hero-lifestyle-PLACEHOLDER.webp with Party Pair's own
+   photography before launch (it is not ours).
+   Colours and fonts come from tokens, so each renders in either look.
+   ============================================================ */
+
+.hero-c-only { display: none; }
+
+/* ---------- Shared: the photo fills the hero ---------- */
+[data-hero^='c'] .hero__canvas { display: none; }
+[data-hero^='c'] .hero__bg {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  margin: 0;
+}
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;   /* keep the faces in frame when cropped */
+}
+
+/* ============ C1 — Morning light ============
+   The photo fills the hero, an even light veil softens all of it
+   (faces stay visible), and a soft pool of cream sits only behind the
+   copy, which sits low so it lands below the faces. */
+[data-hero='c1'] .hero {
+  --hero-h1-max: 4.25rem;
+  --hero-bottom: clamp(2rem, 7svh, 5rem);
+  align-content: end;
+}
+[data-hero='c1'] .hero__copy { width: min(100%, 46rem); }
+[data-hero='c1'] .hero::before {
+  background:
+    radial-gradient(ellipse 46% 40% at 50% 76%,
+      color-mix(in srgb, var(--shell) 74%, transparent), transparent 75%),
+    color-mix(in srgb, var(--shell) 36%, transparent);
+}
+[data-hero='c1'] :is(.hero__lead, .hero__kicker) { color: var(--ink); }
+
+@media (max-width: 40em) {
+  [data-hero='c1'] .hero::before {
+    background:
+      radial-gradient(ellipse 95% 38% at 50% 78%,
+        color-mix(in srgb, var(--shell) 80%, transparent), transparent 80%),
+      color-mix(in srgb, var(--shell) 36%, transparent);
+  }
+}
+
+/* ============ C2 — The note ============ */
+[data-hero='c2'] .hero {
+  --hero-h1-max: 3.75rem;
+  align-content: end;
+}
+[data-hero='c2'] .hero::before {
+  /* just enough shade at the foot to seat the card */
+  background: linear-gradient(to top, rgba(43, 33, 41, 0.18), transparent 40%);
+}
+[data-hero='c2'] .hero__copy {
+  width: min(100%, 36rem);
+  padding: clamp(1.25rem, 3vw, 2.4rem);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 6px rgba(43, 33, 41, 0.08), 0 24px 56px rgba(43, 33, 41, 0.2);
+}
+[data-hero='c2'] .hero .btn--lg { padding: 0.95em 1.7em; font-size: 1rem; }
+[data-hero='c2'] .hero__lead { margin-bottom: clamp(1rem, 2.6svh, 1.6rem); }
+
+/* ============ C3 — Rose-tinted ============ */
+[data-hero='c3'] .hero {
+  --hero-h1-max: 6rem;
+  align-content: center;
+  color: #fff;
+}
+/* the rose wash: a see-through rose multiplied over the photo, so the
+   picture keeps its light and texture instead of becoming a flat colour
+   field. Depth is added only behind the copy (left), which keeps the
+   white text readable; the right of the photo stays nearly natural. */
+[data-hero='c3'] .hero::before {
+  background:
+    linear-gradient(90deg,
+      rgba(43, 33, 41, var(--c3-shade, 0.42)) 0%,
+      rgba(43, 33, 41, calc(var(--c3-shade, 0.42) * 0.55)) 38%,
+      transparent 72%),
+    color-mix(in srgb, var(--rose) var(--c3-tint, 55%), transparent);
+  mix-blend-mode: multiply;
+}
+/* phones: the copy covers the whole photo, so the shade is even */
+@media (max-width: 40em) {
+  [data-hero='c3'] .hero::before {
+    background:
+      linear-gradient(rgba(43, 33, 41, 0.26), rgba(43, 33, 41, 0.26)),
+      color-mix(in srgb, var(--rose) var(--c3-tint, 55%), transparent);
+  }
+}
+[data-hero='c3'] .hero__copy { width: min(100%, 50rem); }
+[data-hero='c3'] .hero h1,
+[data-hero='c3'] .hero h1 .swash { color: #fff; }
+[data-hero='c3'] .hero h1 .uline {
+  background-image: linear-gradient(var(--rose-deep), var(--rose-deep));
+}
+[data-hero='c3'] .hero__kicker { color: rgba(255, 255, 255, 0.86); }
+[data-hero='c3'] .hero__lead { max-width: 38ch; color: rgba(255, 255, 255, 0.92); }
+[data-hero='c3'] .hero__lead strong { color: #fff; }
+
+/* ============ C4 — Into the light ============
+   No box: the hero is white, the photo sits on the right and its left
+   edge dissolves into the white (a mask), so the text on the left reads
+   on a clean ground that slowly becomes the picture. */
+[data-hero='c4'] .hero {
+  --hero-h1-max: 4.25rem;
+  align-content: center;
+  background: var(--white);
+}
+[data-hero='c4'] .hero::before { display: none; }
+[data-hero='c4'] .hero__copy { width: min(100%, 34rem); }
+[data-hero='c4'] .hero__bg {
+  left: 34%;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 48%);
+  mask-image: linear-gradient(to right, transparent, #000 48%);
+}
+[data-hero='c4'] .hero__bg img { object-position: 55% 30%; }
+
+/* ============ C2 + C4 on phones + portrait tablets ============
+   hero.css stacks them: the photo takes row 1 (whatever height the
+   copy leaves), from the very top under the header, edge to edge.
+   C2's card overlaps the photo's foot; C4's photo fades into the white. */
+@media (max-width: 55.99em) {
+  :root:is([data-hero='c2'], [data-hero='c4']) .hero {
+    --hero-top: 0px;
+    background: var(--shell);
+  }
+  [data-hero='c4'] .hero { background: var(--white); }
+  :root:is([data-hero='c2'], [data-hero='c4']) .hero__bg {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    grid-row: 1;
+    min-height: 0;
+    margin-inline: calc(-1 * var(--gutter));
+  }
+  :root:is([data-hero='c2'], [data-hero='c4']) .hero__copy { position: relative; z-index: 1; }
+  [data-hero='c2'] .hero::before { display: none; }
+  [data-hero='c2'] .hero__copy { width: 100%; margin-top: -3.5rem; }
+
+  [data-hero='c4'] .hero__bg {
+    left: auto;
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
+  [data-hero='c4'] .hero__copy { margin-top: -2.5rem; }
+}

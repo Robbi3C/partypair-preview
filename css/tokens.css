@@ -39,6 +39,13 @@
   --leaf: #8fc4b7;
   --white: #fffdfc;
 
+  /* Hero silk shader palette (hex only — read by js/shader.js) */
+  --silk-base: #fdf9f6;
+  --silk-1: #e982b8;
+  --silk-2: #a9bce6;
+  --silk-3: #f5d98f;
+  --silk-4: #cde9df;
+
   /* Type */
   --font-display: 'Melodrama', Georgia, serif;
   --font-body: 'General Sans', -apple-system, 'Segoe UI', sans-serif;

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>The Party Pair — Pre-Arrival Bachelorette Décor &amp; Concierge, Cape Cod</title>
-  <meta name="description" content="Cape Cod's pre-arrival bachelorette décor & concierge. Your Airbnb fully styled, fridge stocked, champagne cold — before the group even crosses the bridge. Bride room décor, welcome carts, gift bags & the details no one expects.">
+  <meta name="description" content="Cape Cod's pre-arrival bachelorette décor & concierge. Your Airbnb fully styled, fridge stocked, champagne cold — before the group even crosses the bridge.">
   <link rel="canonical" href="https://www.thepartypair.com/">
   <meta name="theme-color" content="#fdf9f6">
 
@@ -15,8 +15,7 @@
   <meta property="og:image" content="https://www.thepartypair.com/assets/img/balloon-arch.webp">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍐</text></svg>">
-
+  <link rel="icon" href="assets/img/pear.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/Melodrama-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/tokens.css">
@@ -24,6 +23,37 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/sections.css">
   <link rel="stylesheet" href="css/v3.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/hero.css">
+
+  <!-- Preview switches (js/look-switch.js):
+       look = fonts + colours (current | new); menu and hero = layout (a | b).
+       Applied before first paint so a saved choice never flashes the other.
+       ?look=new|current, ?menu=a|b and ?hero=a|b in the URL override saved choices. -->
+  <script>
+    try {
+      var params = new URLSearchParams(location.search);
+      var look = params.get('look') || localStorage.getItem('pp-look');
+      var hero = params.get('hero') || localStorage.getItem('pp-hero');
+      var menu = params.get('menu') || localStorage.getItem('pp-menu');
+      var preview = params.get('preview') || localStorage.getItem('pp-preview');
+      if (preview === 'open') document.documentElement.dataset.preview = 'open';
+      if (look === 'new') document.documentElement.dataset.look = 'new';
+      if (['a2', 'b', 'c1', 'c2', 'c3', 'c4'].includes(hero)) document.documentElement.dataset.hero = hero;
+      if (menu === 'b' || menu === 'c') document.documentElement.dataset.menu = menu;
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500&family=Sacramento&display=swap">
+  <link rel="stylesheet" href="css/look-new.css">
+  <link rel="stylesheet" href="css/menu-b.css">
+  <link rel="stylesheet" href="css/menu-c.css">
+  <link rel="stylesheet" href="css/hero-b.css">
+  <link rel="stylesheet" href="css/hero-a2.css">
+  <link rel="stylesheet" href="css/hero-c.css">
+  <link rel="stylesheet" href="css/look-switch.css">
 
   <script type="application/ld+json">
   {
@@ -38,68 +68,50 @@
     "knowsAbout": ["bachelorette party decor", "event styling", "party setup", "concierge services", "Cape Cod events"]
   }
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How much does a bachelorette party setup cost?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Every weekend is custom, so pricing depends on your house, your headcount and how far the design goes. You get an exact quote after a free design chat, before committing to anything. Décor, delivery, setup and breakdown are always included." }
-      },
-      {
-        "@type": "Question",
-        "name": "How far in advance should we book?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Cape Cod summer weekends go quickly. If the group chat has a date, check it early — checking availability is free and takes two minutes." }
-      },
-      {
-        "@type": "Question",
-        "name": "Can you decorate rentals with strict rules like no tape or nails?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes — everything is damage-free and rental-safe, and it all comes down after checkout so the house goes back exactly how it was found." }
-      },
-      {
-        "@type": "Question",
-        "name": "What areas do you serve?",
-        "acceptedAnswer": { "@type": "Answer", "text": "All of Cape Cod, from Falmouth to Provincetown — and beyond. Staying somewhere unusual? Ask." }
-      },
-      {
-        "@type": "Question",
-        "name": "Do we need to be there during setup?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No — setup is coordinated with the rental's check-in window and finished before the group arrives, so the walk-in moment stays a surprise." }
-      }
-    ]
-  }
-  </script>
 </head>
-<body>
+<body data-page="home" data-look-switch>
 
   <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- ============ Header ============ -->
-  <header class="site-header">
-    <div class="site-header__inner">
-      <a class="brand" href="./"><img class="brand__pear" src="assets/img/pear.svg" alt="" width="90" height="100"><span>The Party <em>Pair</em></span></a>
-      <nav class="site-nav" aria-label="Main">
-        <a href="#moment">The Moment</a>
-        <a href="#services">Services</a>
-        <a href="#how">How It Works</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-      <button class="btn btn--primary" data-open-inquiry>Check your weekend</button>
-    </div>
-  </header>
+  <div data-partial="header"></div>
 
   <main id="main">
     <!-- ============ Hero ============ -->
     <section class="hero">
       <canvas class="hero__canvas" aria-hidden="true"></canvas>
-      <h1 data-stagger style="--i: 0">She opens the door. Everyone <span class="swash uline uline--pink">screams.</span></h1>
-      <p class="hero__lead" data-stagger style="--i: 1">We're Cape Cod's pre-arrival bachelorette décor &amp; concierge. Your Airbnb fully styled, fridge stocked, champagne cold — <strong>before the group even crosses the bridge.</strong> Her weekend starts with an "omg" moment, not a to-do list.</p>
-      <div class="hero__ctas" data-stagger style="--i: 2">
-        <button class="btn btn--primary btn--lg" data-open-inquiry>Check your weekend</button>
-        <a class="btn btn--ghost btn--lg" href="#moment">See the walk-in moment</a>
+      <!-- Hero C1–C3 only: full-bleed lifestyle photo.
+           PLACEHOLDER — replace with Party Pair's own photography before launch. -->
+      <figure class="hero__bg hero-c-only">
+        <img src="assets/img/hero-lifestyle-PLACEHOLDER.webp" alt="Three friends in matching white pajamas laughing among white balloons with pink ribbons, the bride in a pearl BRIDE headband" width="1892" height="831" fetchpriority="high" decoding="async">
+      </figure>
+      <!-- Layout + type rules shared by every variant: css/hero.css -->
+      <div class="hero__copy">
+        <p class="hero__kicker">Cape Cod's pre-arrival bachelorette décor &amp; concierge</p>
+        <h1><span class="hero__line">She opens the door.</span> <span class="hero__line">Everyone <span class="swash uline uline--pink">screams.</span></span></h1>
+        <p class="hero__lead">Your Airbnb fully styled, fridge stocked, champagne cold — <strong>before the group even crosses the bridge.</strong></p>
+        <div class="hero__ctas">
+          <button class="btn btn--primary btn--lg" data-open-inquiry>Check your weekend</button>
+        </div>
       </div>
+      <!-- Hero A2 only: white-bordered photo, tilted, over the silk -->
+      <!-- PLACEHOLDER photo (same as Hero C) — replace with Party Pair's own -->
+      <figure class="hero__frame hero-a2-only">
+        <img class="hero__img" src="assets/img/hero-lifestyle-PLACEHOLDER.webp" alt="Three friends in matching white pajamas laughing among white balloons with pink ribbons, the bride in a pearl BRIDE headband" width="1892" height="831" decoding="async">
+      </figure>
+      <!-- Hero B only: rounded 4:5 photo + rotating roundel -->
+      <!-- PLACEHOLDER photo (same as Hero C) — replace with Party Pair's own -->
+      <figure class="hero__photo hero-b-only">
+        <img class="hero__img" src="assets/img/hero-lifestyle-PLACEHOLDER.webp" alt="Three friends in matching white pajamas laughing among white balloons with pink ribbons, the bride in a pearl BRIDE headband" width="1892" height="831" decoding="async">
+        <!-- text on a circle: plain SVG <textPath>, spun by CSS (css/hero-b.css).
+             HIDDEN for now: remove the `hidden` attribute to show it. -->
+        <button type="button" class="roundel" hidden data-open-inquiry aria-label="Now taking 2027 bookings: check your weekend">
+          <svg class="roundel__ring" viewBox="0 0 200 200" aria-hidden="true">
+            <defs><path id="roundel-path" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+            <circle class="roundel__disc" cx="100" cy="100" r="99" />
+            <text class="roundel__text"><textPath href="#roundel-path">NOW TAKING 2027 BOOKINGS ✦</textPath></text>
+          </svg>
+          <span class="roundel__mark" aria-hidden="true">♡</span>
+        </button>
+      </figure>
     </section>
 
     <!-- ============ Marquee ============ -->
@@ -109,7 +121,7 @@
       </div>
     </div>
 
-    <!-- ============ Problem / the group chat ============ -->
+    <!-- ============ The maid-of-honor group chat (kept as is) ============ -->
     <section class="section problem">
       <div class="container problem__grid">
         <div class="reveal">
@@ -128,8 +140,8 @@
       </div>
     </section>
 
-    <!-- ============ The moment / Instagram ============ -->
-    <section class="section transform" id="moment">
+    <!-- ============ Instagram gallery (kept as is) ============ -->
+    <section class="section transform" id="gallery">
       <div class="container">
         <div class="section-intro reveal">
           <h2>It's not the balloons.<br>It's <span class="display-italic uline uline--pink">the moment</span> she walks in.</h2>
@@ -146,245 +158,79 @@
           <button class="insta-carousel__btn insta-carousel__btn--next" aria-label="Next posts">→</button>
         </div>
         <p class="u-center" style="margin-top: 2rem"><a class="btn btn--ghost" href="https://www.instagram.com/partypairdecorations/" rel="noopener">Follow the setups on Instagram</a></p>
+        <p class="look-note look-new-only">trust us on the balloons</p>
       </div>
     </section>
 
-    <!-- ============ Services ============ -->
+    <!-- ============ PLACEHOLDER: Authentic Google Testimonials ============ -->
+    <section class="section reviews" id="reviews">
+      <div class="container section-intro">
+        <h2>Authentic Google Testimonials</h2>
+        <p class="lead">Placeholder: real client reviews, pulled straight from The Party Pair's Google Business Profile.</p>
+      </div>
+    </section>
+
+    <!-- ============ Services teaser → services.html ============ -->
     <section class="section services" id="services">
       <div class="container">
         <div class="section-intro reveal">
           <h2>Serving up the perfect Cape&nbsp;Cod weekend.</h2>
           <p class="lead">No preset packages. Every weekend is designed around one specific bride — coastal, colorful, classy or cowgirl. When she opens that door, it feels like <em>her</em>.</p>
         </div>
-        <div class="menu-card reveal">
-          <div class="menu-tabs" role="tablist" aria-label="What we do" style="--idx: 0">
-            <span class="menu-tabs__pill" aria-hidden="true"></span>
-            <button class="menu-tabs__tab" role="tab" id="tab-style" aria-controls="panel-style" aria-selected="true">We style</button>
-            <button class="menu-tabs__tab" role="tab" id="tab-stock" aria-controls="panel-stock" aria-selected="false" tabindex="-1">We stock</button>
-            <button class="menu-tabs__tab" role="tab" id="tab-handle" aria-controls="panel-handle" aria-selected="false" tabindex="-1">We handle</button>
-          </div>
-          <div class="menu-groups">
-            <div class="menu-group is-active" role="tabpanel" id="panel-style" aria-labelledby="tab-style">
-              <h3><span class="uline uline--pink">We style</span></h3>
-              <ul>
-                <li>Bride room décor</li>
-                <li>Balloon garlands</li>
-                <li>Custom welcome signs</li>
-                <li>Custom backdrops</li>
-                <li>Champagne towers</li>
-              </ul>
-            </div>
-            <div class="menu-group" role="tabpanel" id="panel-stock" aria-labelledby="tab-stock">
-              <h3><span class="uline uline--mint">We stock</span></h3>
-              <ul>
-                <li>The fridge</li>
-                <li>Welcome drink carts</li>
-                <li>Game night baskets</li>
-                <li>Hangover baskets</li>
-                <li>S'mores nights</li>
-              </ul>
-            </div>
-            <div class="menu-group" role="tabpanel" id="panel-handle" aria-labelledby="tab-handle">
-              <h3><span class="uline uline--hydrangea">We handle</span></h3>
-              <ul>
-                <li>Gift bag assembly</li>
-                <li>Gifts you ship ahead</li>
-                <li>Personalized cookies</li>
-                <li>Custom cowgirl hats</li>
-                <li>Itinerary help</li>
-              </ul>
-            </div>
-          </div>
-          <p class="just-ask"><strong>Not on the list? Just ask.</strong> If it makes her weekend, we'll figure it out. 🤍</p>
-          <button class="btn btn--primary btn--lg" data-open-inquiry>Check your weekend</button>
+        <ul class="offer-trio reveal">
+          <li>
+            <h3><span class="uline uline--pink">We style</span></h3>
+            <p>Bride room décor, balloon garlands, custom signs and backdrops, champagne towers.</p>
+          </li>
+          <li>
+            <h3><span class="uline uline--mint">We stock</span></h3>
+            <p>The fridge, welcome drink carts, game-night and hangover baskets, s'mores nights.</p>
+          </li>
+          <li>
+            <h3><span class="uline uline--hydrangea">We handle</span></h3>
+            <p>Gift bags assembled, gifts you ship ahead, personalized cookies, itinerary help.</p>
+          </li>
+        </ul>
+        <div class="services-teaser__foot reveal">
+          <a class="btn btn--light btn--lg" href="services.html">See everything we do
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </a>
+          <p><strong>Not on the list? Just ask.</strong> If it makes her weekend, we'll figure it out.</p>
         </div>
       </div>
     </section>
 
-    <!-- ============ How it works ============ -->
-    <section class="section how" id="how">
-      <div class="container">
-        <div class="u-center reveal">
-          <h2>Easier than the group chat</h2>
-        </div>
-        <div class="how__steps">
-          <div class="card step-card reveal">
-            <h3>Send the link</h3>
-            <p>Forward your Airbnb or VRBO listing and your weekend date. Takes two minutes — less time than Katie's last voice memo.</p>
-          </div>
-          <div class="card step-card reveal">
-            <h3>Design chat</h3>
-            <p>Free, fifteen minutes, all about the bride: her colors, her humor, her Pinterest board. Your custom design lands within days.</p>
-          </div>
-          <div class="card step-card reveal">
-            <h3>Walk into it done</h3>
-            <p>Styled before check-in, broken down after checkout — your deposit is safe. You never touch a balloon; vacation mode starts at the door.</p>
-          </div>
-        </div>
+    <!-- ============ PLACEHOLDER: Our Booking Process ============ -->
+    <section class="section booking" id="booking">
+      <div class="container section-intro">
+        <h2>Our Booking Process</h2>
+        <p class="lead">Placeholder: a simple roadmap of the 8 booking steps, from submitting an inquiry to the bride walking into her decorated rental. A $200 deposit and signed contract secure the date.</p>
       </div>
     </section>
 
-    <!-- ============ About ============ -->
-    <section class="section about" id="about">
-      <div class="container container--narrow">
-        <div class="reveal">
-          <div class="pair-lockup">
-            <img src="assets/img/pear.svg" alt="" width="90" height="100">
-            <h2>We're <span class="pair-lockup__line">the pair.</span></h2>
-          </div>
-          <p class="lead" style="margin: 1.4rem 0 1rem">Two Cape Cod locals who watched one too many maids of honor spend their first vacation day untangling a balloon garland in a hot kitchen.</p>
-          <p>Some people hang a backdrop straight from the package. We don't. Every tapestry gets steamed before it touches a wall, every cookie tells a little piece of the bride's story, and every detail gets the kind of attention that only comes from two people who treat her weekend like it's the only one.</p>
-          <p style="margin-top: 1rem">Because at The Party Pair, it's the <span class="uline uline--mint">details no one expects</span> that make the biggest difference.</p>
-          <div class="byline">
-            <span class="byline__photo" aria-hidden="true">
-              <img src="assets/img/pear.svg" alt="" width="90" height="100">
-            </span>
-            <p class="byline__names">Evelynn and ??<br><span class="byline__sig">The Party Pair xx</span></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Lead magnet ============ -->
-    <section class="section magnet magnet--v3" id="guide">
-      <div class="container magnet__card">
-        <div class="reveal">
-          <h2>Your go-to guide to the perfect Cape weekend.</h2>
-          <p class="lead" style="margin-top: 1rem">Created from the heart by our founder Evelynn — a Cape Cod local who's helped countless bride tribes bring their weekend to life. Free, and full of her favorites:</p>
-          <ul class="magnet__list">
-            <li><span class="tick">✓</span> Bride-approved coffee shops, brunches &amp; dinners</li>
-            <li><span class="tick">✓</span> Pamper picks for that pre-party glow</li>
-            <li><span class="tick">✓</span> Boutique strolls — rosé &amp; retail therapy</li>
-          </ul>
-        </div>
-        <form class="card magnet-form reveal" name="guide-download" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="guide-download">
-          <div class="field">
-            <label for="magnet-name">First name</label>
-            <input id="magnet-name" name="name" type="text" required autocomplete="given-name" placeholder="Jess">
-          </div>
-          <div class="field">
-            <label for="magnet-email">Email</label>
-            <input id="magnet-email" name="email" type="email" required autocomplete="email" placeholder="you@email.com">
-          </div>
-          <button class="btn btn--lg" type="submit">Send me the guide</button>
-          <p class="form-note">No spam, ever. Just the guide and the occasional very good idea. Happy bacheloretting! 🤍</p>
-        </form>
-      </div>
-    </section>
-
-    <!-- ============ FAQ ============ -->
+    <!-- ============ FAQ (rendered from js/content/faq.js) ============ -->
     <section class="section faq" id="faq">
       <div class="container faq__inner">
-        <div class="u-center reveal" style="margin-bottom: 2.5rem">
+        <div class="faq__head u-center reveal">
           <h2>Asked in every group chat</h2>
         </div>
-
-        <details class="faq-item reveal">
-          <summary>How much does it cost?</summary>
-          <p class="faq-item__body">Every weekend is custom, so pricing depends on your house, your headcount and how far we take the design. You'll get an exact quote after a free design chat — before you commit to anything. Décor, delivery, setup and breakdown are always included.</p>
-        </details>
-        <details class="faq-item reveal">
-          <summary>How far ahead should we book?</summary>
-          <p class="faq-item__body">Cape Cod summer weekends go quickly. If the group chat has picked a date, check it early — it's free and takes two minutes.</p>
-        </details>
-        <details class="faq-item reveal">
-          <summary>Our rental says no tape, no nails, no glitter. Problem?</summary>
-          <p class="faq-item__body">That's our specialty. Everything we use is damage-free and rental-safe, and we break it all down after checkout so the house goes back exactly how we found it. Your deposit is safe with us.</p>
-        </details>
-        <details class="faq-item reveal">
-          <summary>Do we need to be there when you set up?</summary>
-          <p class="faq-item__body">Nope — that's the whole point. We coordinate with your rental's check-in window and finish before the group arrives, so the walk-in moment stays a surprise. Even for you, if you want it that way.</p>
-        </details>
-        <details class="faq-item reveal">
-          <summary>Where do you go?</summary>
-          <p class="faq-item__body">All of Cape Cod — Falmouth to Provincetown — and beyond. Staying somewhere unusual? Ask. We love a weird house.</p>
-        </details>
-        <details class="faq-item reveal">
-          <summary>Do you do more than décor?</summary>
-          <p class="faq-item__body">Yes — we're a concierge at heart. Fridge stocking, gift-bag assembly, itinerary help, welcome carts, s'mores nights, hangover baskets… and if it's not on the list, just ask. Tell us the dream on your design chat and we'll tell you what's possible.</p>
-        </details>
+        <div data-faq></div>
+        <p class="faq__more reveal">Something else on your mind? <a href="mailto:partypairinfo@gmail.com">Email us</a> — we answer fast.</p>
       </div>
     </section>
 
-    <!-- ============ Finale ============ -->
+    <!-- ============ Booking CTA ============ -->
     <section class="section finale">
       <div class="container reveal">
         <h2>Make it the weekend she <span class="uline uline--hydrangea">never stops talking about.</span></h2>
         <p class="lead">Tell us your date and your rental — we'll take it from there. Two minutes, promise.</p>
         <button class="btn btn--primary btn--lg" data-open-inquiry>Check your weekend</button>
+        <p class="look-note look-new-only">xo, the pair</p>
       </div>
     </section>
   </main>
 
-  <!-- ============ Footer ============ -->
-  <footer class="site-footer">
-    <div class="container site-footer__grid">
-      <div>
-        <a class="brand" href="./"><img class="brand__pear" src="assets/img/pear.svg" alt="" width="90" height="100"><span>The Party <em>Pair</em></span></a>
-        <p style="margin-top: 1rem; max-width: 34ch">Pre-arrival bachelorette décor &amp; concierge — helping bachelorette group chats across Cape Cod &amp; beyond. 🍐</p>
-      </div>
-      <div>
-        <p class="footer-title">Explore</p>
-        <ul>
-          <li><a href="#moment">The Moment</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#guide">The Free Guide</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="footer-title">Say hi</p>
-        <ul>
-          <li><a href="mailto:partypairinfo@gmail.com">partypairinfo@gmail.com</a></li>
-          <li><a href="https://www.instagram.com/partypairdecorations/" rel="noopener">Instagram</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="container fineprint">
-      <p>© 2026 The Party Pair · Cape Cod, Massachusetts. Styled with love and an unreasonable number of balloons.</p>
-    </div>
-  </footer>
-
-  <!-- ============ Sticky mobile CTA ============ -->
-  <div class="sticky-cta">
-    <button class="btn btn--primary" data-open-inquiry>Check your weekend</button>
-  </div>
-
-  <!-- ============ Inquiry modal ============ -->
-  <dialog class="modal" id="inquiry-modal" aria-labelledby="inquiry-title">
-    <div class="modal__body">
-      <button class="modal__close" aria-label="Close">✕</button>
-      <h2 id="inquiry-title" style="font-size: clamp(1.8rem, 5vw, 2.4rem); margin-bottom: 0.6rem">Let's see if your weekend is open</h2>
-      <p style="color: var(--ink-soft); margin-bottom: 1.5rem">Tell us your weekend — we'll come back within 24 hours with availability and ideas. Two minutes, promise.</p>
-      <form id="inquiry-form" name="weekend-inquiry" method="POST" data-netlify="true" style="display: grid; gap: 1rem">
-        <input type="hidden" name="form-name" value="weekend-inquiry">
-        <div class="field">
-          <label for="inq-name">Your name</label>
-          <input id="inq-name" name="name" type="text" required autocomplete="name" placeholder="Sam Rivera">
-        </div>
-        <div class="field">
-          <label for="inq-email">Email</label>
-          <input id="inq-email" name="email" type="email" required autocomplete="email" placeholder="you@email.com">
-        </div>
-        <div class="field">
-          <label for="inq-phone">Phone <span style="font-weight: 420; color: var(--ink-soft)">(for a faster reply)</span></label>
-          <input id="inq-phone" name="phone" type="tel" autocomplete="tel" placeholder="(508) 555-0123">
-        </div>
-        <div class="field">
-          <label for="inq-date">The weekend</label>
-          <input id="inq-date" name="weekend" type="date" required>
-          <p class="field__hint">Rough date is fine — we'll figure out the details together.</p>
-        </div>
-        <div class="field">
-          <label for="inq-rental">Rental link <span style="font-weight: 420; color: var(--ink-soft)">(optional)</span></label>
-          <input id="inq-rental" name="rental" type="url" inputmode="url" placeholder="airbnb.com/rooms/…">
-        </div>
-        <button class="btn btn--primary btn--lg" type="submit">Check availability</button>
-        <p class="form-note">Sending this means you're okay with us texting you back — that's it, no strings. Message &amp; data rates may apply.</p>
-      </form>
-    </div>
-  </dialog>
+  <div data-partial="footer"></div>
 
   <script type="module" src="js/main.js"></script>
 </body>

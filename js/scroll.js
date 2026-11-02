@@ -1,5 +1,9 @@
 /* Scroll behaviors: reveal-on-scroll, header hide/show, sticky mobile CTA. */
 
+// How far down the page (as a share of the screen height) the header
+// switches to its compact sticky state (.is-scrolled; used by Menu C)
+const SHRINK_AT = 0.1;
+
 export function initScrollEffects() {
   // Reveal elements as they enter the viewport.
   // Hidden documents (background tabs, prerender, print) throttle
@@ -19,7 +23,8 @@ export function initScrollEffects() {
     revealables.forEach((el) => io.observe(el));
   }
 
-  // Header: hide when scrolling down, show when scrolling up
+  // Header: hide when scrolling down, show when scrolling up;
+  // .is-scrolled once past SHRINK_AT of the screen (Menu C's sticky state)
   const header = document.querySelector('.site-header');
   let lastY = scrollY;
   let ticking = false;
@@ -29,7 +34,10 @@ export function initScrollEffects() {
     requestAnimationFrame(() => {
       const y = scrollY;
       if (header) {
-        header.classList.toggle('is-hidden', y > lastY && y > 300);
+        // never tuck the header away while its menu is open
+        const menuOpen = header.classList.contains('menu-open');
+        header.classList.toggle('is-hidden', !menuOpen && y > lastY && y > 300);
+        header.classList.toggle('is-scrolled', y > innerHeight * SHRINK_AT);
       }
       lastY = y;
       ticking = false;
@@ -39,7 +47,7 @@ export function initScrollEffects() {
   // Sticky mobile CTA appears once the hero is scrolled past,
   // and hides near the footer (the finale section has its own CTA)
   const sticky = document.querySelector('.sticky-cta');
-  const hero = document.querySelector('.hero') || document.querySelector('.guide-hero');
+  const hero = document.querySelector('.hero, .guide-hero, .page-head, .section--first');
   const footer = document.querySelector('.site-footer');
   if (sticky && hero) {
     let heroGone = false;

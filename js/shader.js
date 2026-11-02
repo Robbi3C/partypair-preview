@@ -1,6 +1,8 @@
 /* Satin-ribbon hero shader.
    A slow fbm-warped silk field in brand pastels with a specular sheen,
    light enough that ink text stays readable on top of it.
+   Colours come from the --silk-* custom properties (tokens.css), re-read
+   whenever <html> attributes change, so the preview look switch recolours it.
    Falls back to a static CSS gradient when WebGL is unavailable
    or the visitor prefers reduced motion. */
 
@@ -15,12 +17,12 @@ uniform vec2 uRes;
 uniform float uTime;
 uniform vec2 uPointer;
 
-// Brand pastels (pre-lightened for text contrast)
-const vec3 SHELL  = vec3(0.992, 0.976, 0.965);
-const vec3 ROSE   = vec3(0.914, 0.510, 0.722);
-const vec3 PERI   = vec3(0.663, 0.737, 0.902);
-const vec3 BUTTER = vec3(0.961, 0.851, 0.561);
-const vec3 FOAM   = vec3(0.804, 0.914, 0.874);
+// Palette from --silk-base, --silk-1 … --silk-4 (pre-lightened for text contrast)
+uniform vec3 SHELL;
+uniform vec3 ROSE;
+uniform vec3 PERI;
+uniform vec3 BUTTER;
+uniform vec3 FOAM;
 
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
@@ -89,14 +91,21 @@ void main() {
 }
 `;
 
+const SILK = { SHELL: "--silk-base", ROSE: "--silk-1", PERI: "--silk-2", BUTTER: "--silk-3", FOAM: "--silk-4" };
+
+function hexToRgb(hex) {
+  const n = parseInt(hex.trim().replace("#", ""), 16);
+  return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255];
+}
+
 export function initHeroShader(canvas) {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const gl = !reduced && canvas.getContext('webgl', { antialias: false, depth: false, stencil: false });
   if (!gl) {
     canvas.style.background =
-      'radial-gradient(120% 90% at 15% 20%, #f4c3dc 0%, transparent 55%),' +
-      'radial-gradient(110% 80% at 85% 30%, #ccd7f2 0%, transparent 55%),' +
-      'radial-gradient(100% 90% at 50% 95%, #f7e3b4 0%, transparent 60%), #fdf9f6';
+      'radial-gradient(120% 90% at 15% 20%, var(--silk-1) 0%, transparent 55%),' +
+      'radial-gradient(110% 80% at 85% 30%, var(--silk-2) 0%, transparent 55%),' +
+      'radial-gradient(100% 90% at 50% 95%, var(--silk-3) 0%, transparent 60%), var(--silk-base)';
     return;
   }
 
@@ -126,6 +135,17 @@ export function initHeroShader(canvas) {
   const uRes = gl.getUniformLocation(prog, 'uRes');
   const uTime = gl.getUniformLocation(prog, 'uTime');
   const uPointer = gl.getUniformLocation(prog, 'uPointer');
+
+  const applyPalette = () => {
+    const css = getComputedStyle(document.documentElement);
+    for (const [name, prop] of Object.entries(SILK)) {
+      gl.uniform3fv(gl.getUniformLocation(prog, name), hexToRgb(css.getPropertyValue(prop)));
+    }
+  };
+  applyPalette();
+  // the look switch flips html[data-look]; repaint the silk in that palette
+  new MutationObserver(() => { applyPalette(); draw(performance.now()); })
+    .observe(document.documentElement, { attributes: true });
 
   const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
   let w = 0, h = 0;

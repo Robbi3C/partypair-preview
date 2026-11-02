@@ -1,0 +1,126 @@
+/* ============================================================
+   HERO — the shared layout + type contract for every hero variant
+   (A1 default, A2, B, C1–C4). Homepage only; loaded after
+   sections.css (whose .hero rules other pages still use) and before
+   the variant files, which only set the variables below or add
+   their own media.
+
+   Rules every variant keeps (the design pass, Nov 2026):
+   - The whole hero, media included, fits one screen at every size
+     from 360×640 up. Check: docs/qa/hero-audit.mjs.
+   - Headline is two sentences, one per line ("She opens the door." /
+     "Everyone screams."). Its size comes from the width of the copy
+     column (container query units), so both lines fit in any layout
+     and either look. A line only wraps inside itself if the column
+     is narrower than the floor size allows.
+   - Short line under the headline (≤ 3 lines desktop, ≤ 4 phones),
+     a small kicker above it, one CTA.
+
+   Knobs (set on .hero by variants, on :root by looks/menus):
+   --hero-h1-max     headline cap for the layout (Original look)
+   --hero-k          look factor: DM Serif has a larger x-height, so
+                     Evelynn's headline runs ~18% smaller (look-new.css)
+   --hero-band       space a menu takes above the hero (Menu C)
+   --hero-top        clearance for the header that overlays the hero
+   --hero-bottom     space under the copy
+   ============================================================ */
+
+:root {
+  --hero-k: 1;
+  --hero-hk: 1;                               /* short-screen factor */
+  --hero-band: 0px;
+  --hero-top: calc(4.9rem + clamp(0.75rem, 4svh, 3rem));
+  --hero-bottom: clamp(1.75rem, 6svh, 4.5rem);
+  --hero-inline: max(var(--gutter), calc((100% - var(--content-max)) / 2));
+}
+/* wide but short screens (1280×720, 1366×768 laptops): smaller caps */
+@media (min-width: 56em) and (max-height: 50em) {
+  :root { --hero-hk: 0.86; }
+}
+
+.hero {
+  --hero-h1-max: 6.5rem;
+  /* the screen height left for the hero: preview strip + menu band out */
+  --hero-h: calc(min(100svh, 62rem) - var(--switch-h, 0px) - var(--hero-band));
+  min-height: var(--hero-h);
+  padding: var(--hero-top) var(--gutter) var(--hero-bottom);
+}
+
+/* the copy column is the container the headline sizes against */
+.hero__copy {
+  container-type: inline-size;
+  width: min(100%, 60rem);
+}
+
+.hero__kicker {
+  margin-bottom: clamp(0.6rem, 1.6svh, 1rem);
+  font-size: clamp(0.7rem, 0.66rem + 0.2vw, 0.8rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-wrap: balance;
+  color: var(--ink-soft);
+}
+[data-look='new'] .hero__kicker { font-weight: 500; }
+
+/* "She opens the door." is ~8.6em wide in both fonts; /8.9 leaves slack */
+.hero h1 {
+  max-width: none;
+  margin-bottom: clamp(0.75rem, 2.2svh, 1.4rem);
+  font-size: clamp(2rem, 100cqi / 8.9, calc(var(--hero-h1-max) * var(--hero-k) * var(--hero-hk)));
+}
+.hero__line { display: block; }
+
+.hero__lead {
+  max-width: 40ch;
+  margin-bottom: clamp(1.25rem, 3.2svh, 2.2rem);
+  line-height: 1.5;
+}
+/* centred layouts centre the narrower lead under the headline */
+.hero__copy { justify-items: center; }
+.hero__lead { margin-inline: auto; }
+
+/* ---------- Left-aligned: every variant except A1 (default) and C1 ---------- */
+[data-hero]:not([data-hero='c1']) .hero {
+  justify-items: start;
+  text-align: left;
+  padding-inline: var(--hero-inline);
+}
+[data-hero]:not([data-hero='c1']) .hero__copy { justify-items: start; }
+[data-hero]:not([data-hero='c1']) .hero__lead { margin-inline: 0; }
+[data-hero]:not([data-hero='c1']) .hero__ctas { justify-content: flex-start; }
+
+/* ---------- Split heroes (A2, B) on desktop: text + image as one unit ----------
+   The text column is as wide as the capped headline needs (≈ cap × 8.9,
+   never over 52% of the row); the image takes the rest, fills its column,
+   sits flush with the right content edge and is capped by the screen's
+   height (a short screen makes it squarer, not narrower). So the only
+   space between text and image is the column gap, never leftover
+   column. The paragraph spans the headline's width: one clean block. */
+@media (min-width: 56em) {
+  :root:is([data-hero='a2'], [data-hero='b']) .hero {
+    --hero-copy-w: min(52%, var(--hero-h1-max) * var(--hero-k) * var(--hero-hk) * 8.9);
+    --hero-media-max: calc(var(--hero-h) - var(--hero-top) - var(--hero-bottom));
+    grid-template-columns: minmax(0, var(--hero-copy-w)) minmax(18rem, 1fr);
+    column-gap: clamp(2.5rem, 4.5vw, 4.5rem);
+    align-items: center;
+  }
+  :root:is([data-hero='a2'], [data-hero='b']) .hero__lead { max-width: none; }
+}
+
+/* ---------- Phones + portrait tablets: media on top, copy below ----------
+   Used by A2, B, C2 and C4 (the heroes that pair copy with a separate
+   picture). The hero is exactly one screen: the picture takes whatever
+   height the copy leaves. min-height only bites on landscape phones. */
+@media (max-width: 55.99em) {
+  :root:is([data-hero='a2'], [data-hero='b'], [data-hero='c2'], [data-hero='c4']) .hero {
+    height: var(--hero-h);
+    min-height: 30rem;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-content: stretch;
+    gap: clamp(1rem, 3svh, 2rem);
+  }
+  :root:is([data-hero='a2'], [data-hero='b'], [data-hero='c2'], [data-hero='c4']) .hero__copy { grid-row: 2; width: 100%; }
+}

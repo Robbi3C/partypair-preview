@@ -1,0 +1,154 @@
+/* ============================================================
+   Navigation — six destinations + CTA.
+   ≥75em: everything inline in the header pill.
+   <75em: pill keeps brand (+ CTA from 40em), a toggle opens a
+   panel that drops from under the pill.
+   ============================================================ */
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ---------- Inline nav (wide) ---------- */
+/* the header nav is rendered in two halves (js/partials.js); only
+   Menu C lays them out around the logo, elsewhere they vanish */
+.site-nav__half { display: contents; }
+@media (max-width: 74.99em) {
+  .site-nav { display: none; }
+}
+@media (min-width: 75em) {
+  .site-nav { gap: 1.45rem; }
+  .site-nav a { font-size: 0.94rem; white-space: nowrap; }
+  .site-nav a[aria-current='page']::after { right: 0; }
+}
+
+/* ---------- Toggle ---------- */
+.menu-toggle {
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--shell-deep);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color var(--dur-quick) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.menu-toggle:hover { background: var(--pink-100, #f7cfe0); }
+.menu-toggle svg { overflow: visible; }
+.menu-toggle path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--dur-med) var(--ease-out);
+}
+/* the two lines meet in the middle and cross into an X */
+.menu-open .menu-toggle__top    { transform: translateY(3.5px) rotate(45deg); }
+.menu-open .menu-toggle__bottom { transform: translateY(-3.5px) rotate(-45deg); }
+
+@media (min-width: 75em) {
+  .menu-toggle, .site-menu { display: none; }
+}
+
+/* ---------- Panel ---------- */
+.site-menu {
+  display: grid;
+  width: min(100% - 2 * var(--gutter), var(--content-max));
+  margin: 0.6rem auto 0;
+  padding: 0.6rem clamp(1.2rem, 4vw, 2rem) clamp(1.2rem, 4vw, 1.8rem);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-pop);
+  /* closed: clipped up into the pill */
+  clip-path: inset(0 0 100% 0 round var(--radius-lg));
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    clip-path var(--dur-med) var(--ease-out),
+    opacity var(--dur-quick) var(--ease-out),
+    visibility 0s linear var(--dur-med);
+}
+.menu-open .site-menu {
+  clip-path: inset(0 0 0 0 round var(--radius-lg));
+  opacity: 1;
+  visibility: visible;
+  transition:
+    clip-path var(--dur-med) var(--ease-out),
+    opacity var(--dur-quick) var(--ease-out);
+}
+.site-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0.2rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 560;
+  font-size: clamp(1.35rem, 5vw, 1.6rem);
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(43, 33, 41, 0.16);
+}
+.site-menu a:hover { color: var(--rose-deep); }
+/* current page: a small pear-pink dot */
+.site-menu a[aria-current='page']::after {
+  content: '';
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--rose);
+  flex-shrink: 0;
+}
+.site-menu a:last-of-type { border-bottom: 0; }
+/* v3.css hides every header .btn below 40em (the pill has no room);
+   the menu's own CTA is exactly where it should appear instead */
+.site-header .site-menu .btn { display: flex; margin-top: 1rem; width: 100%; }
+
+@media (min-width: 40em) {
+  /* the header pill already carries the CTA here */
+  .site-header .site-menu .btn { display: none; }
+}
+
+/* ---------- Menu A (the default pill), desktop: sticky + shrink ----------
+   Stays put instead of tucking away on scroll, and once past SHRINK_AT
+   (js/scroll.js, .is-scrolled) eases to ~80% height (63px → ~51px)
+   and ~80% width, so the pill draws in on both axes.
+   Menu B / C have their own versions in menu-b.css / menu-c.css. */
+@media (min-width: 75em) {
+  :root:not([data-menu]) {
+    --ma-shrink: 420ms cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  :root:not([data-menu]) .site-header.is-hidden { transform: none; }
+  :root:not([data-menu]) .site-header__inner { transition: padding var(--ma-shrink), margin var(--ma-shrink), width var(--ma-shrink); }
+  :root:not([data-menu]) .brand { transition: font-size var(--ma-shrink); }
+  :root:not([data-menu]) .site-header__actions .btn {
+    transition:
+      transform var(--dur-quick) var(--ease-spring),
+      box-shadow var(--dur-quick) var(--ease-out),
+      background-color var(--dur-quick) var(--ease-out),
+      padding var(--ma-shrink),
+      font-size var(--ma-shrink);
+  }
+  :root:not([data-menu]) .is-scrolled .site-header__inner {
+    padding-block: 9px;   /* with the slimmer CTA below, keeps the pill at ~80% */
+    margin-top: 0.5rem;
+    width: calc(min(100% - 2 * var(--gutter), var(--content-max)) * 0.8);
+  }
+  :root:not([data-menu]) .is-scrolled .brand { font-size: 1.12rem; }
+  :root:not([data-menu]) .brand__pear { transition: width var(--ma-shrink); }
+  :root:not([data-menu]) .is-scrolled .brand__pear { width: 1.7em; }
+  :root:not([data-menu]) .is-scrolled .site-header__actions .btn { padding: 0.4em 1.15em; font-size: 0.86rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-menu]) .site-header__inner,
+  :root:not([data-menu]) .brand,
+  :root:not([data-menu]) .site-header__actions .btn { transition: none; }
+}

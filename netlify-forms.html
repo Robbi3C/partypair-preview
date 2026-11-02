@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!-- Not a page. Netlify detects forms by scanning deployed HTML, but the
+     inquiry modal is rendered by js/partials.js. This hidden copy tells
+     Netlify the form and its fields exist. Keep field names in sync. -->
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="robots" content="noindex"><title>Forms</title></head>
+<body>
+  <form name="weekend-inquiry" data-netlify="true" hidden>
+    <input type="text" name="name">
+    <input type="email" name="email">
+    <input type="tel" name="phone">
+    <input type="date" name="weekend">
+    <input type="url" name="rental">
+  </form>
+</body>
+</html>

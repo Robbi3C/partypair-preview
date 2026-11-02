@@ -1,0 +1,149 @@
+/* ============================================================
+   Preview switch — a review tool, not part of either design.
+   Deliberately neutral (system font, near-black strip) so it never
+   reads as a brand element. Remove with js/look-switch.js once a
+   look is chosen.
+
+   The strip is hidden by default so the page shows as a visitor sees
+   it. The pulsing dot (top-left) opens it: html[data-preview="open"];
+   the strip's Hide button closes it. The Hero switch (a pill inside
+   the hero) is always shown. Every rule that makes room for
+   the switches is wrapped in :where(open) so it adds no specificity.
+   ============================================================ */
+
+:where(:root[data-preview='open']) body[data-look-switch] {
+  --switch-h: 2.75rem;
+  padding-top: var(--switch-h);
+}
+body[data-look-switch] .site-header { top: var(--switch-h, 0px); }
+
+/* closed: no strip (the hero switch stays) */
+:root:not([data-preview='open']) .look-switch--bar { display: none; }
+
+/* ---------- The dot that opens the switches ---------- */
+.preview-dot {
+  position: fixed;
+  top: 3px;
+  left: 3px;
+  z-index: 90;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+.preview-dot::before,
+.preview-dot::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #de64a5;
+}
+.preview-dot::before { box-shadow: 0 0 0 2px #fff, 0 1px 4px rgba(29, 26, 28, 0.35); z-index: 1; }
+.preview-dot::after { animation: preview-pulse 1.8s ease-out infinite; }
+@keyframes preview-pulse {
+  from { transform: scale(1); opacity: 0.6; }
+  to   { transform: scale(2.8); opacity: 0; }
+}
+.preview-dot:focus-visible { outline: 2px solid #1f6ca6; outline-offset: 2px; }
+:root[data-preview='open'] .preview-dot { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .preview-dot::after { animation: none; }
+}
+
+.look-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 4vw, 2rem);
+  background: #1d1a1c;
+  color: #f4f1ee;
+  font: 500 0.8rem/1 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  text-align: left;
+}
+/* the strip: fixed across the top of the page */
+.look-switch--bar {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: 70;
+  min-height: 2.75rem;
+  padding-block: 0.4rem;
+  flex-wrap: wrap;
+  row-gap: 0.45rem;
+}
+/* a floating switch (Hero): a pill inside the hero, centred just under
+   the header. Absolutely positioned, so it never takes space in the
+   hero it previews (the hero still fits one screen). */
+.look-switch--float {
+  position: absolute;
+  top: 5.4rem;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 5;
+  max-width: calc(100vw - 1.5rem);
+  overflow-x: auto;
+  padding: 0.35rem 0.4rem 0.35rem 1rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(29, 26, 28, 0.25);
+}
+/* Menu C's band sits above the hero: just clear its wave */
+[data-menu='c'] .look-switch--float { top: calc(var(--mc-wave, 18px) + 0.6rem); }
+/* the header's outer box is taller than its visible bar (the closed menu
+   panel sits in it); let clicks fall through to the hero below */
+body[data-look-switch] .site-header { pointer-events: none; }
+body[data-look-switch] .site-header > * { pointer-events: auto; }
+.look-switch__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.look-switch__label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.look-switch__group {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.look-switch button {
+  min-width: 2.4rem;
+  min-height: 2rem;
+  padding: 0 0.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.look-switch button:hover { background: rgba(255, 255, 255, 0.1); }
+.look-switch button[aria-pressed='true'] { background: #f4f1ee; color: #1d1a1c; }
+.look-switch button:focus-visible { outline: 2px solid #8fc7f4; outline-offset: 2px; }
+.look-switch .look-switch__hide {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 0.72rem;
+}
+
+
+/* the strip's switches don't fit one row on phones: wrap to two,
+   and the page/header offset grows with the strip */
+@media (max-width: 36em) {
+  /* until js/look-switch.js measures the strip */
+  :where(:root[data-preview='open']) body[data-look-switch] { --switch-h: 7.5rem; }
+  .look-switch {
+    flex-wrap: wrap;
+    align-content: center;
+    row-gap: 0.45rem;
+    column-gap: 1.1rem;
+  }
+  .look-switch button { min-width: 2.1rem; padding-inline: 0.6rem; }
+}

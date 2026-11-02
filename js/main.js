@@ -12,6 +12,10 @@ import { initForms } from './form.js';
 import { initInstaFeed } from './instafeed.js';
 import { initMenuTabs } from './menu-tabs.js';
 import { burstFrom } from './confetti.js';
+import { renderChrome } from './partials.js';
+import { initNav } from './nav.js';
+import { initFaq } from './faq.js';
+import { initLookSwitch } from './look-switch.js';
 
 function initModal() {
   const modal = document.getElementById('inquiry-modal');
@@ -46,6 +50,13 @@ function initCelebrations() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // shared chrome and data-driven content first, so the
+  // listeners and reveal observers below can find them
+  renderChrome();
+  initLookSwitch();
+  initFaq();
+  initNav();
+
   const heroCanvas = document.querySelector('.hero__canvas');
   if (heroCanvas) initHeroShader(heroCanvas);
 

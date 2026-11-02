@@ -7,7 +7,8 @@
    - { image, caption, href } → local photo card (offline fallback, or
      the Behold JSON path if a live feed URL is configured later). */
 
-const FEED_URL = 'data/posts.json';
+// resolved from this module, so pages in subfolders (e.g. /original/) find it too
+const FEED_URL = new URL('../data/posts.json', import.meta.url);
 const MAX_POSTS = 6;
 
 function embedCard(url) {
