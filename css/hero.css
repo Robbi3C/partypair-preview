@@ -16,23 +16,17 @@
      from 360×640 up. Check: docs/qa/hero-audit.mjs.
    - Headline is two sentences, one per line ("She opens the door." /
      "Everyone screams."). Its size comes from the width of the copy
-     column (container query units), so both lines fit in either look.
+     column (container query units), so both lines fit.
    - Short line under the headline (≤ 3 lines desktop, ≤ 4 phones),
      a small kicker above it, one CTA.
 
    Knobs:
-   --hero-h1-max     headline cap (Original look)
-   --hero-k          look factor: DM Serif has a larger x-height, so
-                     Evelynn's headline runs ~18% smaller (look-new.css)
+   --hero-h1-max     headline cap
    --hero-top        clearance for the header that overlays the hero
    --hero-bottom     space under the copy
-
-   Hero variants for the preview picker (js/look-switch.js) go in their
-   own file, scoped to html[data-hero="…"].
    ============================================================ */
 
 :root {
-  --hero-k: 1;
   --hero-hk: 1;                               /* short-screen factor */
   --hero-top: calc(4.9rem + clamp(0.75rem, 4svh, 3rem));
   --hero-bottom: clamp(1.75rem, 6svh, 4.5rem);
@@ -44,9 +38,8 @@
 }
 
 .hero {
-  --hero-h1-max: 4.25rem;
-  /* the screen height left for the hero: the preview strip comes out */
-  --hero-h: calc(min(100svh, 62rem) - var(--switch-h, 0px));
+  --hero-h1-max: 3.485rem;
+  --hero-h: min(100svh, 62rem);
   min-height: var(--hero-h);
   padding: var(--hero-top) var(--hero-inline) var(--hero-bottom);
   align-content: center;
@@ -55,6 +48,11 @@
   background: var(--white);
 }
 .hero::before { display: none; }
+
+/* the header's outer box is taller than its visible bar (the closed menu
+   panel sits in it); let clicks fall through to the hero below */
+.site-header { pointer-events: none; }
+.site-header > * { pointer-events: auto; }
 
 /* the copy column is the container the headline sizes against */
 .hero__copy {
@@ -66,20 +64,19 @@
 .hero__kicker {
   margin-bottom: clamp(0.6rem, 1.6svh, 1rem);
   font-size: clamp(0.7rem, 0.66rem + 0.2vw, 0.8rem);
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   line-height: 1.4;
   text-wrap: balance;
   color: var(--ink-soft);
 }
-[data-look='new'] .hero__kicker { font-weight: 500; }
 
-/* "She opens the door." is ~8.6em wide in both fonts; /8.9 leaves slack */
+/* "She opens the door." is ~8.6em wide; /8.9 leaves slack */
 .hero h1 {
   max-width: none;
   margin-bottom: clamp(0.75rem, 2.2svh, 1.4rem);
-  font-size: clamp(2rem, 100cqi / 8.9, calc(var(--hero-h1-max) * var(--hero-k) * var(--hero-hk)));
+  font-size: clamp(2rem, 100cqi / 8.9, calc(var(--hero-h1-max) * var(--hero-hk)));
 }
 .hero__line { display: block; }
 

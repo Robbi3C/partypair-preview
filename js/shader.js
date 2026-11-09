@@ -143,9 +143,6 @@ export function initHeroShader(canvas) {
     }
   };
   applyPalette();
-  // the look switch flips html[data-look]; repaint the silk in that palette
-  new MutationObserver(() => { applyPalette(); draw(performance.now()); })
-    .observe(document.documentElement, { attributes: true });
 
   const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
   let w = 0, h = 0;

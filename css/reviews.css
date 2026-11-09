@@ -1,13 +1,8 @@
 /* ============================================================
-   GOOGLE REVIEWS — homepage section (js/reviews.js renders both
-   layouts; the Reviews switch on the section picks one:
-   html[data-reviews="b|c"], "a" is the default).
+   GOOGLE REVIEWS — homepage section (js/reviews.js renders both).
 
-   a  One quote: the reviewers' words in the site's own type
-   b  Cards A: summary panel + a row of review cards, arrows under the row
-   c  Cards B: heading, full-width row, summary + arrows under the row
-
-   Colours and fonts come from tokens, so both work in either look.
+   Desktop:          summary panel + a row of review cards, arrows under the row
+   Tablet and phone: centred quote cards with the reviewer's photo, edge to edge
    ============================================================ */
 
 .reviews {
@@ -15,20 +10,17 @@
   --rv-star: var(--rose);
 }
 
-/* show the chosen layout */
-.rv-v { display: none; }
-:root:not([data-reviews]) .rv-v--a,
-[data-reviews='b'] .rv-v--b,
-[data-reviews='c'] .rv-v--c { display: block; }
-
-/* the preview switch sits at the top of the section, clear of the content */
-.reviews .look-switch--float { top: 1.1rem; }
-.reviews .look-switch--float button { white-space: nowrap; }
+/* cards on desktop, photos at 60em and below */
+.rv-v--photos { display: none; }
+@media (max-width: 60em) {
+  .rv-v--cards { display: none; }
+  .rv-v--photos { display: block; }
+}
 
 /* ---------- Shared ---------- */
 .rv-stars { color: var(--rv-star); letter-spacing: 0.12em; font-size: 0.95rem; line-height: 1; white-space: nowrap; }
 
-/* "★★★★★ 5.0 on Google · 12 reviews" (One quote, and the dialog) */
+/* "★★★★★ 5.0 on Google · 12 reviews" (in the dialog) */
 .rv-proof {
   display: inline-flex;
   align-items: center;
@@ -47,26 +39,12 @@
 }
 .rv-proof:hover .rv-proof__stars + span { text-decoration-color: currentColor; }
 
-/* ============ a. One quote ============ */
-.rv-one { display: grid; justify-items: center; gap: clamp(1.5rem, 4vw, 2.5rem); text-align: center; }
-.rv-one blockquote p {
-  max-width: 22ch;
-  margin-inline: auto;
-  font-family: var(--font-display);
-  font-size: clamp(1.9rem, 4.4vw, 3.4rem);
-  line-height: 1.12;
-  text-wrap: balance;
-}
-.rv-cite { margin-top: 1rem; font-size: var(--text-small); font-weight: 600; }
-.rv-cite span { font-weight: 420; color: var(--ink-soft); }
-
-/* ============ b. Cards ============
+/* ============ Cards (desktop) ============
    Panel on the left, the row of cards beside it, the arrows under the
    row. Two and a bit cards in view on desktop, two on tablets, one plus
    a peek on phones. No scrollbar: arrows, swipe or trackpad. */
-.rv-cards,
-.rv-cards-b { --rv-gap: clamp(1rem, 2vw, 1.5rem); }
 .rv-cards {
+  --rv-gap: clamp(1rem, 2vw, 1.5rem);
   display: grid;
   grid-template-columns: minmax(14rem, 1fr) minmax(0, 3fr);
   gap: clamp(1.5rem, 4vw, 3rem);
@@ -140,9 +118,7 @@
 .rv-arrow:disabled { opacity: 0.35; cursor: default; }
 .rv-arrow svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-/* tablets: panel above the row */
 @media (max-width: 60em) {
-  .rv-cards { grid-template-columns: minmax(0, 1fr); }
   .rv-track { --rv-cols: 2; }
 }
 /* phones: one card plus a peek; no fades (the peek already says "more") */
@@ -184,30 +160,112 @@
   cursor: pointer;
 }
 .rv-more:hover { text-decoration-color: currentColor; }
-.rv-card__by { margin-top: auto; padding-top: 0.4rem; font-size: var(--text-small); font-weight: 600; }
-.rv-card__by span { font-weight: 420; color: var(--ink-soft); }
 
-/* ============ c. Cards B ============
-   Heading, then the row at full content width (three cards and a peek),
-   then one line under it: the summary at the left (a smaller 5.0 with
-   larger stars beside it, "Based on 12 Google reviews ↗" below), the
-   arrows at the right. */
-.rv-cards-b h2 { margin-bottom: clamp(1.5rem, 3.5vw, 2.25rem); font-size: clamp(2rem, 4vw, 3rem); }
-.rv-cards-b .rv-track { --rv-cols: 3.25; }
-.rv-under {
-  display: flex;
-  flex-wrap: wrap;
+/* signature: photo on the left, name over date on the right */
+.rv-card__person {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.75rem;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem 2rem;
-  margin-top: clamp(1.25rem, 3vw, 1.75rem);
+  margin-top: auto;
+  padding-top: 0.4rem;
 }
-.rv-under .rv-arrows { margin-top: 0; }
+.rv-card__person .rv-q__face { grid-row: span 2; width: 2.75rem; height: 2.75rem; font-size: 1.2rem; }
+.rv-card__name { align-self: end; font-weight: 600; line-height: 1.25; }
+.rv-card__when { align-self: start; font-size: var(--text-small); line-height: 1.3; color: var(--ink-soft); }
 .rv-sum { display: grid; gap: 0.3rem; }
 .rv-sum__line { display: flex; align-items: center; gap: 0.6rem; }
 .rv-sum__score { font-size: 1.75rem; font-weight: 560; line-height: 1; letter-spacing: -0.02em; }
 .rv-sum .rv-stars { font-size: 1.4rem; letter-spacing: 0.08em; }
-@media (max-width: 60em) { .rv-cards-b .rv-track { --rv-cols: 2.2; } }
+
+/* ============ Photos (tablet and phone) ============
+   Centred cards running off both edges of the page, the middle one
+   lifted (js/reviews.js sets .is-centre). */
+.rv-photos { --rv-gap: clamp(0.75rem, 1.6vw, 1.5rem); --rv-q-w: clamp(18rem, 34vw, 30rem); }
+.rv-photos h2 { margin-bottom: clamp(1.5rem, 3.5vw, 2.25rem); font-size: clamp(2rem, 4vw, 3rem); text-align: center; }
+.rv-track--q {
+  position: relative;
+  grid-auto-columns: var(--rv-q-w);
+  /* room below for the lifted card's shadow, which the scroller would clip */
+  padding: 1.5rem calc(50% - var(--rv-q-w) / 2) 3.5rem;
+  margin-bottom: -2.5rem;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.rv-track--q > li { scroll-snap-align: center; }
+.rv-track--q:focus-visible { outline-offset: -2px; }
+
+.rv-q {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(1.25rem, 2.6vw, 2rem);
+  text-align: center;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 0 0 1px var(--rv-line);
+  transform: scale(0.94);
+  transition: transform var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+}
+.is-centre > .rv-q {
+  transform: none;
+  box-shadow: inset 0 0 0 1px var(--rv-line), 0 14px 34px rgba(43, 33, 41, 0.12);
+}
+.rv-q__mark {
+  height: 3rem;                        /* the glyph sits high in its line */
+  font-family: var(--font-display);
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--rv-star);
+}
+.rv-q blockquote { flex: 1; }
+.rv-q__text {
+  font-size: 1rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+.rv-q .rv-more { align-self: center; margin-block: 0.15rem -0.5rem; }
+.rv-q__foot { display: grid; justify-items: center; gap: 0.7rem; margin-top: 1rem; }
+.rv-q__foot .rv-stars { font-size: 1.1rem; }
+
+/* the photo; the initial sits behind it and shows when there is none */
+.rv-q__face {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  overflow: hidden;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--ink);
+}
+.rv-q__face--0 { background: var(--shell-deep); }
+.rv-q__face--1 { background: var(--seafoam); }
+.rv-q__face--2 { background: var(--butter); }
+.rv-q__face--3 { background: var(--peri); }
+.rv-q__face img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.rv-q__by { display: grid; gap: 0.1rem; font-weight: 600; }
+.rv-q__by span { font-size: var(--text-small); font-weight: 420; color: var(--ink-soft); }
+
+/* above the track, whose shadow room runs underneath the arrows */
+.rv-photos__foot { position: relative; z-index: 1; display: grid; justify-items: center; gap: 1rem; margin-top: 0.5rem; }
+.rv-photos__foot .rv-arrows { margin-top: 0; }
+.rv-photos__foot .rv-sum { justify-items: center; }
+.rv-arrow[aria-disabled='true'] { opacity: 0.35; cursor: default; }
+.rv-arrow[aria-disabled='true']:hover { border-color: var(--rv-line); }
+
+@media (max-width: 40em) {
+  .rv-photos { --rv-q-w: 82vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rv-q { transition: none; }
+}
 
 /* ---------- The whole review (dialog) ---------- */
 .rv-dialog figure { display: grid; gap: 0.9rem; padding-right: 2.5rem; }

@@ -1,0 +1,29 @@
+/* Booking CTA: the bride photo as a full-section backdrop; the scrim
+   keeps light text readable over it. */
+
+.finale {
+  position: relative;
+  background:
+    linear-gradient(rgba(43, 33, 41, 0.66), rgba(43, 33, 41, 0.66)),
+    url('../assets/img/finale-bride.webp') center 40% / cover no-repeat var(--ink);
+}
+.finale :is(h2, .lead),
+.finale .script-note { color: var(--paper); }
+
+/* Two-line headline: font size scales with the viewport so the longer line
+   spans about 70% of the width (90% on phones, where 70% would be too small). */
+.finale h2 {
+  max-width: none;
+  white-space: nowrap;
+  font-size: 5.54vw;
+}
+@media (max-width: 600px) {
+  .finale h2 { font-size: 7.14vw; }
+}
+
+/* Emphasis: italic pink, no highlight stroke */
+.finale .uline--hydrangea {
+  background-image: none;
+  font-style: italic;
+  color: #de64a5;
+}

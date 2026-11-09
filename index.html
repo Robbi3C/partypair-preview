@@ -16,7 +16,6 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/img/pear.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/Melodrama-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
@@ -27,34 +26,14 @@
   <link rel="stylesheet" href="css/pages.css">
   <link rel="stylesheet" href="css/hero.css">
 
-  <!-- Preview switches (js/look-switch.js):
-       look = fonts + colours (current | new); hero = hero variant (c4 only for now); reviews = reviews layout (a = one quote | b = cards A | c = cards B).
-       Applied before first paint so a saved choice never flashes the other.
-       ?look=new|current and ?hero=… in the URL override saved choices.
-       To add a hero variant, list its value in HEROES below and in look-switch.js. -->
-  <script>
-    try {
-      var params = new URLSearchParams(location.search);
-      var look = params.get('look') || localStorage.getItem('pp-look');
-      var hero = params.get('hero') || localStorage.getItem('pp-hero');
-      var preview = params.get('preview') || localStorage.getItem('pp-preview');
-      if (preview === 'open') document.documentElement.dataset.preview = 'open';
-      if (look === 'new') document.documentElement.dataset.look = 'new';
-      var reviews = params.get('reviews') || localStorage.getItem('pp-reviews');
-      if (reviews === 'b' || reviews === 'c') document.documentElement.dataset.reviews = reviews;
-      var faqv = params.get('faqv') || localStorage.getItem('pp-faqv');
-      if (['nowb', '1', '1b', '2', '3', '4', '4b', '5'].indexOf(faqv) > -1) document.documentElement.dataset.faqv = faqv;
-      var HEROES = [];   /* non-default hero values, e.g. ['d1'] */
-      if (HEROES.indexOf(hero) > -1) document.documentElement.dataset.hero = hero;
-    } catch (e) {}
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500&family=Sacramento&display=swap">
-  <link rel="stylesheet" href="css/look-new.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500&family=Sacramento&family=Inter:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/insta-grid.css">
   <link rel="stylesheet" href="css/reviews.css">
-  <link rel="stylesheet" href="css/faq-variants.css">
-  <link rel="stylesheet" href="css/look-switch.css">
+  <link rel="stylesheet" href="css/faq.css">
+  <link rel="stylesheet" href="css/finale.css">
 
   <script type="application/ld+json">
   {
@@ -70,7 +49,7 @@
   }
   </script>
 </head>
-<body data-page="home" data-look-switch>
+<body data-page="home">
 
   <a class="skip-link" href="#main">Skip to content</a>
   <div data-partial="header"></div>
@@ -119,25 +98,15 @@
       </div>
     </section>
 
-    <!-- ============ Instagram gallery (kept as is) ============ -->
+    <!-- ============ Instagram gallery (rendered by js/insta-grid.js) ============ -->
     <section class="section transform" id="gallery">
       <div class="container">
         <div class="section-intro reveal">
-          <h2>It's not the balloons.<br>It's <span class="display-italic uline uline--pink">the moment</span> she walks in.</h2>
+          <h2>It's not the balloons.<br>It's <span class="display-italic uline uline--pink">the moment</span> she walks&nbsp;in.</h2>
           <p class="lead">The second she opens that door and immediately knows she mattered enough for this to be done right — that's a reaction you can't recreate twice. Straight from our recent weekends:</p>
         </div>
 
-        <div class="insta-carousel reveal">
-          <button class="insta-carousel__btn insta-carousel__btn--prev" aria-label="Previous posts">←</button>
-          <div class="gallery gallery--insta" id="insta-grid" tabindex="0" aria-label="Recent Instagram posts — swipe or use arrow buttons">
-            <figure class="photo-card"><img src="assets/img/bride-suite.webp" alt="Bride's room with veil-draped headboard and blush balloons" loading="lazy" width="900" height="1200"><figcaption>the bride's room</figcaption></figure>
-            <figure class="photo-card"><img src="assets/img/welcome-table.webp" alt="Welcome table with champagne tower and personalized cups" loading="lazy" width="900" height="1200"><figcaption>the welcome moment</figcaption></figure>
-            <figure class="photo-card"><img src="assets/img/tablescape.webp" alt="Coastal dinner tablescape with hydrangeas" loading="lazy" width="1400" height="1050"><figcaption>dinner, but make it <em>her</em></figcaption></figure>
-          </div>
-          <button class="insta-carousel__btn insta-carousel__btn--next" aria-label="Next posts">→</button>
-        </div>
-        <p class="u-center" style="margin-top: 2rem"><a class="btn btn--ghost" href="https://www.instagram.com/partypairdecorations/" rel="noopener">Follow the setups on Instagram</a></p>
-        <p class="look-note look-new-only">trust us on the balloons</p>
+        <div class="reveal" data-insta-grid></div>
       </div>
     </section>
 
@@ -187,21 +156,21 @@
     <!-- ============ FAQ (rendered from js/content/faq.js) ============ -->
     <section class="section faq" id="faq">
       <div class="container faq__inner">
-        <div class="faq__head u-center reveal">
+        <div class="faq__head u-center">
           <h2>Asked in every group chat</h2>
         </div>
         <div data-faq></div>
-        <p class="faq__more reveal">Something else on your mind? <a href="mailto:partypairinfo@gmail.com">Email us</a> — we answer fast.</p>
+        <p class="faq__more">Something else on your mind? <a href="mailto:partypairinfo@gmail.com">Email us</a> — we answer fast.</p>
       </div>
     </section>
 
     <!-- ============ Booking CTA ============ -->
     <section class="section finale">
       <div class="container reveal">
-        <h2>Make it the weekend she <span class="uline uline--hydrangea">never stops talking about.</span></h2>
+        <h2>Make it the weekend<br>she <span class="uline uline--hydrangea">never stops talking about.</span></h2>
         <p class="lead">Tell us your date and your rental — we'll take it from there. Two minutes, promise.</p>
         <button class="btn btn--primary btn--lg" data-open-inquiry>Check your weekend</button>
-        <p class="look-note look-new-only">xo, the pair</p>
+        <p class="script-note">xo, the pair</p>
       </div>
     </section>
   </main>

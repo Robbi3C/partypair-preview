@@ -110,7 +110,7 @@
   box-shadow: var(--shadow-pop);
   /* never taller than the screen below the header: it scrolls inside,
      with the CTA pinned to its foot so it is always in reach */
-  max-height: calc(100dvh - var(--switch-h, 0px) - 6rem);
+  max-height: calc(100dvh - 6rem);
   overflow-y: auto;
   overscroll-behavior: contain;
   /* closed: clipped up into the pill */
@@ -169,15 +169,11 @@
   background: var(--white);
 }
 
-/* ---------- Desktop: sticky, and the pill draws in once scrolled ----------
-   Stays put instead of tucking away on scroll; past SHRINK_AT
-   (js/scroll.js, .is-scrolled) it slims a little. */
+/* ---------- Desktop: sticky ----------
+   Stays put, at full size, instead of tucking away on scroll. */
 @media (min-width: 75em) {
   :root .site-header.is-hidden { transform: none; }
-  .site-header__inner { transition: padding 420ms cubic-bezier(0.33, 1, 0.68, 1), margin 420ms cubic-bezier(0.33, 1, 0.68, 1); }
-  :root .is-scrolled .site-header__inner { padding-block: 0.3rem; margin-top: 0.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .site-header::before,
-  .site-header__inner { transition: none; }
+  .site-header::before { transition: none; }
 }

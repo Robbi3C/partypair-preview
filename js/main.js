@@ -15,8 +15,8 @@ import { burstFrom } from './confetti.js';
 import { renderChrome } from './partials.js';
 import { initNav } from './nav.js';
 import { initFaq } from './faq.js';
-import { initLookSwitch } from './look-switch.js';
 import { initReviews } from './reviews.js';
+import { initInstaGrid } from './insta-grid.js';
 
 function initModal() {
   const modal = document.getElementById('inquiry-modal');
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // listeners and reveal observers below can find them
   renderChrome();
   initReviews();
-  initLookSwitch();
+  initInstaGrid();
   initFaq();
   initNav();
 

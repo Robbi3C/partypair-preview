@@ -54,7 +54,7 @@ function initEmbedResize(grid) {
   });
 }
 
-function initCarousel(grid) {
+export function initCarousel(grid) {
   const wrap = grid.closest('.insta-carousel');
   if (!wrap) return;
   const prev = wrap.querySelector('.insta-carousel__btn--prev');

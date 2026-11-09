@@ -73,6 +73,5 @@ function fitHeader(header, closeMenu) {
   };
   fit();
   new ResizeObserver(fit).observe(header);
-  new MutationObserver(fit).observe(root, { attributes: true, attributeFilter: ['data-look'] });
   document.fonts?.ready.then(fit);
 }
