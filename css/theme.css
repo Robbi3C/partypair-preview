@@ -1,214 +1,352 @@
 /* ============================================================
-   THEME — the homepage's fonts + colours from the design theory brief
-   (cream-led, coastal blue bands, pear pink + mint accents,
-   DM Serif Display / Poppins / Sacramento). Re-skins the shared
-   components; loaded on the homepage after the base stylesheets.
+   THEME — the homepage's fonts, colours and type, from the
+   Party Pair Design Guide v2. Re-skins the shared components;
+   loaded on the homepage only, after the base stylesheets.
 
-   1. Tokens: brand palette + remap of the shared tokens
-   2. Base type, links, focus, italic accent
+   1. Tokens: guide palette + remap of the shared tokens
+   2. Base type, links, focus
    3. Buttons
-   4. Header type + colour
+   4. Header and menu
    5. Sections, top to bottom
-   6. Script note
+   6. Footer, sticky CTA, modal, fields
+
+   The licensed fonts (Sunday Club, Flanogant, Milk and Clay, Gentle
+   Side) have one weight each, so nothing here asks for bold outside
+   body copy (guide §4.2). Until they are bought, the free stand-ins
+   second in each stack are what visitors see.
    ============================================================ */
 
 /* ---------- 1. Tokens ---------- */
 :root {
-  /* brand palette */
-  --cream: #fbf6ee;
-  --cream-deep: #f3eadc;
-  --paper: #fffdf9;
+  /* guide palette (§3.2) */
+  --cream: #fbf5ec;
+  --sand: #f3e9da;
+  --paper: #fffdf8;
+  --punch: #de4f96;
+  --pear: #ea9cc0;
+  --petal: #f6d8e4;
+  --pear-deep: #ae2f6b;
+  --pear-deeper: #8f2357;
+  --seaglass: #a2ccc6;
+  --seafoam: #dceeeb;
   --coastal: #8fc7f4;
-  --coastal-deep: #1f6ca6;
-  --pink: #de64a5;
-  --pink-deep: #b33a7a;   /* paper on pink-deep ≈ 5.4:1 */
-  --blush: #f7cfe0;
-  --mint: #cde9df;
-  --mint-soft: #e8f4ef;
-  --ink-muted: #66595f;
-  --focus: #1f6ca6;
-  --field-border: #988690;
+  --seaglass-deep: #2c6a63;
+  --butter: #f6e7a8;
+  --butter-deep: #e3cf6e;
+  --ink: #1f3047;
+  --ink-muted: #4f5b6c;
+  --line: #e2d6c4;
+  --focus: #2b6ca3;
+  --hairline: rgba(31, 48, 71, 0.16);
+  --lift: 0 10px 28px rgba(31, 48, 71, 0.14);
 
-  --shadow-lift: 0 2px 6px rgba(43, 33, 41, 0.06), 0 14px 32px rgba(43, 33, 41, 0.12);
-
-  --font-display: 'DM Serif Display', Georgia, serif;
-  --font-body: 'Poppins', -apple-system, 'Segoe UI', sans-serif;
-  --font-script: 'Sacramento', cursive;
+  /* guide type (§4.1) */
+  --font-display: 'Sunday Club', 'Fraunces', Georgia, serif;
+  --font-script: 'Flanogant', 'Flanogant Clean', 'Yellowtail', cursive;
+  --font-caps: 'Milk and Clay', 'Josefin Sans', 'Helvetica Neue', sans-serif;
+  --font-body: 'Gentle Side', 'Questrial', 'Helvetica Neue', Arial, sans-serif;
 
   /* remap the shared tokens so every existing component follows */
   --ink-soft: var(--ink-muted);
   --shell: var(--cream);
-  --shell-deep: var(--cream-deep);
+  --shell-deep: var(--sand);
   --white: var(--paper);
-  --rose: var(--pink-deep);
-  --rose-deep: #8f2c61;
+  --rose: var(--pear-deep);
+  --rose-deep: var(--pear-deeper);
   --peri: var(--coastal);
-  --peri-deep: var(--coastal-deep);
-  --butter: var(--mint);
-  --seafoam: var(--mint);
-  --pink-100: var(--blush);
-  --pink-300: var(--blush);
+  --peri-deep: var(--focus);
+  --leaf: var(--seaglass);
+  --pink-100: var(--petal);
+  --pink-300: var(--pear);
 
-  --text-hero: clamp(2.6rem, 6.4vw, 4.9rem);
-  --text-h2: clamp(2rem, 4.6vw, 3.3rem);
-  --text-h3: clamp(1.3rem, 2.6vw, 1.6rem);
-  --text-lead: clamp(1.02rem, 1.8vw, 1.15rem);
-  --text-body: clamp(0.95rem, 1.6vw, 1rem);
+  /* guide type scale (§4.3) */
+  --text-h2: clamp(2.5rem, 4.6vw, 4rem);
+  --text-h3: clamp(1.4375rem, 2.6vw, 2.25rem);
+  --text-lead: clamp(1.0625rem, 1.8vw, 1.25rem);
+  --text-body: 1.0625rem;
+  --text-small: 0.875rem;
 
+  /* layout (reworked in the layout pass) */
   --space-section: clamp(4rem, 9vw, 6rem);
   --gutter: clamp(1rem, 4vw, 2.5rem);
-  --content-max: 75rem;              /* 1200px */
+  --content-max: 75rem;
   --radius-lg: 24px;
   --radius-md: 16px;
   --radius-sm: 8px;
 
-  /* one shadow only (lift) — everything else sits flat on a hairline */
-  --shadow-card: 0 0 0 1px rgba(43, 33, 41, 0.08);
-  --shadow-pop: var(--shadow-lift);
+  --shadow-card: 0 0 0 1px rgba(31, 48, 71, 0.08);
+  --shadow-pop: var(--lift);
   --shadow-cta: none;
 
   --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-quick: 200ms;
   --dur-med: 280ms;
 }
+@media (max-width: 47.5em) {
+  :root { --text-body: 1rem; }
+}
 
 /* ---------- 2. Base type ---------- */
 body { font-weight: 400; line-height: 1.65; }
+
 :is(h1, h2, h3, h4) {
+  font-family: var(--font-display);
   font-weight: 400;
-  letter-spacing: -0.005em;
-  line-height: 1.08;
+  font-style: normal;
+  font-variation-settings: 'SOFT' 100;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-transform: lowercase;
 }
-h3 { font-family: var(--font-display); }
-:is(.lead, .hero__lead) { font-weight: 300; }
-strong, .hero__lead strong { font-weight: 500; }
-/* links in running text only — nav, brand and buttons keep ink/paper */
-:is(p, li) a:not(.btn) { color: var(--coastal-deep); }
+h3 { letter-spacing: 0; }
+
+/* the type stack's other two voices (§4.4) */
+.script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: 1;
+}
+.caps {
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.caps .script {
+  font-size: 1.65em;
+  letter-spacing: 0;
+  text-transform: none;
+  vertical-align: -0.12em;
+}
+
+.lead, .hero__lead {
+  color: var(--ink);
+  font-weight: 400;
+  line-height: 1.6;
+}
+/* bold is allowed only here, in body copy (§4.2) */
+strong, .hero__lead strong { font-weight: 700; }
+
+:is(p, li) a:not(.btn) { color: var(--focus); }
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
-::selection { background: var(--blush); color: var(--ink); }
+::selection { background: var(--petal); color: var(--ink); }
 
-/* Word highlights: the pastel stroke behind the words
-   (v3.css .uline), recoloured by the token remap above:
-   pink → blush, mint/butter → mint, hydrangea → coastal.
-   On the coastal band a coastal stroke would vanish, so it turns paper. */
-.services .uline--hydrangea {
-  background-image: linear-gradient(var(--paper), var(--paper));
+.skip-link { font-family: var(--font-caps); font-weight: 400; }
+
+/* ---------- 3. Buttons (§10.1) ---------- */
+.btn,
+.btn--lg,
+.site-header .btn {
+  min-height: 3.125rem;
+  padding: 0 1.75rem;
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
+.site-header .btn { min-height: 2.75rem; padding-inline: 1.375rem; }
 
-/* ---------- 3. Buttons ----------
-   components.css draws them; these pin the button's own tokens so the
-   palette remap and flat shadows above don't reach them. */
-.btn {
-  --rose: #de64a5;
-  --rose-deep: #c2528f;
-  --white: #fffdfc;
-  --shell: #fdf9f6;
-  --shadow-card: 0 2px 4px rgba(43, 33, 41, 0.05), 0 12px 32px rgba(43, 33, 41, 0.09);
-  --shadow-cta: 0 4px 0 var(--rose-deep), 0 10px 24px rgba(222, 100, 165, 0.35);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  font-family: 'General Sans', -apple-system, 'Segoe UI', sans-serif;
+.btn--primary { background: var(--pear-deep); color: var(--paper); box-shadow: none; }
+.btn--primary:hover { background: var(--pear-deeper); }
+.btn--primary:active { box-shadow: none; }
+
+.btn--light { background: var(--paper); color: var(--ink); box-shadow: none; }
+.btn--light:hover { background: var(--petal); }
+
+.btn--ghost { color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--paper); }
+
+/* ---------- 4. Header and menu ---------- */
+.site-header__inner { background: rgba(255, 253, 248, 0.9); }
+
+.brand, .site-footer .brand {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-variation-settings: 'SOFT' 100;
+  font-size: 1.3125rem;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: lowercase;
 }
+/* the wordmark is one colour, upright */
+.brand em { font-style: normal; color: inherit; }
 
-/* ---------- 4. Header: type + colour only ----------
-   The pill shape lives in nav.css. Toggle + nav underline follow the tokens. */
-.brand, .site-footer .brand { font-family: var(--font-display); font-weight: 400; font-size: 1.4rem; }
-.brand em { color: var(--pink-deep); }
-.brand__pear { width: 1.7em; }
-.site-nav a { font-weight: 500; }
+.site-nav a {
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.site-nav a::after { background: var(--punch); }
+
+.menu-toggle {
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--petal);
+}
+.menu-toggle:hover { background: var(--pear); }
+
+.site-header::before { background: rgba(31, 48, 71, 0.38); }
+
+.site-menu a {
+  font-style: normal;
+  font-weight: 400;
+  font-variation-settings: 'SOFT' 100;
+  font-size: 2.75rem;
+  line-height: 1.15;
+  text-transform: lowercase;
+  border-bottom-color: var(--hairline);
+}
 
 /* ---------- 5. Sections, top to bottom ---------- */
 
-/* Marquee: the coastal rhythm break — straight edges, serif lowercase words */
+/* Ticker A (§10.5) */
 .marquee {
   transform: none;
-  background: var(--coastal);
-  color: var(--ink);
-  padding-block: 1.05rem;
+  background: var(--petal);
+  color: var(--pear-deep);
+  padding-block: 1rem;
 }
 .marquee__item {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 1.35rem;
+  font-variation-settings: 'SOFT' 100;
+  font-size: 1.875rem;
+  letter-spacing: -0.01em;
   text-transform: lowercase;
-  letter-spacing: 0;
 }
-.marquee .glyph { font-size: 0; }
-.marquee .glyph::after { content: '♡'; font-size: 1rem; color: var(--ink); }
+.marquee__item .glyph { color: inherit; }
 
-/* Group chat */
-.chat-bubble { background: var(--paper); }
-.chat-bubble--me { background: var(--blush); }
+/* Maid-of-honor story and group chat (§10.7) */
+.problem h2 { color: var(--punch); }
 
-/* Instagram gallery: cream-deep ground */
-.transform { background: var(--cream-deep); }
+.problem .chat-stack {
+  padding: 2.75rem 2.25rem;
+  border-radius: 28px;
+  background-color: var(--seaglass);
+  background-image: radial-gradient(rgba(255, 253, 248, 0.35) 1px, transparent 1.3px);
+  background-size: 7px 7px;
+}
+@media (max-width: 47.5em) {
+  .problem .chat-stack { padding: 1.75rem 1.125rem; }
+}
+.chat-bubble {
+  background: var(--paper);
+  font-size: 1rem;
+  transition: transform var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+}
+.chat-bubble--me { background: var(--petal); }
+.chat-bubble .sender {
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  color: var(--pear-deep);
+}
+.chat-bubble--me .sender { color: var(--ink); }
 
-/* Reviews sit on cream between two coloured grounds */
-.reviews { background: var(--cream); }
+/* Instagram gallery */
+.transform { background: var(--seafoam); }
+.transform h2 { color: var(--pear-deep); }
 
-/* Services: the one coastal feature band mid-page — all text ink */
+/* Reviews (layout: css/reviews.css) */
+.reviews { background: var(--sand); }
+
+/* Services: every word ink on Coastal */
 .services { background: var(--coastal); color: var(--ink); }
 .services :is(.section-intro, .section-intro .lead, .offer-trio h3, .offer-trio p, .services-teaser__foot p, .services-teaser__foot strong) {
   color: var(--ink);
 }
-.offer-trio h3 { font-style: normal; font-weight: 400; }
+/* Ink until the paper service cards arrive: Punch fails on Coastal */
+.offer-trio h3 { font-style: normal; font-weight: 400; font-size: var(--text-h3); }
 @media (min-width: 52em) {
-  .offer-trio li + li { border-left-color: rgba(43, 33, 41, 0.22); }
+  .offer-trio li + li { border-left-color: rgba(31, 48, 71, 0.22); }
 }
 
-/* Booking placeholder */
+/* Booking */
 .booking { background: var(--cream); }
+.booking h2 { color: var(--punch); }
 
-/* FAQ: cream-deep ground (layout: css/faq.css) */
-.faq { background: var(--cream-deep); }
-.faq__more a { color: var(--coastal-deep); }
+/* FAQ (layout: css/faq.css) */
+.faq { background: var(--petal); }
+.faq h2 { color: var(--pear-deep); }
 
-/* Footer: coastal, ink, hairline between it and the booking CTA */
+/* Script sign-off */
+.script-note {
+  display: block;
+  font-family: var(--font-script);
+  font-size: clamp(2.25rem, 4vw, 2.875rem);
+  line-height: 1.1;
+  color: var(--pear-deep);
+  text-align: center;
+  rotate: -3deg;
+  margin-top: 1.2rem;
+}
+
+/* ---------- 6. Footer, sticky CTA, modal, fields ---------- */
 .site-footer {
   background: var(--coastal);
   color: var(--ink);
-  border-top: 1px solid rgba(43, 33, 41, 0.18);
+  font-size: 1rem;
+  border-top: 0;
+}
+.site-footer .brand { font-size: 1.625rem; }
+/* the pear disappears on colour, so it sits on a Paper disc (§2) */
+.site-footer .brand__pear {
+  box-sizing: content-box;
+  width: 1.5rem;
+  padding: 0.55rem;
+  border-radius: 50%;
+  background: var(--paper);
 }
 .site-footer :is(.brand, .brand em, a) { color: var(--ink); }
 .site-footer a:hover { color: var(--ink); text-decoration: underline; }
 .site-footer .footer-title {
   color: var(--ink);
-  font-weight: 500;
-  font-size: 0.72rem;
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.75rem;
   letter-spacing: 0.2em;
 }
 .site-footer .fineprint {
   color: var(--ink);
-  border-top-color: rgba(43, 33, 41, 0.2);
+  font-size: 0.875rem;
+  border-top-color: rgba(31, 48, 71, 0.2);
 }
 
-/* Sticky CTA, modal, fields */
-.sticky-cta { background: rgba(255, 253, 249, 0.94); }
+.sticky-cta {
+  background: rgba(255, 253, 248, 0.94);
+  box-shadow: 0 -6px 24px rgba(31, 48, 71, 0.12);
+}
+.toast { font-weight: 400; }
+
 .modal { background: var(--paper); }
+.modal::backdrop { background: rgba(31, 48, 71, 0.55); }
+.modal__title { color: var(--punch); }
+
+.field label { font-weight: 400; }
+.field__optional { font-weight: 400; }
 .field input,
 .field select,
 .field textarea {
-  border: 1.5px solid var(--field-border);
+  border: 1.5px solid var(--ink-muted);
   border-radius: var(--radius-sm);
 }
-.field input:focus { border-color: var(--focus); box-shadow: none; outline: 2px solid var(--focus); outline-offset: 2px; }
-
-/* ---------- 6. Script note ---------- */
-
-/* Handwritten note: sign-offs and asides only, never under 24px */
-.script-note {
-  display: block;
-  font-family: var(--font-script);
-  font-size: clamp(1.9rem, 4vw, 2.3rem);
-  line-height: 1.1;
-  color: var(--pink-deep);
-  text-align: center;
-  rotate: -3deg;
-  margin-top: 1.2rem;
-}
-/* Chat bubbles ease on hover */
-.chat-bubble {
-  transition: transform var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--focus);
+  box-shadow: none;
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }

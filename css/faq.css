@@ -1,68 +1,62 @@
 /* ============================================================
-   FAQ — "Vertical rule". js/faq.js renders the list.
+   FAQ — design guide §10.10. js/faq.js renders the list.
 
-   No lines between questions: one vertical rose rule beside the open
-   question, which also turns rose; a caret that flips. The whole row
-   is the click target; one open at a time; short, smooth open
-   (pages.css).
+   Heading on the left, questions on the right, thin rules between
+   them; a display "+" turns into a × when a question is open.
+   Short, smooth open: pages.css.
    ============================================================ */
 
-/* drop the card look and the "+" glyph from components.css */
+.faq { padding-block: 6.5rem 9.375rem; }
+
+.faq__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 4rem;
+  align-items: start;
+}
+.faq h2 { font-size: clamp(2.5rem, 4.4vw, 3.75rem); }
+
+/* drop the card look and the old "+" from components.css */
 .faq-item {
-  position: relative;
   background: none;
   box-shadow: none;
   border-radius: 0;
   overflow: visible;
+  border-bottom: 1.5px solid rgba(31, 48, 71, 0.16);
 }
 .faq-item + .faq-item { margin-top: 0; }
 .faq-item summary::after { content: none; }
 .faq-item summary {
-  min-height: 4.9rem;
-  padding: 1.15rem 1.8rem 1.15rem 1.5rem;
+  gap: 1.25rem;
+  padding: 1.25rem 0.25rem;
+  font-size: 1.125rem;
   font-weight: 400;
   line-height: 1.4;
 }
-.faq-item summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
-.faq-item__body { padding: 0 1.5rem 1.4rem; max-width: 62ch; }
+.faq-item summary:hover { color: inherit; }
+.faq-item summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
 .faq-q { flex: 1; text-wrap: pretty; }
 
-/* one rule beside the open question, drawing down as it opens */
-.faq-item::before {
-  content: '';
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 2px;
-  background: var(--rose);
-  scale: 1 0;
-  transform-origin: top;
-  transition: scale var(--dur-slow) var(--ease-out);
-}
-.faq-item[open]::before { scale: 1 1; }
-.faq-item[open] > summary { color: var(--rose-deep); }
-
-/* the caret: flips when open */
-.faq-icon {
-  position: relative;
+.faq-item .plus {
   flex: none;
-  width: 0.9rem;
-  height: 0.9rem;
-  color: var(--rose-deep);
+  font-family: var(--font-display);
+  font-size: 2.125rem;
+  line-height: 1;
+  color: var(--pear-deep);
+  transition: transform 0.25s var(--ease-spring);
 }
-.faq-icon::before {
-  content: '';
-  position: absolute;
-  inset: 15% 25% auto;
-  width: 50%;
-  height: 50%;
-  border: solid currentColor;
-  border-width: 0 1.5px 1.5px 0;
-  border-radius: 0 0 1px 0;
-  rotate: 45deg;
-  transition: rotate var(--dur-med) var(--ease-out), translate var(--dur-med) var(--ease-out);
-}
-[open] > summary .faq-icon::before { rotate: 225deg; translate: 0 30%; }
+.faq-item[open] .plus { transform: rotate(45deg); }
 
+.faq-item__body { padding: 0; color: var(--ink-muted); }
+.faq-item__body p { max-width: 40em; margin: 0 0.25rem 1.375rem; }
+.faq-item__body p + p { margin-top: 0; }
+
+@media (max-width: 63.75em) {
+  .faq__grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+}
+@media (max-width: 47.5em) {
+  .faq { padding-top: 4rem; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .faq-icon::before, .faq-item::before { transition: none; }
+  .faq-item .plus { transition: none; }
 }

@@ -1,29 +1,43 @@
-/* Booking CTA: the bride photo as a full-section backdrop; the scrim
-   keeps light text readable over it. */
+/* Booking CTA: the bride photo as a full-section backdrop, washed with
+   cream (design guide §5.4). All type is ink on the wash. */
 
 .finale {
   position: relative;
   background:
-    linear-gradient(rgba(43, 33, 41, 0.66), rgba(43, 33, 41, 0.66)),
-    url('../assets/img/finale-bride.webp') center 40% / cover no-repeat var(--ink);
+    linear-gradient(rgba(251, 245, 236, 0.76), rgba(251, 245, 236, 0.76)),
+    url('../assets/img/finale-bride.webp') center 40% / cover no-repeat var(--cream);
+  padding-block: clamp(5.75rem, 9vw, 8rem) clamp(6.25rem, 9.5vw, 8.75rem);
 }
-.finale :is(h2, .lead),
-.finale .script-note { color: var(--paper); }
+.finale .container { position: relative; }
 
-/* Two-line headline: font size scales with the viewport so the longer line
-   spans about 70% of the width (90% on phones, where 70% would be too small). */
+/* Waves: FAQ pink hangs over the top edge, footer blue rises at the bottom */
+.finale__wave {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+.finale__wave--top { top: -1px; height: 56px; }
+.finale__wave--bottom { bottom: -1px; height: 76px; transform: scaleY(-1); }
+@media (max-width: 47.5em) {
+  .finale__wave--top { height: 28px; }
+  .finale__wave--bottom { height: 38px; }
+}
+.finale :is(h2, .caps) { color: var(--ink); }
+
 .finale h2 {
-  max-width: none;
-  white-space: nowrap;
-  font-size: 5.54vw;
+  max-width: 14em;
+  margin-bottom: 2rem;
+  font-size: clamp(2.875rem, 6vw, 5.375rem);
 }
-@media (max-width: 600px) {
-  .finale h2 { font-size: 7.14vw; }
-}
+.finale .caps { max-width: 34em; margin: 0 auto 2.5rem; }
+.finale .script-note { margin-top: 2.25rem; }
 
-/* Emphasis: italic pink, no highlight stroke */
-.finale .uline--hydrangea {
-  background-image: none;
-  font-style: italic;
-  color: #de64a5;
+/* Button from the design file: tilts and lifts, arrow slides on hover */
+.finale .btn {
+  gap: 10px;
+  transition: transform 0.2s var(--ease-spring), background-color 0.2s;
 }
+.finale .btn:hover { transform: rotate(-1.5deg) translateY(-2px); }
+.finale .btn .arr { display: inline-block; transition: transform 0.2s var(--ease-spring); }
+.finale .btn:hover .arr { transform: translateX(5px); }

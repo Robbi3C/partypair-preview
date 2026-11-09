@@ -24,10 +24,10 @@ function addSchema() {
   document.head.appendChild(script);
 }
 
-/* the .faq-icon span is the caret drawn by css/faq.css */
+/* the .plus turns into a × when its question is open (css/faq.css) */
 const item = ({ q, a }) => `
       <details class="faq-item" name="faq">
-        <summary><span class="faq-q">${escape(q)}</span><span class="faq-icon" aria-hidden="true"></span></summary>
+        <summary><span class="faq-q">${escape(q)}</span><span class="plus" aria-hidden="true">+</span></summary>
         <div class="faq-item__body">${paragraphs(a).map((p) => `<p>${escape(p)}</p>`).join('')}</div>
       </details>`;
 

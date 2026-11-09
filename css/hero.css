@@ -2,8 +2,8 @@
    HERO — "Into the light" (was preview option C4). Homepage only;
    loaded after sections.css, whose .hero rules other pages still use.
 
-   Text on white at the left; the lifestyle photo sits on the right and
-   its left edge dissolves into the white (a mask), so the copy reads on
+   Text on Pear pink at the left; the lifestyle photo sits on the right and
+   its left edge dissolves into the pink (a mask), so the copy reads on
    a clean ground that slowly becomes the picture. Phones and portrait
    tablets stack it: photo on top, fading down into the copy.
 
@@ -45,8 +45,12 @@
   align-content: center;
   justify-items: start;
   text-align: left;
-  background: var(--white);
+  background-color: var(--pear);
+  background-image: radial-gradient(rgba(255, 253, 248, 0.32) 1px, transparent 1.3px);
+  background-size: 7px 7px;
 }
+/* focus blue is too faint on Pear pink (2.65:1) */
+.hero :focus-visible { outline-color: var(--ink); }
 .hero::before { display: none; }
 
 /* the header's outer box is taller than its visible bar (the closed menu
@@ -61,22 +65,24 @@
   justify-items: start;
 }
 
-.hero__kicker {
-  margin-bottom: clamp(0.6rem, 1.6svh, 1rem);
-  font-size: clamp(0.7rem, 0.66rem + 0.2vw, 0.8rem);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  line-height: 1.4;
-  text-wrap: balance;
-  color: var(--ink-soft);
+.hero__script {
+  margin-bottom: clamp(0.4rem, 1.2svh, 0.9rem);
+  font-size: clamp(2.25rem, 1.9rem + 1.2vw, 2.875rem);
+  color: var(--ink);
 }
 
-/* "She opens the door." is ~8.6em wide; /8.9 leaves slack */
+.hero__kicker {
+  margin-bottom: clamp(0.5rem, 1.4svh, 0.9rem);
+  line-height: 1.5;
+  text-wrap: balance;
+  color: var(--ink);
+}
+
+/* the longer headline line is ~9.2em wide; /9.8 leaves slack */
 .hero h1 {
   max-width: none;
   margin-bottom: clamp(0.75rem, 2.2svh, 1.4rem);
-  font-size: clamp(2rem, 100cqi / 8.9, calc(var(--hero-h1-max) * var(--hero-hk)));
+  font-size: clamp(2rem, 100cqi / 9.8, calc(var(--hero-h1-max) * var(--hero-hk)));
 }
 .hero__line { display: block; }
 

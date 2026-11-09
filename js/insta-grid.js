@@ -54,6 +54,55 @@ const row = () => `
     <button class="insta-carousel__btn insta-carousel__btn--next" aria-label="Next posts">→</button>
   </div>`;
 
+/* ---------- V2: polaroid strip (design guide §6.2, §11.2) ---------- */
+const POLAROID_CAPTIONS = [
+  'last toast, east coast', 'not just balloons', 'cape cod brides know', 'surprise, bestie',
+  'pinterest, delivered', 'months of planning', 'some girls want vegas', 'the atlantic suite',
+  'the text we live for', 'we love to see it',
+];
+
+const polaroid = (t, i) => `
+  <button type="button" class="pol-card" data-tile="${i}" aria-label="Open post: ${esc(t.caption)}">
+    <img src="${t.image}" alt="${esc(t.alt)}" loading="lazy" width="540" height="960">
+    <span class="pol-card__cap" aria-hidden="true">${POLAROID_CAPTIONS[i] ?? ''}</span>
+  </button>`;
+
+const strip = () => `
+  <div class="pol-strip" tabindex="0" aria-label="Photos from recent weekends: scroll sideways for more">
+    ${tiles.map(polaroid).join('')}
+  </div>`;
+
+const stripFoot = () => `
+  <div class="pol-foot">
+    <a class="pol-handle" href="${site.instagram}" rel="noopener">
+      <span class="pol-handle__seal"><img src="assets/img/pear.svg" alt="" width="26" height="29"></span>
+      <span><strong>The Party Pair</strong><span>@${handle} · follow on Instagram</span></span>
+    </a>
+    <div class="pol-arrows">
+      <button type="button" data-pol-dir="-1" aria-label="Previous photos"><svg width="22" height="14" viewBox="0 0 22 14" aria-hidden="true"><path d="M21 7 C15 5 9 9 2 7 M7 2 L2 7 L7 12"/></svg></button>
+      <button type="button" data-pol-dir="1" aria-label="Next photos"><svg width="22" height="14" viewBox="0 0 22 14" aria-hidden="true"><path d="M1 7 C7 9 13 5 20 7 M15 2 L20 7 L15 12"/></svg></button>
+    </div>
+  </div>`;
+
+/* the arrows move about two polaroids and rest at either end */
+function initStrip(slot) {
+  const track = slot.querySelector('.pol-strip');
+  const [prev, next] = slot.querySelectorAll('[data-pol-dir]');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sync = () => {
+    prev.disabled = track.scrollLeft < 10;
+    next.disabled = track.scrollLeft > track.scrollWidth - track.clientWidth - 10;
+  };
+  for (const b of [prev, next]) {
+    b.addEventListener('click', () => {
+      const first = track.firstElementChild.getBoundingClientRect().width + 30;
+      track.scrollBy({ left: Number(b.dataset.polDir) * first * 2, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  }
+  track.addEventListener('scroll', sync, { passive: true });
+  sync();
+}
+
 const viewer = () => `
   <dialog class="ig-viewer" aria-label="Instagram post">
     <div class="ig-viewer__card"></div>
@@ -180,8 +229,12 @@ function wireSlides(box) {
 export function initInstaGrid() {
   const slot = document.querySelector('[data-insta-grid]');
   if (!slot) return;
-  slot.innerHTML = `${row()}${head()}${viewer()}`;
+  slot.innerHTML = `
+    <div class="ig-v1">${row()}${head()}</div>
+    <div class="ig-v2">${strip()}${stripFoot()}</div>
+    ${viewer()}`;
   initCarousel(slot.querySelector('.gallery--insta'));
+  initStrip(slot);
 
   const dlg = slot.querySelector('.ig-viewer');
   const box = dlg.querySelector('.ig-viewer__card');

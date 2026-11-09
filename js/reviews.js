@@ -97,6 +97,50 @@ const photoCards = () => `
     </div>
   </div>`;
 
+/* ---------- Version B: landscape postcards ----------
+   The message on the left, the "address side" on the right with the
+   name written on its lines and the pear seal where a stamp would go.
+   Burst shape: the guide's soft 9-petal flower (§10.3). */
+const burstPath = (() => {
+  const pts = Array.from({ length: 96 }, (_, i) => {
+    const t = (2 * Math.PI * i) / 96;
+    const r = 48 * (1 + 0.09 * Math.cos(9 * t));
+    return `${(60 + r * Math.cos(t)).toFixed(1)} ${(60 + r * Math.sin(t)).toFixed(1)}`;
+  });
+  return `M${pts.join(' L')} Z`;
+})();
+
+const postcard = (r, i) => `
+  <figure class="rvb-card">
+    <div class="rvb-card__message">
+      ${starsImg()}
+      <blockquote><p class="rvb-card__text">${esc(r.text)}</p></blockquote>
+      <button type="button" class="rv-more" data-review="${i}" hidden>Read more<span class="visually-hidden"> of ${esc(r.name)}’s review</span></button>
+    </div>
+    <figcaption class="rvb-card__address">
+      <span class="rvb-card__seal" aria-hidden="true"><img src="assets/img/pear.svg" alt="" width="20" height="22"></span>
+      ${face(r, i)}
+      <span class="rvb-card__name">${esc(r.name)}</span>
+      <span class="rvb-card__line">${r.when}</span>
+      <span class="rvb-card__line">Google review</span>
+    </figcaption>
+  </figure>`;
+
+const postcards = () => `
+  <p class="rvb-script" aria-hidden="true">10/10</p>
+  <div class="container rvb-head">
+    <h2>Kind words</h2>
+    <div class="rvb-burst">
+      <svg viewBox="0 0 120 120" aria-hidden="true"><path d="${burstPath}"/></svg>
+      <p><b>${score}</b>${starsImg()}</p>
+    </div>
+    <p class="rv-panel__count rvb-count">${countLink()}</p>
+  </div>
+  <ul class="rv-track rvb-track" id="rv-track-postcards" tabindex="0" aria-label="Google reviews: scroll sideways for more">
+    ${reviews.map((r, i) => `<li>${postcard(r, i)}</li>`).join('')}
+  </ul>
+  <div class="container rvb-foot">${arrows('rv-track-postcards')}</div>`;
+
 /* the whole review, opened from "Read more" */
 const dialog = () => `
   <dialog class="modal rv-dialog" aria-labelledby="rv-dialog-name">
@@ -184,6 +228,18 @@ function wirePhotos(root) {
   }).observe(list);
 }
 
+/* "Read more" appears only on postcards whose text is really cut off */
+function wirePostcards(root) {
+  const list = root.querySelector('.rv-track');
+  new ResizeObserver(() => {
+    if (!list.clientWidth) return;
+    for (const li of list.children) {
+      const text = li.querySelector('.rvb-card__text');
+      li.querySelector('.rv-more').hidden = text.scrollHeight <= text.clientHeight + 1;
+    }
+  }).observe(list);
+}
+
 function wireDialog(slot) {
   const dlg = slot.querySelector('.rv-dialog');
   let opener = null;
@@ -206,10 +262,13 @@ export function initReviews() {
   const slot = document.querySelector('[data-reviews-slot]');
   if (!slot) return;
   slot.innerHTML = `<div class="rv-v rv-v--cards">${cards()}</div>`
-    + `<div class="rv-v rv-v--photos">${photoCards()}</div>${dialog()}`;
+    + `<div class="rv-v rv-v--photos">${photoCards()}</div>`
+    + `<div class="rv-v rv-v--b">${postcards()}</div>${dialog()}`;
   // a photo that no longer loads falls back to the initial behind it
   slot.addEventListener('error', (e) => { if (e.target.matches?.('.rv-q__face img')) e.target.remove(); }, true);
   wireRow(slot.querySelector('.rv-v--cards'));
   wirePhotos(slot.querySelector('.rv-v--photos'));
+  wireRow(slot.querySelector('.rv-v--b'));
+  wirePostcards(slot.querySelector('.rv-v--b'));
   wireDialog(slot);
 }

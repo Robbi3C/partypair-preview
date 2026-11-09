@@ -17,6 +17,7 @@ import { initNav } from './nav.js';
 import { initFaq } from './faq.js';
 import { initReviews } from './reviews.js';
 import { initInstaGrid } from './insta-grid.js';
+import { initPreviewSwitches } from './preview-switch.js';
 
 function initModal() {
   const modal = document.getElementById('inquiry-modal');
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderChrome();
   initReviews();
   initInstaGrid();
+  initPreviewSwitches();
   initFaq();
   initNav();
 

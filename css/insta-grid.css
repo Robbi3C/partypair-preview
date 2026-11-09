@@ -15,7 +15,7 @@
   gap: 1rem 1.5rem;
   padding-top: clamp(1.25rem, 3vw, 1.75rem);
   margin-top: clamp(1.25rem, 3vw, 2rem);
-  border-top: 1px solid rgba(43, 33, 41, 0.14);
+  border-top: 1px solid rgba(31, 48, 71, 0.14);
 }
 .ig-head__who { display: flex; align-items: center; gap: 0.9rem; min-width: 0; }
 .ig-head__avatar {
@@ -25,9 +25,9 @@
   padding: 0.55rem;
   border-radius: 50%;
   background: var(--white);
-  box-shadow: inset 0 0 0 1px rgba(43, 33, 41, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(31, 48, 71, 0.14);
 }
-.ig-head__name { font-family: var(--font-display); font-size: clamp(1.35rem, 2.6vw, 1.7rem); line-height: 1.15; }
+.ig-head__name { font-family: var(--font-display); font-variation-settings: 'SOFT' 100; font-size: 1.5rem; line-height: 1.1; text-transform: lowercase; }
 .ig-head__handle { margin-top: 0.15rem; font-size: var(--text-small); color: var(--ink-soft); overflow-wrap: anywhere; }
 
 /* phones: keep the name and Follow on one line */
@@ -71,7 +71,7 @@
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
-  filter: drop-shadow(0 1px 3px rgba(29, 26, 28, 0.55));
+  filter: drop-shadow(0 1px 3px rgba(31, 48, 71, 0.55));
 }
 .ig-tile__caption {
   position: absolute;
@@ -79,9 +79,9 @@
   display: flex;
   align-items: flex-end;
   padding: clamp(0.75rem, 2vw, 1.15rem);
-  background: linear-gradient(to top, rgba(29, 26, 28, 0.82), rgba(29, 26, 28, 0.25) 55%, transparent);
+  background: linear-gradient(to top, rgba(31, 48, 71, 0.82), rgba(31, 48, 71, 0.25) 55%, transparent);
   font-size: var(--text-small);
-  font-weight: 560;
+  font-weight: 400;
   line-height: 1.35;
   opacity: 0;
   transition: opacity 300ms var(--ease-out);
@@ -179,7 +179,7 @@
   z-index: 2;                          /* above the tap-to-pause layer */
   padding: 3.5rem clamp(1.25rem, 3.6vw, 2.3rem) 1.1rem;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.6) 65%, transparent);
-  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
   pointer-events: none;                /* the empty fade doesn't block the media */
 }
 /* long captions scroll here, with no bar */
@@ -197,7 +197,7 @@
   gap: 0.8rem;
   color: inherit;
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.01em;
   text-decoration: none;
 }
@@ -240,7 +240,7 @@
   background: none;
   color: inherit;
   font: inherit;
-  font-weight: 700;
+  font-weight: 400;
   cursor: pointer;
   pointer-events: auto;
 }
@@ -315,4 +315,156 @@
 @media (max-width: 80em) {
   .ig-viewer__prev { left: 0.5rem; }
   .ig-viewer__next { right: 0.5rem; }
+}
+
+/* ============================================================
+   INSTAGRAM V2 — polaroid strip (design guide §5.5 band 3, §6.2).
+   Same posts and viewer as v1; html[data-insta] picks the layout.
+   ============================================================ */
+
+:root:not([data-insta='v2']) .ig-v2,
+:root[data-insta='v2'] .ig-v1 { display: none; }
+
+/* preview switcher (Instagram and reviews sections) */
+.preview-switch {
+  position: absolute;
+  top: 0.5rem;
+  right: var(--gutter);
+  z-index: 3;
+  display: flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: 0 6px 14px rgba(31, 48, 71, 0.12);
+}
+.preview-switch button {
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink);
+  font-family: var(--font-caps);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.preview-switch button[aria-pressed='true'] { background: var(--ink); color: var(--paper); }
+
+/* the band and its heading */
+:root[data-insta='v2'] .transform { padding-block: clamp(4rem, 9vw, 6.5rem) clamp(2.75rem, 7vw, 5.25rem); }
+:root[data-insta='v2'] .transform .section-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 3.5rem;
+  align-items: end;
+  max-width: none;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+:root[data-insta='v2'] .transform .section-intro .lead { margin-top: 0; }
+@media (max-width: 63.75em) {
+  :root[data-insta='v2'] .transform .section-intro { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+}
+
+/* the strip runs edge to edge; its first polaroid lines up with the text */
+.pol-strip {
+  --pol-edge: max(var(--gutter), calc((100vw - var(--content-max)) / 2));
+  display: flex;
+  gap: 30px;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding: 28px var(--pol-edge) 40px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--pol-edge);
+  scrollbar-width: none;
+}
+.pol-strip::-webkit-scrollbar { display: none; }
+.pol-strip:focus-visible { outline-offset: -4px; }
+
+/* a polaroid */
+.pol-card {
+  --r: -3deg;
+  position: relative;
+  flex: 0 0 232px;
+  padding: 12px 12px 54px;
+  border: 0;
+  background: var(--paper);
+  box-shadow: 0 12px 26px rgba(31, 48, 71, 0.2);
+  transform: rotate(var(--r));
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease-spring);
+}
+.pol-card:nth-child(3n + 2) { --r: 2.5deg; margin-top: 22px; }
+.pol-card:nth-child(3n) { --r: -1.5deg; margin-top: 8px; }
+.pol-card img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+.pol-card__cap {
+  position: absolute;
+  inset: auto 8px 12px;
+  font-family: var(--font-script);
+  font-size: 1.4375rem;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--ink);
+}
+.pol-card:is(:hover, :focus-visible) {
+  transform: rotate(0deg) translateY(-8px);
+  box-shadow: 0 22px 40px rgba(31, 48, 71, 0.26);
+}
+@media (max-width: 47.5em) {
+  .pol-card { flex-basis: 190px; }
+}
+
+/* handle and arrows */
+.pol-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.pol-handle { display: flex; align-items: center; gap: 1rem; color: var(--ink); text-decoration: none; }
+.pol-handle > span:last-child { display: grid; font-size: 1rem; overflow-wrap: anywhere; }
+.pol-handle strong {
+  font-family: var(--font-display);
+  font-variation-settings: 'SOFT' 100;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  text-transform: lowercase;
+}
+.pol-handle__seal {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: 0 6px 14px rgba(31, 48, 71, 0.12);
+}
+.pol-handle__seal img { width: 26px; height: auto; }
+.pol-arrows { display: flex; gap: 0.75rem; }
+.pol-arrows button {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 6px 14px rgba(31, 48, 71, 0.1);
+  cursor: pointer;
+  transition: transform var(--dur-quick) var(--ease-spring), opacity var(--dur-quick) var(--ease-spring);
+}
+.pol-arrows button:hover:not(:disabled) { transform: translateY(-2px); }
+.pol-arrows button:disabled { opacity: 0.4; cursor: default; }
+.pol-arrows path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pol-card, .pol-arrows button { transition: none; }
 }
