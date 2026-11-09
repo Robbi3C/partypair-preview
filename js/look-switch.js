@@ -1,11 +1,15 @@
-/* Preview switches — three independent choices, each a flag on <html>:
+/* Preview switches — independent choices, each a flag on <html>:
      look: current | new  → (shown as Original | Evelynn Choices) html[data-look="new"]  (css/look-new.css: fonts + colours)
-     menu: a | b | c      → html[data-menu="b|c"]  (css/menu-b.css, css/menu-c.css)
-     hero: a | a2 | b | c1 | c2 | c3 | c4 → html[data-hero="…"] (css/hero-a2.css, hero-b.css, hero-c.css)
+     hero: c4             → the chosen hero (css/hero.css). Only one option
+                            for now; the picker stays so new variants can be
+                            compared against it.
    The first option is the default and sets no flag; any other option sets
    html[data-<key>="<value>"]. Add an option here + a matching stylesheet
-   (and allow the value in the inline <head> script) to add a variant.
-   Menu B and the hero variants render in whichever look is selected. Choices are remembered
+   scoped to that flag (and add the value to HEROES in the inline <head>
+   script) to add a variant.
+   faqv: now | nowb | 1 | 1b | 2–4 | 4b | 5 → html[data-faqv="…"] (css/faq-variants.css, js/faq.js).
+   reviews: a | b | c → html[data-reviews="…"] (css/reviews.css, js/reviews.js).
+   Hero variants render in whichever look is selected. Choices are remembered
    in localStorage; the inline script in <head> applies them before first
    paint. Only rendered on pages with <body data-look-switch>.
 
@@ -23,13 +27,17 @@
 const SWITCHES = [
   { key: 'look', label: 'Look', storage: 'pp-look',
     options: [{ value: 'current', text: 'Original' }, { value: 'new', text: 'Evelynn Choices' }] },
-  { key: 'menu', label: 'Menu', storage: 'pp-menu',
-    options: [{ value: 'a', text: 'A' }, { value: 'b', text: 'B' }, { value: 'c', text: 'C' }] },
   { key: 'hero', label: 'Hero', storage: 'pp-hero', mount: '.hero',
+    options: [{ value: 'c4', text: 'C4' }] },
+  { key: 'faqv', label: 'FAQ', storage: 'pp-faqv', mount: '.faq',
     options: [
-      { value: 'a', text: 'A1' }, { value: 'a2', text: 'A2' }, { value: 'b', text: 'B' },
-      { value: 'c1', text: 'C1' }, { value: 'c2', text: 'C2' }, { value: 'c3', text: 'C3' },
-      { value: 'c4', text: 'C4' },
+      { value: 'now', text: 'Now' }, { value: 'nowb', text: 'Now b' }, { value: '1', text: '1' }, { value: '1b', text: '1b' },
+      { value: '2', text: '2' },
+      { value: '3', text: '3' }, { value: '4', text: '4' }, { value: '4b', text: '4b' }, { value: '5', text: '5' },
+    ] },
+  { key: 'reviews', label: 'Reviews', storage: 'pp-reviews', mount: '.reviews',
+    options: [
+      { value: 'a', text: 'One quote' }, { value: 'b', text: 'Cards A' }, { value: 'c', text: 'Cards B' },
     ] },
 ];
 

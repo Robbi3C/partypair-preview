@@ -90,8 +90,6 @@ body[data-look-switch] .site-header { top: var(--switch-h, 0px); }
   border-radius: 999px;
   box-shadow: 0 6px 20px rgba(29, 26, 28, 0.25);
 }
-/* Menu C's band sits above the hero: just clear its wave */
-[data-menu='c'] .look-switch--float { top: calc(var(--mc-wave, 18px) + 0.6rem); }
 /* the header's outer box is taller than its visible bar (the closed menu
    panel sits in it); let clicks fall through to the hero below */
 body[data-look-switch] .site-header { pointer-events: none; }

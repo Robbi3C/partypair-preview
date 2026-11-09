@@ -11,11 +11,8 @@
 
 /* ---------- Audit fixes ---------- */
 
-/* Header: no duplicate CTA on mobile — hero + sticky bar cover it */
-@media (max-width: 40em) {
-  .site-header .btn { display: none; }
-  .site-header__inner { padding-right: 1.1rem; }
-}
+/* Header CTA: shown or hidden by the measured fit (css/nav.css,
+   js/nav.js), not by a breakpoint */
 
 /* Footer links: comfortable touch targets */
 .site-footer ul a { display: inline-block; padding-block: 0.3rem; }

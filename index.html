@@ -28,31 +28,32 @@
   <link rel="stylesheet" href="css/hero.css">
 
   <!-- Preview switches (js/look-switch.js):
-       look = fonts + colours (current | new); menu and hero = layout (a | b).
+       look = fonts + colours (current | new); hero = hero variant (c4 only for now); reviews = reviews layout (a = one quote | b = cards A | c = cards B).
        Applied before first paint so a saved choice never flashes the other.
-       ?look=new|current, ?menu=a|b and ?hero=a|b in the URL override saved choices. -->
+       ?look=new|current and ?hero=… in the URL override saved choices.
+       To add a hero variant, list its value in HEROES below and in look-switch.js. -->
   <script>
     try {
       var params = new URLSearchParams(location.search);
       var look = params.get('look') || localStorage.getItem('pp-look');
       var hero = params.get('hero') || localStorage.getItem('pp-hero');
-      var menu = params.get('menu') || localStorage.getItem('pp-menu');
       var preview = params.get('preview') || localStorage.getItem('pp-preview');
       if (preview === 'open') document.documentElement.dataset.preview = 'open';
       if (look === 'new') document.documentElement.dataset.look = 'new';
-      if (['a2', 'b', 'c1', 'c2', 'c3', 'c4'].includes(hero)) document.documentElement.dataset.hero = hero;
-      if (menu === 'b' || menu === 'c') document.documentElement.dataset.menu = menu;
+      var reviews = params.get('reviews') || localStorage.getItem('pp-reviews');
+      if (reviews === 'b' || reviews === 'c') document.documentElement.dataset.reviews = reviews;
+      var faqv = params.get('faqv') || localStorage.getItem('pp-faqv');
+      if (['nowb', '1', '1b', '2', '3', '4', '4b', '5'].indexOf(faqv) > -1) document.documentElement.dataset.faqv = faqv;
+      var HEROES = [];   /* non-default hero values, e.g. ['d1'] */
+      if (HEROES.indexOf(hero) > -1) document.documentElement.dataset.hero = hero;
     } catch (e) {}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500&family=Sacramento&display=swap">
   <link rel="stylesheet" href="css/look-new.css">
-  <link rel="stylesheet" href="css/menu-b.css">
-  <link rel="stylesheet" href="css/menu-c.css">
-  <link rel="stylesheet" href="css/hero-b.css">
-  <link rel="stylesheet" href="css/hero-a2.css">
-  <link rel="stylesheet" href="css/hero-c.css">
+  <link rel="stylesheet" href="css/reviews.css">
+  <link rel="stylesheet" href="css/faq-variants.css">
   <link rel="stylesheet" href="css/look-switch.css">
 
   <script type="application/ld+json">
@@ -77,13 +78,11 @@
   <main id="main">
     <!-- ============ Hero ============ -->
     <section class="hero">
-      <canvas class="hero__canvas" aria-hidden="true"></canvas>
-      <!-- Hero C1–C3 only: full-bleed lifestyle photo.
+      <!-- Full-bleed lifestyle photo, fading in from the left (css/hero.css).
            PLACEHOLDER — replace with Party Pair's own photography before launch. -->
-      <figure class="hero__bg hero-c-only">
+      <figure class="hero__bg">
         <img src="assets/img/hero-lifestyle-PLACEHOLDER.webp" alt="Three friends in matching white pajamas laughing among white balloons with pink ribbons, the bride in a pearl BRIDE headband" width="1892" height="831" fetchpriority="high" decoding="async">
       </figure>
-      <!-- Layout + type rules shared by every variant: css/hero.css -->
       <div class="hero__copy">
         <p class="hero__kicker">Cape Cod's pre-arrival bachelorette décor &amp; concierge</p>
         <h1><span class="hero__line">She opens the door.</span> <span class="hero__line">Everyone <span class="swash uline uline--pink">screams.</span></span></h1>
@@ -92,26 +91,6 @@
           <button class="btn btn--primary btn--lg" data-open-inquiry>Check your weekend</button>
         </div>
       </div>
-      <!-- Hero A2 only: white-bordered photo, tilted, over the silk -->
-      <!-- PLACEHOLDER photo (same as Hero C) — replace with Party Pair's own -->
-      <figure class="hero__frame hero-a2-only">
-        <img class="hero__img" src="assets/img/hero-lifestyle-PLACEHOLDER.webp" alt="Three friends in matching white pajamas laughing among white balloons with pink ribbons, the bride in a pearl BRIDE headband" width="1892" height="831" decoding="async">
-      </figure>
-      <!-- Hero B only: rounded 4:5 photo + rotating roundel -->
-      <!-- PLACEHOLDER photo (same as Hero C) — replace with Party Pair's own -->
-      <figure class="hero__photo hero-b-only">
-        <img class="hero__img" src="assets/img/hero-lifestyle-PLACEHOLDER.webp" alt="Three friends in matching white pajamas laughing among white balloons with pink ribbons, the bride in a pearl BRIDE headband" width="1892" height="831" decoding="async">
-        <!-- text on a circle: plain SVG <textPath>, spun by CSS (css/hero-b.css).
-             HIDDEN for now: remove the `hidden` attribute to show it. -->
-        <button type="button" class="roundel" hidden data-open-inquiry aria-label="Now taking 2027 bookings: check your weekend">
-          <svg class="roundel__ring" viewBox="0 0 200 200" aria-hidden="true">
-            <defs><path id="roundel-path" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
-            <circle class="roundel__disc" cx="100" cy="100" r="99" />
-            <text class="roundel__text"><textPath href="#roundel-path">NOW TAKING 2027 BOOKINGS ✦</textPath></text>
-          </svg>
-          <span class="roundel__mark" aria-hidden="true">♡</span>
-        </button>
-      </figure>
     </section>
 
     <!-- ============ Marquee ============ -->
@@ -162,12 +141,9 @@
       </div>
     </section>
 
-    <!-- ============ PLACEHOLDER: Authentic Google Testimonials ============ -->
-    <section class="section reviews" id="reviews">
-      <div class="container section-intro">
-        <h2>Authentic Google Testimonials</h2>
-        <p class="lead">Placeholder: real client reviews, pulled straight from The Party Pair's Google Business Profile.</p>
-      </div>
+    <!-- ============ Google reviews (rendered from js/content/reviews.js by js/reviews.js) ============ -->
+    <section class="section reviews" id="reviews" aria-label="Google reviews">
+      <div data-reviews-slot></div>
     </section>
 
     <!-- ============ Services teaser → services.html ============ -->

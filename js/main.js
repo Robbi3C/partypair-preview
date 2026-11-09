@@ -16,6 +16,7 @@ import { renderChrome } from './partials.js';
 import { initNav } from './nav.js';
 import { initFaq } from './faq.js';
 import { initLookSwitch } from './look-switch.js';
+import { initReviews } from './reviews.js';
 
 function initModal() {
   const modal = document.getElementById('inquiry-modal');
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // shared chrome and data-driven content first, so the
   // listeners and reveal observers below can find them
   renderChrome();
+  initReviews();
   initLookSwitch();
   initFaq();
   initNav();

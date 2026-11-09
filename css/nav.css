@@ -1,8 +1,13 @@
 /* ============================================================
-   Navigation — six destinations + CTA.
-   ≥75em: everything inline in the header pill.
-   <75em: pill keeps brand (+ CTA from 40em), a toggle opens a
-   panel that drops from under the pill.
+   Navigation — "Fitted": one pill that hugs its content, centred.
+   Logo + links + CTA. It shows as much as fits, measured by js/nav.js
+   (not fixed breakpoints, so adding or removing links in
+   js/content/site.js just works):
+     (full)                     logo + links + CTA
+     html[data-nav="no-cta"]    the CTA leaves the bar; the sticky
+                                bottom bar carries it
+     html[data-nav="collapsed"] logo + burger only; the CTA lives in
+                                the menu panel and the sticky bar
    ============================================================ */
 
 .site-header__actions {
@@ -11,27 +16,49 @@
   gap: 0.5rem;
 }
 
-/* ---------- Inline nav (wide) ---------- */
-/* the header nav is rendered in two halves (js/partials.js); only
-   Menu C lays them out around the logo, elsewhere they vanish */
-.site-nav__half { display: contents; }
-@media (max-width: 74.99em) {
-  .site-nav { display: none; }
+/* ---------- The pill ---------- */
+:root:not([data-nav='collapsed']) .site-header__inner {
+  width: fit-content;
+  max-width: calc(100% - 2 * var(--gutter));
+  gap: clamp(1.5rem, 3.2vw, 2.75rem);
+  padding: 0.5rem 0.55rem 0.5rem 1.1rem;
 }
-@media (min-width: 75em) {
-  .site-nav { gap: 1.45rem; }
-  .site-nav a { font-size: 0.94rem; white-space: nowrap; }
-  .site-nav a[aria-current='page']::after { right: 0; }
+/* no CTA in the pill: close it up on the right */
+:root[data-nav='no-cta'] .site-header__inner { padding-right: 1.6rem; }
+
+/* ---------- Inline links ---------- */
+.site-nav { gap: clamp(1.1rem, 2vw, 1.6rem); }
+.site-nav a {
+  font-size: 0.94rem;
+  white-space: nowrap;
+  /* 44px touch target without looking any bigger (the padding is
+     taken back by the negative margin) */
+  padding-block: 0.65rem;
+  margin-block: -0.65rem;
 }
+.site-nav a::after { bottom: calc(0.65rem - 4px); }
+.site-nav a[aria-current='page']::after { right: 0; }
+
+/* ---------- The measured states ---------- */
+:root:not([data-nav='collapsed']) .site-nav { display: flex; align-items: center; }
+:root:not([data-nav='collapsed']) :is(.menu-toggle, .site-menu) { display: none; }
+:root[data-nav='collapsed'] .site-nav { display: none; }
+:root:is([data-nav='no-cta'], [data-nav='collapsed']) .site-header__actions .btn { display: none; }
+:root:is([data-nav='no-cta'], [data-nav='collapsed']) .sticky-cta { display: block; }
 
 /* ---------- Toggle ---------- */
+/* the burger says what it is: icon + "Menu" in one pill */
 .menu-toggle {
   display: grid;
+  grid-auto-flow: column;
   place-items: center;
-  width: 2.9rem;
+  gap: 0.35rem;
+  min-width: 2.9rem;
   height: 2.9rem;
+  padding: 0 1rem 0 0.75rem;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-pill);
+  font: 600 0.9rem/1 var(--font-body);
   background: var(--shell-deep);
   color: var(--ink);
   cursor: pointer;
@@ -53,9 +80,24 @@
 .menu-open .menu-toggle__top    { transform: translateY(3.5px) rotate(45deg); }
 .menu-open .menu-toggle__bottom { transform: translateY(-3.5px) rotate(-45deg); }
 
-@media (min-width: 75em) {
-  .menu-toggle, .site-menu { display: none; }
+/* ---------- Open menu = pop-up (html.nav-open, js/nav.js) ---------- */
+/* the page behind: dimmed, still, and a tap on it closes the menu */
+.site-header::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: rgba(43, 33, 41, 0.38);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-out);
 }
+.site-header.menu-open::before { opacity: 1; pointer-events: auto; }
+:root.nav-open { overflow: hidden; }
+/* one CTA at a time: the panel's own */
+:root.nav-open .sticky-cta { visibility: hidden; }
+/* a tucked-away header comes back when it gets keyboard focus */
+.site-header.is-hidden:focus-within { transform: none; }
 
 /* ---------- Panel ---------- */
 .site-menu {
@@ -66,6 +108,11 @@
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-pop);
+  /* never taller than the screen below the header: it scrolls inside,
+     with the CTA pinned to its foot so it is always in reach */
+  max-height: calc(100dvh - var(--switch-h, 0px) - 6rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   /* closed: clipped up into the pill */
   clip-path: inset(0 0 100% 0 round var(--radius-lg));
   opacity: 0;
@@ -108,47 +155,29 @@
   flex-shrink: 0;
 }
 .site-menu a:last-of-type { border-bottom: 0; }
-/* v3.css hides every header .btn below 40em (the pill has no room);
+/* the bar hides its CTA when it does not fit (html[data-nav]);
    the menu's own CTA is exactly where it should appear instead */
-.site-header .site-menu .btn { display: flex; margin-top: 1rem; width: 100%; }
-
-@media (min-width: 40em) {
-  /* the header pill already carries the CTA here */
-  .site-header .site-menu .btn { display: none; }
+.site-header .site-menu .btn { display: flex; width: 100%; }
+/* the CTA's strip is pinned to the panel's foot (on panel colour, so
+   links scrolling under it vanish cleanly): always in reach */
+.site-menu__cta {
+  position: sticky;
+  bottom: calc(-1 * clamp(1.2rem, 4vw, 1.8rem));
+  margin-inline: calc(-1 * clamp(1.2rem, 4vw, 2rem));
+  margin-bottom: calc(-1 * clamp(1.2rem, 4vw, 1.8rem));
+  padding: 1rem clamp(1.2rem, 4vw, 2rem) clamp(1.2rem, 4vw, 1.8rem);
+  background: var(--white);
 }
 
-/* ---------- Menu A (the default pill), desktop: sticky + shrink ----------
-   Stays put instead of tucking away on scroll, and once past SHRINK_AT
-   (js/scroll.js, .is-scrolled) eases to ~80% height (63px → ~51px)
-   and ~80% width, so the pill draws in on both axes.
-   Menu B / C have their own versions in menu-b.css / menu-c.css. */
+/* ---------- Desktop: sticky, and the pill draws in once scrolled ----------
+   Stays put instead of tucking away on scroll; past SHRINK_AT
+   (js/scroll.js, .is-scrolled) it slims a little. */
 @media (min-width: 75em) {
-  :root:not([data-menu]) {
-    --ma-shrink: 420ms cubic-bezier(0.33, 1, 0.68, 1);
-  }
-  :root:not([data-menu]) .site-header.is-hidden { transform: none; }
-  :root:not([data-menu]) .site-header__inner { transition: padding var(--ma-shrink), margin var(--ma-shrink), width var(--ma-shrink); }
-  :root:not([data-menu]) .brand { transition: font-size var(--ma-shrink); }
-  :root:not([data-menu]) .site-header__actions .btn {
-    transition:
-      transform var(--dur-quick) var(--ease-spring),
-      box-shadow var(--dur-quick) var(--ease-out),
-      background-color var(--dur-quick) var(--ease-out),
-      padding var(--ma-shrink),
-      font-size var(--ma-shrink);
-  }
-  :root:not([data-menu]) .is-scrolled .site-header__inner {
-    padding-block: 9px;   /* with the slimmer CTA below, keeps the pill at ~80% */
-    margin-top: 0.5rem;
-    width: calc(min(100% - 2 * var(--gutter), var(--content-max)) * 0.8);
-  }
-  :root:not([data-menu]) .is-scrolled .brand { font-size: 1.12rem; }
-  :root:not([data-menu]) .brand__pear { transition: width var(--ma-shrink); }
-  :root:not([data-menu]) .is-scrolled .brand__pear { width: 1.7em; }
-  :root:not([data-menu]) .is-scrolled .site-header__actions .btn { padding: 0.4em 1.15em; font-size: 0.86rem; }
+  :root .site-header.is-hidden { transform: none; }
+  .site-header__inner { transition: padding 420ms cubic-bezier(0.33, 1, 0.68, 1), margin 420ms cubic-bezier(0.33, 1, 0.68, 1); }
+  :root .is-scrolled .site-header__inner { padding-block: 0.3rem; margin-top: 0.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  :root:not([data-menu]) .site-header__inner,
-  :root:not([data-menu]) .brand,
-  :root:not([data-menu]) .site-header__actions .btn { transition: none; }
+  .site-header::before,
+  .site-header__inner { transition: none; }
 }

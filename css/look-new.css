@@ -12,9 +12,9 @@
    2. Tokens: brand palette + remap of the shared tokens
    3. Base type, links, focus, italic accent
    4. Buttons
-   5. Header type + colour (bar shape: menu-b.css)
+   5. Header type + colour
    6. Sections, top to bottom
-   7. Playful details: script note, hover tilts (roundel: hero-b.css)
+   7. Playful details: script note, hover tilts
    ============================================================ */
 
 /* ---------- 1. Neutral base ---------- */
@@ -128,8 +128,7 @@
 }
 
 /* ---------- 5. Header: type + colour only ----------
-   The bar shape (pill vs straight) and nav casing are the Menu A/B
-   switch: css/menu-b.css. Toggle + nav underline follow the tokens. */
+   The pill shape lives in nav.css. Toggle + nav underline follow the tokens. */
 [data-look='new'] .brand { font-family: var(--font-display); font-weight: 400; font-size: 1.4rem; }
 [data-look='new'] .brand em { color: var(--pink-deep); }
 [data-look='new'] .brand__pear { width: 1.7em; }

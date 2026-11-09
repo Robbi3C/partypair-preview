@@ -20,21 +20,12 @@ function navLinks(items = site.nav) {
     .join('');
 }
 
-/* Header nav in two halves so a layout can split it around the logo
-   (Menu C). Menus A/B ignore the groups (display: contents in nav.css). */
-function navHalves() {
-  const mid = Math.ceil(site.nav.length / 2);
-  return [site.nav.slice(0, mid), site.nav.slice(mid)]
-    .map((items) => `<span class="site-nav__half">${navLinks(items)}</span>`)
-    .join('');
-}
-
 function header() {
   return `
   <header class="site-header">
     <div class="site-header__inner">
       ${brand()}
-      <nav class="site-nav" aria-label="Main">${navHalves()}</nav>
+      <nav class="site-nav" aria-label="Main">${navLinks()}</nav>
       <div class="site-header__actions">
         <button class="btn btn--primary" data-open-inquiry>${site.cta}</button>
         <button class="menu-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
@@ -42,12 +33,13 @@ function header() {
             <path class="menu-toggle__top" d="M4 8.5h16" />
             <path class="menu-toggle__bottom" d="M4 15.5h16" />
           </svg>
+          <span class="menu-toggle__label" aria-hidden="true">Menu</span>
         </button>
       </div>
     </div>
     <nav class="site-menu" id="site-menu" aria-label="Main" inert>
       ${navLinks()}
-      <button class="btn btn--primary btn--lg" data-open-inquiry>${site.cta}</button>
+      <div class="site-menu__cta"><button class="btn btn--primary btn--lg" data-open-inquiry>${site.cta}</button></div>
     </nav>
   </header>`;
 }

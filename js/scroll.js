@@ -1,7 +1,7 @@
 /* Scroll behaviors: reveal-on-scroll, header hide/show, sticky mobile CTA. */
 
 // How far down the page (as a share of the screen height) the header
-// switches to its compact sticky state (.is-scrolled; used by Menu C)
+// switches to its compact sticky state (.is-scrolled; css/nav.css)
 const SHRINK_AT = 0.1;
 
 export function initScrollEffects() {
@@ -24,7 +24,7 @@ export function initScrollEffects() {
   }
 
   // Header: hide when scrolling down, show when scrolling up;
-  // .is-scrolled once past SHRINK_AT of the screen (Menu C's sticky state)
+  // .is-scrolled once past SHRINK_AT of the screen (the shrunk pill)
   const header = document.querySelector('.site-header');
   let lastY = scrollY;
   let ticking = false;

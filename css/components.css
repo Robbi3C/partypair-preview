@@ -92,26 +92,30 @@
 
 .site-nav { display: none; }
 
+/* link look at every width: the fitted header (css/nav.css) shows the
+   links wherever they fit, not only above a breakpoint */
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 520;
+  font-size: 0.97rem;
+  position: relative;
+}
+.site-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 100%;
+  bottom: -4px;
+  height: 2px;
+  background: var(--rose);
+  border-radius: 2px;
+  transition: right var(--dur-quick) var(--ease-out);
+}
+.site-nav a:hover::after { right: 0; }
+
+/* pages without the fitted header (guide.html) show the links from here */
 @media (min-width: 46em) {
   .site-nav { display: flex; align-items: center; gap: 1.8rem; }
-  .site-nav a {
-    color: var(--ink);
-    text-decoration: none;
-    font-weight: 520;
-    font-size: 0.97rem;
-    position: relative;
-  }
-  .site-nav a::after {
-    content: '';
-    position: absolute;
-    left: 0; right: 100%;
-    bottom: -4px;
-    height: 2px;
-    background: var(--rose);
-    border-radius: 2px;
-    transition: right var(--dur-quick) var(--ease-out);
-  }
-  .site-nav a:hover::after { right: 0; }
 }
 
 .site-header .btn { padding: 0.7em 1.4em; font-size: 0.95rem; white-space: nowrap; }
