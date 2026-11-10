@@ -25,7 +25,6 @@
         if (!v) { try { v = localStorage.getItem('pp-' + key); } catch (e) {} }
         document.documentElement.dataset[key] = v === alt ? alt : base;
       }
-      pick('insta', 'v2', 'v1');
       pick('reviews', 'b', 'a');
     })();
   </script>
@@ -75,10 +74,9 @@
         <img src="assets/img/hero-lifestyle-PLACEHOLDER.webp" alt="Three friends in matching white pajamas laughing among white balloons with pink ribbons, the bride in a pearl BRIDE headband" width="1892" height="831" fetchpriority="high" decoding="async">
       </figure>
       <div class="hero__copy">
-        <p class="script hero__script">hey, maid of honor</p>
+        <p class="caps hero__kicker">Cape Cod bachelorette decorating &amp; Airbnb setup</p>
         <h1><span class="hero__line">She opens the door.</span> <span class="hero__line">Everyone screams.</span></h1>
-        <p class="caps hero__kicker">Cape Cod's pre-arrival bachelorette <span class="script">décor</span> and concierge</p>
-        <p class="hero__lead">Your Airbnb fully styled, fridge stocked, champagne cold — <strong>before the group even crosses the bridge.</strong></p>
+        <p class="hero__lead">The decorations are up. The welcome bags are waiting. The champagne's cold. <strong>The whole house is ready for her big entrance before you've even crossed the bridge.</strong></p>
         <div class="hero__ctas">
           <button class="btn btn--primary btn--lg" data-open-inquiry>Check your weekend</button>
         </div>
@@ -95,13 +93,13 @@
     <!-- ============ The maid-of-honor group chat (kept as is) ============ -->
     <section class="section problem">
       <div class="container problem__grid">
-        <div class="reveal">
+        <div class="problem__copy">
           <h2>Being the maid of honor is a job you never applied for.</h2>
-          <p class="lead" style="margin-top: 1.2rem">Fourteen girls. Four group chats. A rental with a "no tape on the walls" rule. And somehow you're supposed to get the welcome bags, the party favors, the decorations <em>and</em> the matching outfits to Cape Cod — then set it all up, exhausted, before anyone arrives.</p>
-          <p style="margin-top: 1.2rem">Here's your reminder: <strong>you don't have to carry it all.</strong> Forward us your rental link — and ship the welcome bags and custom gifts straight to us. We receive everything, organize it, assemble the bags, style the whole house, and stock the fridge before your group lands.</p>
-          <p style="margin-top: 1.2rem">Katie still gets to be the Cricut queen. You still get all the credit. Nobody checks a second suitcase.</p>
+          <p>Fourteen girls. Four group chats. A rental with a "no tape on the walls" rule. And somehow you're supposed to make the whole place look incredible. While on vacation. Sure.</p>
+          <p>We turn your rental into the bachelorette weekend you've all been dreaming about: decorations up, welcome bags waiting, fridge stocked, everything ready for her big entrance.</p>
+          <p>Katie still gets to be the Cricut queen. Nobody checks a second suitcase. You get to enjoy the party.</p>
         </div>
-        <div class="chat-stack reveal" aria-label="The group chat, before The Party Pair">
+        <div class="chat-stack" aria-label="The group chat, before The Party Pair">
           <p class="chat-bubble" style="--tilt: -1deg"><span class="sender">Jess</span>wait… who's bringing decorations??</p>
           <p class="chat-bubble" style="--tilt: 0.8deg"><span class="sender">Katie</span>I have a Cricut! let me customize all 14 Stanley cups 🙌</p>
           <p class="chat-bubble" style="--tilt: -0.6deg"><span class="sender">Mel</span>the airbnb says NO TAPE ON WALLS 😭😭</p>
@@ -111,9 +109,54 @@
       </div>
     </section>
 
+    <!-- ============ PLACEHOLDER: Her kind of party ============ -->
+    <section class="section her-party" id="her-party">
+      <div class="container her-party__grid">
+        <div class="her-party__copy">
+          <h2>Not just a party, <span class="script">her</span> kind of party</h2>
+          <p>Placeholder: a line or two about building the weekend around who she actually is. Her colors, her favorite drink, the inside jokes only the group chat gets.</p>
+          <p>Placeholder: no two setups look the same, because no two brides are the same.</p>
+        </div>
+        <!-- Polaroids drop onto the pile one every 1.5s (js/polaroids.js).
+             PLACEHOLDER photos: swap for real Party Pair weekends. -->
+        <div class="polaroids" aria-label="Photos from recent weekends">
+          <img class="polaroids__stamp" src="assets/img/background_stamp.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
+          <figure class="polaroid" style="--r: -13deg; --x: -40%; --y: -24%"><img src="assets/img/tablescape.webp" alt="Styled tablescape" loading="lazy" decoding="async"></figure>
+          <figure class="polaroid" style="--r: 11deg; --x: 39%; --y: -28%"><img src="assets/img/balloon-arch.webp" alt="Balloon arch" loading="lazy" decoding="async"></figure>
+          <figure class="polaroid" style="--r: 4deg; --x: -36%; --y: 25%"><img src="assets/img/bride-suite.webp" alt="Decorated bride suite" loading="lazy" decoding="async"></figure>
+          <figure class="polaroid" style="--r: -17deg; --x: 38%; --y: 20%"><img src="assets/img/welcome-table.webp" alt="Welcome table with gift bags" loading="lazy" decoding="async"></figure>
+          <figure class="polaroid" style="--r: -4deg; --x: 1%; --y: -2%"><img src="assets/img/deck-floats.webp" alt="Pool floats on the deck" loading="lazy" decoding="async"></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PLACEHOLDER: You dream it ============ -->
+    <section class="section placeholder placeholder--petal" id="dream-it">
+      <div class="container section-intro">
+        <h2>You dream it. We do the running around.</h2>
+        <p class="lead">Placeholder: content for this section to come.</p>
+      </div>
+    </section>
+
+    <!-- ============ PLACEHOLDER: The group chat ============ -->
+    <section class="section placeholder placeholder--paper" id="group-chat">
+      <div class="container section-intro">
+        <h2>The only thing complicated should be the group chat.</h2>
+        <p class="lead">Placeholder: content for this section to come.</p>
+      </div>
+    </section>
+
+    <!-- ============ PLACEHOLDER: The look on her face ============ -->
+    <section class="section placeholder placeholder--cream" id="her-face">
+      <div class="container section-intro">
+        <h2>Already picturing the look on her face?</h2>
+        <p class="lead">Placeholder: content for this section to come.</p>
+      </div>
+    </section>
+
     <!-- ============ Google reviews (rendered from js/content/reviews.js by js/reviews.js) ============ -->
     <section class="section reviews" id="reviews" aria-label="Google reviews">
-      <svg class="finale__wave finale__wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><path style="fill: var(--shell)" d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
+      <svg class="finale__wave finale__wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><path style="fill: var(--cream)" d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
       <svg class="finale__wave finale__wave--bottom" viewBox="0 0 1248 76" preserveAspectRatio="none" aria-hidden="true"><path style="fill: var(--coastal)" d="M0 0 H1248 L1248 19.3 L1200 23.1 L1152 25.8 L1104 25.7 L1056 25.3 L1008 29.2 L960 38.3 L912 48.9 L864 54.7 L816 52.2 L768 43.7 L720 35 L672 30.6 L624 29.8 L576 28.8 L528 24.5 L480 18.4 L432 15.7 L384 20.4 L336 31.3 L288 42.8 L240 49 L192 48.3 L144 44.4 L96 42 L48 42.4 L0 42.5 Z"/></svg>
       <div class="preview-switch" role="group" aria-label="Reviews section version">
         <button type="button" data-preview="reviews" data-value="a">Version A</button>
@@ -122,57 +165,38 @@
       <div data-reviews-slot></div>
     </section>
 
-    <!-- ============ Services teaser → services.html ============ -->
-    <section class="section services" id="services">
-      <div class="container">
-        <div class="section-intro reveal">
-          <h2>Serving up the perfect Cape&nbsp;Cod weekend.</h2>
-          <p class="lead">No preset packages. Every weekend is designed around one specific bride — coastal, colorful, classy or cowgirl. When she opens that door, it feels like <em>her</em>.</p>
-        </div>
-        <ul class="offer-trio reveal">
-          <li>
-            <h3>We style</h3>
-            <p>Bride room décor, balloon garlands, custom signs and backdrops, champagne towers.</p>
-          </li>
-          <li>
-            <h3>We stock</h3>
-            <p>The fridge, welcome drink carts, game-night and hangover baskets, s'mores nights.</p>
-          </li>
-          <li>
-            <h3>We handle</h3>
-            <p>Gift bags assembled, gifts you ship ahead, personalized cookies, itinerary help.</p>
-          </li>
-        </ul>
-        <div class="services-teaser__foot reveal">
-          <a class="btn btn--light btn--lg" href="services.html">See everything we do
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-          </a>
-          <p><strong>Not on the list? Just ask.</strong> If it makes her weekend, we'll figure it out.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ PLACEHOLDER: Our Booking Process ============ -->
-    <section class="section booking" id="booking">
+    <!-- ============ PLACEHOLDER: Cape Cod connections ============ -->
+    <section class="section placeholder placeholder--coastal" id="connections">
       <div class="container section-intro">
-        <h2>How booking works</h2>
-        <p class="lead">Placeholder: a simple roadmap of the 8 booking steps, from submitting an inquiry to the bride walking into her decorated rental. A $200 deposit and signed contract secure the date.</p>
+        <h2>Cape Cod connections. Minus the research spiral.</h2>
+        <p class="lead">Placeholder: content for this section to come.</p>
       </div>
     </section>
 
     <!-- ============ Instagram gallery (rendered by js/insta-grid.js) ============ -->
-    <section class="section transform" id="gallery">
-      <div class="preview-switch" role="group" aria-label="Instagram section layout">
-        <button type="button" data-preview="insta" data-value="v1">Current</button>
-        <button type="button" data-preview="insta" data-value="v2">New</button>
+    <!-- ============ PLACEHOLDER: Side quest (travel beyond the Cape) ============ -->
+    <section class="section placeholder placeholder--petal side-quest" id="side-quest">
+      <!-- The pear ring seal (guide §10.4), sitting across the seam with the Cape Cod connections band above -->
+      <div class="seam-seal" aria-hidden="true">
+        <svg viewBox="0 0 132 132"><defs><path id="sealring" d="M66 66 m-50 0 a50 50 0 1 1 100 0 a50 50 0 1 1 -100 0"/></defs><circle cx="66" cy="66" r="64"/><text><textPath href="#sealring" textLength="306" lengthAdjust="spacing">THE PARTY PAIR ✦ CAPE COD ✦</textPath></text></svg>
+        <img src="assets/img/pear.svg" alt="" width="90" height="100">
       </div>
+      <div class="container section-intro">
+        <p class="script side-quest__kicker">Side Quest</p>
+        <h2>Partying beyond the Cape? Consider it handled.</h2>
+        <p>Love our decor, but your bride's heart is set on somewhere beyond Cape Cod? No problem, babe! While the Cape is our home base, we're always up for taking the celebration on the road.</p>
+        <p>From Nantucket and Martha's Vineyard to Newport, Rhode Island, Boston, and beyond, we'll pack up our signature Party Pair magic and bring it straight to your dream destination. By ferry, car, or even plane, we're happy to go the extra mile (or hundred!).</p>
+      </div>
+    </section>
+
+    <section class="section transform" id="gallery">
       <div class="container">
         <div class="section-intro reveal">
           <h2>It's not the balloons.<br>It's the moment she walks&nbsp;in.</h2>
           <p class="lead">The second she opens that door and immediately knows she mattered enough for this to be done right — that's a reaction you can't recreate twice. Straight from our recent weekends:</p>
         </div>
 
-        <div class="reveal" data-insta-grid></div>
+        <div data-insta-grid></div>
       </div>
     </section>
 

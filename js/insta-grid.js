@@ -1,8 +1,8 @@
-/* The homepage Instagram section: a one-row carousel of the latest posts,
-   uncropped, with the profile bar under it, rendered from
+/* The homepage Instagram section: a polaroid strip of the latest posts,
+   with the handle and arrows under it, rendered from
    js/content/insta-grid.js into [data-insta-grid]; css/insta-grid.css.
 
-   Clicking a tile opens a full-screen viewer: the post on a dark ground
+   Clicking a polaroid opens a full-screen viewer: the post on a dark ground
    with a blurred copy behind it and its caption over the bottom. Reels
    autoplay with sound (muted only if the browser refuses); carousels
    swipe through their slides; arrows, swipe and the arrow keys move
@@ -12,11 +12,9 @@
 
 import { tiles } from './content/insta-grid.js';
 import { site } from './content/site.js';
-import { initCarousel } from './instafeed.js';
 
 const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const handle = site.instagram.split('/').filter(Boolean).pop();
-const icon = `<svg class="ig-tile__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.6"/></svg>`;
 const chevron = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
 const LEFT = chevron('M15 5l-7 7 7 7');
 const RIGHT = chevron('M9 5l7 7-7 7');
@@ -25,36 +23,7 @@ const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z
 const SOUND_ON = chevron('M4 9v6h4l5 4V5L8 9H4zM16.5 9a4 4 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11');
 const SOUND_OFF = chevron('M4 9v6h4l5 4V5L8 9H4zM17 10l4 4M21 10l-4 4');
 
-const head = () => `
-  <div class="ig-head">
-    <div class="ig-head__who">
-      <img class="ig-head__avatar" src="assets/img/pear.svg" alt="" width="56" height="56">
-      <div>
-        <p class="ig-head__name">The Party Pair</p>
-        <p class="ig-head__handle">@${handle}</p>
-      </div>
-    </div>
-    <a class="btn btn--ghost" href="${site.instagram}" rel="noopener">Follow</a>
-  </div>`;
-
-const tile = (t, i) => `
-  <button type="button" class="ig-tile" data-tile="${i}" aria-label="Open post: ${esc(t.caption)}">
-    <img src="${t.image}" alt="${esc(t.alt)}" loading="lazy" width="540" height="960">
-    <span class="ig-tile__caption" aria-hidden="true">${esc(t.caption)}</span>
-    ${icon}
-  </button>`;
-
-/* one row, built from the shared carousel classes for swipe and arrows */
-const row = () => `
-  <div class="insta-carousel ig-row">
-    <button class="insta-carousel__btn insta-carousel__btn--prev" aria-label="Previous posts">←</button>
-    <div class="gallery gallery--insta" tabindex="0" aria-label="Latest Instagram posts: swipe or use the arrow buttons">
-      ${tiles.map(tile).join('')}
-    </div>
-    <button class="insta-carousel__btn insta-carousel__btn--next" aria-label="Next posts">→</button>
-  </div>`;
-
-/* ---------- V2: polaroid strip (design guide §6.2, §11.2) ---------- */
+/* ---------- Polaroid strip (design guide §6.2, §11.2) ---------- */
 const POLAROID_CAPTIONS = [
   'last toast, east coast', 'not just balloons', 'cape cod brides know', 'surprise, bestie',
   'pinterest, delivered', 'months of planning', 'some girls want vegas', 'the atlantic suite',
@@ -67,9 +36,22 @@ const polaroid = (t, i) => `
     <span class="pol-card__cap" aria-hidden="true">${POLAROID_CAPTIONS[i] ?? ''}</span>
   </button>`;
 
+/* the last polaroid: same frame, but the "photo" is a pink panel that
+   sends people to the full feed */
+const morePolaroid = () => `
+  <a class="pol-card pol-card--more" href="${site.instagram}" rel="noopener" aria-label="See more weekends on Instagram, @${handle}">
+    <span class="pol-more" aria-hidden="true">
+      <span class="pol-more__seal"><img src="assets/img/pear.svg" alt="" width="26" height="29"></span>
+      <span class="pol-more__title">more weekends on instagram</span>
+      <span class="pol-more__handle">@${handle}</span>
+    </span>
+    <span class="pol-card__cap" aria-hidden="true">come say hi →</span>
+  </a>`;
+
 const strip = () => `
   <div class="pol-strip" tabindex="0" aria-label="Photos from recent weekends: scroll sideways for more">
     ${tiles.map(polaroid).join('')}
+    ${morePolaroid()}
   </div>`;
 
 const stripFoot = () => `
@@ -84,21 +66,95 @@ const stripFoot = () => `
     </div>
   </div>`;
 
-/* the arrows move about two polaroids and rest at either end */
+/* Each arrow press glides exactly one polaroid and rests at either end.
+   Quick repeat presses queue up (two clicks = two cards) instead of
+   restarting from wherever the glide had got to. Swipes stop at the
+   next card too (scroll-snap-stop in insta-grid.css).
+
+   The glide is animated here rather than with scrollTo({behavior:
+   'smooth'}): Chrome's built-in smooth scroll covers ~90% of the distance
+   in the first 150ms, which reads as a jump. Snapping is paused while it
+   runs so the browser doesn't tug the strip mid-glide. */
+const GLIDE_MS = 650;
+// eases in and out, so the card drifts off and settles rather than jolting
+const easeInOutCubic = (x) => (x < 0.5 ? 4 * x ** 3 : 1 - (-2 * x + 2) ** 3 / 2);
+
 function initStrip(slot) {
   const track = slot.querySelector('.pol-strip');
   const [prev, next] = slot.querySelectorAll('[data-pol-dir]');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let pending = null;   // card index a glide is heading to
+  let raf = 0;
   const sync = () => {
     prev.disabled = track.scrollLeft < 10;
     next.disabled = track.scrollLeft > track.scrollWidth - track.clientWidth - 10;
   };
+  // Where the strip rests with each card at the left edge, measured the way
+  // scroll-snap measures (the tilted card's box), so nothing nudges after
+  // the glide; the last few clamp to the end of the row.
+  const stops = () => {
+    const pad = parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
+    const left = track.getBoundingClientRect().left;
+    const max = track.scrollWidth - track.clientWidth;
+    return [...track.children].map((c) =>
+      Math.max(0, Math.min(max, Math.round(c.getBoundingClientRect().left - left + track.scrollLeft - pad))));
+  };
+  const nearest = (list) => list.reduce((best, s, i) =>
+    (Math.abs(s - track.scrollLeft) < Math.abs(list[best] - track.scrollLeft) ? i : best), 0);
+
+  const release = () => {
+    cancelAnimationFrame(raf);
+    raf = 0;
+    pending = null;
+    track.style.scrollSnapType = '';
+    track.style.scrollBehavior = '';
+  };
+  const glide = (to) => {
+    cancelAnimationFrame(raf);
+    if (reduce) { track.scrollLeft = to; pending = null; return; }
+    const from = track.scrollLeft;
+    const start = performance.now();
+    track.style.scrollSnapType = 'none';
+    track.style.scrollBehavior = 'auto';
+    const frame = (now) => {
+      const p = Math.min(1, (now - start) / GLIDE_MS);
+      track.scrollLeft = from + (to - from) * easeInOutCubic(p);
+      if (p < 1) raf = requestAnimationFrame(frame);
+      else release();
+    };
+    raf = requestAnimationFrame(frame);
+  };
+  const step = (dir) => {
+    const list = stops();
+    const lastStop = list.findIndex((s) => s === list[list.length - 1]);
+    const to = Math.max(0, Math.min(lastStop, (pending ?? nearest(list)) + dir));
+    pending = to;
+    glide(list[to]);
+  };
   for (const b of [prev, next]) {
-    b.addEventListener('click', () => {
-      const first = track.firstElementChild.getBoundingClientRect().width + 30;
-      track.scrollBy({ left: Number(b.dataset.polDir) * first * 2, behavior: reduce ? 'auto' : 'smooth' });
-    });
+    b.addEventListener('click', () => step(Number(b.dataset.polDir)));
   }
+  // a finger or mouse grabbing the strip takes over from any glide
+  track.addEventListener('pointerdown', () => { if (raf) release(); });
+
+  // Trackpads send a long stream of sideways wheel events (plus momentum)
+  // that would skate past several cards. Treat each sideways gesture as one
+  // step; the next gesture counts once the stream goes quiet. Up/down
+  // scrolling is left alone so the page still scrolls over the strip.
+  let swiping = false;
+  let quiet;
+  let pushed = 0;
+  track.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    clearTimeout(quiet);
+    quiet = setTimeout(() => { swiping = false; pushed = 0; }, 180);
+    if (swiping) return;
+    pushed += e.deltaX;
+    if (Math.abs(pushed) < 12) return;   // ignore tiny accidental nudges
+    swiping = true;
+    step(Math.sign(pushed));
+  }, { passive: false });
   track.addEventListener('scroll', sync, { passive: true });
   sync();
 }
@@ -229,11 +285,7 @@ function wireSlides(box) {
 export function initInstaGrid() {
   const slot = document.querySelector('[data-insta-grid]');
   if (!slot) return;
-  slot.innerHTML = `
-    <div class="ig-v1">${row()}${head()}</div>
-    <div class="ig-v2">${strip()}${stripFoot()}</div>
-    ${viewer()}`;
-  initCarousel(slot.querySelector('.gallery--insta'));
+  slot.innerHTML = `${strip()}${stripFoot()}${viewer()}`;
   initStrip(slot);
 
   const dlg = slot.querySelector('.ig-viewer');

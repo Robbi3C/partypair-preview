@@ -1,100 +1,9 @@
 /* ============================================================
-   INSTAGRAM GRID — the homepage gallery (js/insta-grid.js).
-
-   One row of uncropped post covers with the profile bar under it. The
-   cover zooms and a caption fades in on hover; click opens the post in
-   the full-screen viewer.
+   INSTAGRAM — the homepage gallery (js/insta-grid.js): a polaroid
+   strip of the latest posts (design guide §5.5 band 3, §6.2), with the
+   handle and arrows under it. Clicking a polaroid opens the post in the
+   full-screen viewer.
    ============================================================ */
-
-/* ---------- Profile header ---------- */
-.ig-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem 1.5rem;
-  padding-top: clamp(1.25rem, 3vw, 1.75rem);
-  margin-top: clamp(1.25rem, 3vw, 2rem);
-  border-top: 1px solid rgba(31, 48, 71, 0.14);
-}
-.ig-head__who { display: flex; align-items: center; gap: 0.9rem; min-width: 0; }
-.ig-head__avatar {
-  flex: none;
-  width: 3.5rem;
-  height: 3.5rem;
-  padding: 0.55rem;
-  border-radius: 50%;
-  background: var(--white);
-  box-shadow: inset 0 0 0 1px rgba(31, 48, 71, 0.14);
-}
-.ig-head__name { font-family: var(--font-display); font-variation-settings: 'SOFT' 100; font-size: 1.5rem; line-height: 1.1; text-transform: lowercase; }
-.ig-head__handle { margin-top: 0.15rem; font-size: var(--text-small); color: var(--ink-soft); overflow-wrap: anywhere; }
-
-/* phones: keep the name and Follow on one line */
-@media (max-width: 30em) {
-  .ig-head__who { gap: 0.65rem; }
-  .ig-head__avatar { width: 2.75rem; height: 2.75rem; padding: 0.4rem; }
-  .ig-head .btn { padding-inline: 1.25rem; }
-}
-
-/* ---------- The row (swipe and arrows come from .gallery--insta and
-   .insta-carousel in sections.css) ---------- */
-.ig-row .gallery--insta > * { width: clamp(167px, 44vw, 221px); }
-
-.ig-tile {
-  position: relative;
-  display: block;
-  aspect-ratio: 9 / 16;                /* a reel's own shape: nothing cropped */
-  padding: 0;
-  border: 0;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: var(--shell-deep);
-  color: var(--white);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-.ig-tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.ig-tile img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 700ms var(--ease-out);
-}
-.ig-tile__icon {
-  position: absolute;
-  top: 0.65rem;
-  right: 0.65rem;
-  width: 1.35rem;
-  height: 1.35rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  filter: drop-shadow(0 1px 3px rgba(31, 48, 71, 0.55));
-}
-.ig-tile__caption {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  padding: clamp(0.75rem, 2vw, 1.15rem);
-  background: linear-gradient(to top, rgba(31, 48, 71, 0.82), rgba(31, 48, 71, 0.25) 55%, transparent);
-  font-size: var(--text-small);
-  font-weight: 400;
-  line-height: 1.35;
-  opacity: 0;
-  transition: opacity 300ms var(--ease-out);
-}
-.ig-tile:focus-visible .ig-tile__caption { opacity: 1; }
-@media (hover: hover) {
-  .ig-tile:hover img { transform: scale(1.08); }
-  .ig-tile:hover .ig-tile__caption { opacity: 1; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ig-tile img, .ig-tile__caption { transition: none; }
-  .ig-tile:hover img { transform: none; }
-}
 
 /* ---------- The viewer: full screen, no scrollbars anywhere ---------- */
 :root:has(.ig-viewer[open]) { overflow: hidden; }   /* page behind can't scroll */
@@ -317,15 +226,9 @@
   .ig-viewer__next { right: 0.5rem; }
 }
 
-/* ============================================================
-   INSTAGRAM V2 — polaroid strip (design guide §5.5 band 3, §6.2).
-   Same posts and viewer as v1; html[data-insta] picks the layout.
-   ============================================================ */
+/* ---------- The polaroid strip ---------- */
 
-:root:not([data-insta='v2']) .ig-v2,
-:root[data-insta='v2'] .ig-v1 { display: none; }
-
-/* preview switcher (Instagram and reviews sections) */
+/* preview switcher (reviews section, while versions are compared) */
 .preview-switch {
   position: absolute;
   top: 0.5rem;
@@ -353,8 +256,8 @@
 .preview-switch button[aria-pressed='true'] { background: var(--ink); color: var(--paper); }
 
 /* the band and its heading */
-:root[data-insta='v2'] .transform { padding-block: clamp(4rem, 9vw, 6.5rem) clamp(2.75rem, 7vw, 5.25rem); }
-:root[data-insta='v2'] .transform .section-intro {
+.transform { padding-block: clamp(4rem, 9vw, 6.5rem) clamp(2.75rem, 7vw, 5.25rem); }
+.transform .section-intro {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: 3.5rem;
@@ -363,9 +266,9 @@
   margin-bottom: 1rem;
   text-align: left;
 }
-:root[data-insta='v2'] .transform .section-intro .lead { margin-top: 0; }
+.transform .section-intro .lead { margin-top: 0; }
 @media (max-width: 63.75em) {
-  :root[data-insta='v2'] .transform .section-intro { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+  .transform .section-intro { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
 }
 
 /* the strip runs edge to edge; its first polaroid lines up with the text */
@@ -382,6 +285,9 @@
   scrollbar-width: none;
 }
 .pol-strip::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .pol-strip { scroll-behavior: smooth; }   /* keyboard arrows glide too */
+}
 .pol-strip:focus-visible { outline-offset: -4px; }
 
 /* a polaroid */
@@ -395,6 +301,7 @@
   box-shadow: 0 12px 26px rgba(31, 48, 71, 0.2);
   transform: rotate(var(--r));
   scroll-snap-align: start;
+  scroll-snap-stop: always;   /* a swipe or flick moves one card, never several */
   cursor: pointer;
   transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease-spring);
 }
@@ -416,6 +323,52 @@
 }
 @media (max-width: 47.5em) {
   .pol-card { flex-basis: 190px; }
+}
+
+/* last card: "more on Instagram". Same frame, tilt and caption; the photo
+   area is a Punch panel the same 3:4 shape as the photos. */
+.pol-card--more { display: block; min-width: 0; color: var(--ink); text-decoration: none; }
+.pol-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  aspect-ratio: 3 / 4;
+  padding: 1rem;
+  background: var(--punch);
+  text-align: center;
+}
+.pol-more__seal {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: 0 6px 14px rgba(31, 48, 71, 0.18);
+}
+.pol-more__seal img { width: 24px; height: auto; }
+.pol-more__title {
+  font-family: var(--font-display);
+  font-variation-settings: 'SOFT' 100;
+  font-size: 1.625rem;
+  line-height: 1.05;
+  color: var(--paper);
+  text-transform: lowercase;
+}
+.pol-more__handle {
+  max-width: 100%;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 47.5em) {
+  .pol-more__title { font-size: 1.375rem; }
+  .pol-more__handle { display: none; }   /* too long for the narrow card; it's right below the strip */
 }
 
 /* handle and arrows */

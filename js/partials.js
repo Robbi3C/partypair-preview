@@ -85,8 +85,8 @@ const inquiryModal = () => `
       <p class="modal__lead">Tell us your weekend — we'll come back within 24 hours with availability and ideas. Two minutes, promise.</p>
       <form id="inquiry-form" class="modal__form" name="weekend-inquiry" method="POST" data-netlify="true">
         <input type="hidden" name="form-name" value="weekend-inquiry">
-        <div class="field">
-          <label for="inq-name">Your name</label>
+        <div class="field field--wide">
+          <label for="inq-name">Your full name</label>
           <input id="inq-name" name="name" type="text" required autocomplete="name" placeholder="Sam Rivera">
         </div>
         <div class="field">
@@ -94,20 +94,25 @@ const inquiryModal = () => `
           <input id="inq-email" name="email" type="email" required autocomplete="email" placeholder="you@email.com">
         </div>
         <div class="field">
-          <label for="inq-phone">Phone <span class="field__optional">(for a faster reply)</span></label>
-          <input id="inq-phone" name="phone" type="tel" autocomplete="tel" placeholder="(508) 555-0123">
+          <label for="inq-phone">Phone number</label>
+          <input id="inq-phone" name="phone" type="tel" required autocomplete="tel" placeholder="(508) 555-0123">
         </div>
         <div class="field">
-          <label for="inq-date">The weekend</label>
-          <input id="inq-date" name="weekend" type="date" required>
-          <p class="field__hint">Rough date is fine — we'll figure out the details together.</p>
+          <label for="inq-date">Event date</label>
+          <input id="inq-date" name="date" type="date" required>
         </div>
         <div class="field">
-          <label for="inq-rental">Rental link <span class="field__optional">(optional)</span></label>
-          <input id="inq-rental" name="rental" type="url" inputmode="url" placeholder="airbnb.com/rooms/…">
+          <label for="inq-guests">How many people</label>
+          <input id="inq-guests" name="guests" type="number" required min="1" step="1" inputmode="numeric" placeholder="12">
         </div>
-        <button class="btn btn--primary btn--lg" type="submit">Check availability</button>
-        <p class="form-note">Sending this means you're okay with us texting you back — that's it, no strings. Message &amp; data rates may apply.</p>
+        <div class="field field--wide">
+          <label for="inq-details">What you're looking for <span class="field__optional">(optional)</span></label>
+          <textarea id="inq-details" name="details" rows="3" placeholder="Tell us what you're looking for and any special details!"></textarea>
+        </div>
+        <div class="modal__actions">
+          <button class="btn btn--primary btn--lg" type="submit">Check availability</button>
+          <p class="form-note">Sending this means you're okay with us texting you back — that's it, no strings. Message &amp; data rates may apply.</p>
+        </div>
       </form>
     </div>
   </dialog>`;

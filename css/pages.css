@@ -111,8 +111,8 @@
 
 /* ---------- Modal + footer (styles that used to be inline) ---------- */
 .modal__title { font-size: clamp(1.8rem, 5vw, 2.4rem); margin-bottom: 0.6rem; padding-right: 2.6rem; }
-.modal__lead { color: var(--ink-soft); margin-bottom: 1.5rem; }
-.modal__form { display: grid; gap: 1rem; }
+.modal__lead { color: var(--ink-soft); margin-bottom: 1.25rem; }
+.modal__form { display: grid; }
 .modal__close { display: grid; place-items: center; }
 .modal__close path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
 .field__optional { font-weight: 420; color: var(--ink-soft); }

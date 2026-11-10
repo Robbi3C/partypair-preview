@@ -114,7 +114,9 @@ html.js .hero [data-stagger] {
   align-items: center;
 }
 @media (min-width: 52em) {
-  .problem__grid { grid-template-columns: 1.05fr 0.95fr; gap: 4rem; }
+  /* chat graphic left, copy right on desktop; copy stays first in the source for mobile */
+  .problem__grid { grid-template-columns: 0.95fr 1.05fr; gap: 4rem; }
+  .problem__grid .chat-stack { order: -1; }
 }
 .problem .chat-stack { display: grid; gap: 0.7rem; }
 .chat-bubble {

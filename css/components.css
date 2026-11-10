@@ -222,6 +222,18 @@
 }
 
 /* ---------- Modal (inquiry) ---------- */
+/* Scroll handling, in short:
+   - the page behind a modal is locked; its scrollbar goes away and the
+     page and header are padded by its width (--scrollbar-w, measured in
+     main.js) so nothing jumps sideways and the dim covers everything;
+   - the card clips to its rounded corners, and only the body inside it
+     scrolls, with a thin themed scrollbar that runs between the corners
+     (inset top and bottom) instead of a grey bar cutting through them;
+   - scrolling inside never chains through to the page. */
+:root:has(dialog.modal[open]) { overflow: hidden; }
+:root:has(dialog.modal[open]) body { padding-right: var(--scrollbar-w, 0px); }
+:root:has(dialog.modal[open]) .site-header { right: var(--scrollbar-w, 0px); }
+
 .modal {
   border: none;
   padding: 0;
@@ -230,9 +242,13 @@
   max-height: calc(100dvh - 2rem);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-pop);
-  background: var(--shell);
-  overflow: visible;
+  --modal-bg: var(--shell);
+  background: var(--modal-bg);
+  overflow: hidden;
+  overscroll-behavior: contain;
 }
+.modal[open] { display: flex; flex-direction: column; }
+.modal:focus-visible { outline: none; }   /* the card itself isn't a control */
 .modal::backdrop {
   background: rgba(43, 33, 41, 0.55);
   backdrop-filter: blur(6px);
@@ -242,10 +258,62 @@
   from { opacity: 0; transform: translateY(30px) scale(0.96); }
 }
 .modal__body {
-  padding: clamp(1.6rem, 5vw, 2.4rem);
-  max-height: calc(100dvh - 2rem);
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-block: 0.75rem;                      /* scrollbar stays off the corners */
+  padding: clamp(0.85rem, 4vw, 1.65rem) clamp(1.1rem, 4.5vw, 1.9rem);
   overflow-y: auto;
-  border-radius: var(--radius-lg);
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable both-edges;        /* equal space left and right */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(43, 33, 41, 0.28) transparent;
+}
+
+/* Inquiry form: pairs side by side once there's room, and the button
+   stays in view at the bottom if a short screen makes the form scroll. */
+.modal__form .field--wide,
+.modal__actions { grid-column: 1 / -1; }
+.modal__form { gap: 0.85rem; }
+.modal__form .field input { padding-block: 0.7em; }
+.modal__form textarea { resize: vertical; min-height: 4.75rem; font: inherit; }
+.modal__form input[type='number'] { appearance: textfield; -moz-appearance: textfield; }
+.modal__form input[type='number']::-webkit-inner-spin-button,
+.modal__form input[type='number']::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.modal__actions { display: grid; gap: 0.75rem; }
+
+@media (min-width: 40rem) {
+  .modal:has(.modal__form) { width: min(100% - 3rem, 40rem); }
+  .modal__form { grid-template-columns: 1fr 1fr; column-gap: 1rem; }
+  .modal__actions {
+    position: sticky;
+    bottom: calc(-1 * clamp(0.85rem, 4vw, 1.65rem));   /* sit flush with the body's bottom edge */
+    padding-block: 0.75rem clamp(0.85rem, 4vw, 1.65rem);
+    margin-bottom: calc(-1 * clamp(0.85rem, 4vw, 1.65rem));
+    background: var(--modal-bg);
+  }
+  /* fields scrolling under the button fade out instead of being cut */
+  .modal__actions::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 100%;
+    height: 1rem;
+    background: linear-gradient(to top, var(--modal-bg), transparent);
+    pointer-events: none;
+  }
+}
+
+/* Phones: a full-screen sheet rather than a box floating on a sliver of
+   page; it scrolls like a normal page and the keyboard has room. */
+@media (max-width: 39.99rem) {
+  .modal:has(.modal__form) {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+  }
+  .modal:has(.modal__form) .modal__body { margin-block: 0; padding-top: 1.25rem; }
 }
 .modal__close {
   position: absolute;

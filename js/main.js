@@ -18,6 +18,21 @@ import { initFaq } from './faq.js';
 import { initReviews } from './reviews.js';
 import { initInstaGrid } from './insta-grid.js';
 import { initPreviewSwitches } from './preview-switch.js';
+import { initChat } from './chat.js';
+import { initPolaroids } from './polaroids.js';
+
+// Width of the page scrollbar (0 on phones and overlay-scrollbar systems).
+// Modals hide it while open, and CSS pads the page by this much so
+// nothing behind the dim shifts sideways. Not measured while locked.
+function trackScrollbarWidth() {
+  const root = document.documentElement;
+  const measure = () => {
+    if (document.querySelector('dialog.modal[open]')) return;
+    root.style.setProperty('--scrollbar-w', `${innerWidth - root.clientWidth}px`);
+  };
+  measure();
+  addEventListener('resize', measure);
+}
 
 function initModal() {
   const modal = document.getElementById('inquiry-modal');
@@ -27,7 +42,11 @@ function initModal() {
     opener.addEventListener('click', (e) => {
       e.preventDefault();
       modal.showModal();
-      modal.querySelector('input')?.focus();
+      // Mouse users start typing straight away; on touch screens the
+      // keyboard would cover half the form, so let them pick a field.
+      if (matchMedia('(pointer: fine)').matches) {
+        modal.querySelector('input:not([type="hidden"])')?.focus();
+      }
     });
   }
   modal.querySelector('.modal__close')?.addEventListener('click', () => modal.close());
@@ -65,7 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (heroCanvas) initHeroShader(heroCanvas);
 
   initScrollEffects();
+  initChat();
+  initPolaroids();
   initForms();
+  trackScrollbarWidth();
   initModal();
   initMarquee();
   initCelebrations();

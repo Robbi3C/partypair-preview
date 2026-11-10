@@ -227,8 +227,13 @@ strong, .hero__lead strong { font-weight: 700; }
 }
 .marquee__item .glyph { color: inherit; }
 
-/* Maid-of-honor story and group chat (§10.7) */
-.problem h2 { color: var(--punch); }
+/* Maid-of-honor story and group chat (§10.7)
+   One text size under the headline: the guide's Body (§4.3, 17/16 px) for
+   every paragraph. A 20 px lead followed by 17 px body read as a mismatch,
+   not a step, and §4.4 asks for body *or* lead in a block. */
+.problem h2 { color: var(--punch); margin-bottom: 1.625rem; }
+.problem__copy p { max-width: 36em; }
+.problem__copy p + p { margin-top: 1rem; }
 
 .problem .chat-stack {
   padding: 2.75rem 2.25rem;
@@ -241,9 +246,54 @@ strong, .hero__lead strong { font-weight: 700; }
   .problem .chat-stack { padding: 1.75rem 1.125rem; }
 }
 .chat-bubble {
+  max-width: 82%;          /* reference HTML: fewer, more chat-like wraps */
   background: var(--paper);
   font-size: 1rem;
+  line-height: 1.45;
   transition: transform var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+}
+
+/* Messages arrive one by one as the panel scrolls into view (js/chat.js):
+   a "…" typing bubble, then the message pops up from its tail corner.
+   Gated on html.js + data-chat-ready, so without JS, with ?static or with
+   reduced motion, every message is simply there. */
+.problem .chat-stack { position: relative; }
+html.js .chat-stack[data-chat-ready] .chat-bubble[data-chat-wait] {
+  opacity: 0;
+  translate: 0 10px;
+  scale: 0.92;
+  transform-origin: 0% 100%;
+  transition: opacity 0.3s var(--ease-out), translate 0.45s var(--ease-out), scale 0.45s var(--ease-out);
+}
+html.js .chat-stack[data-chat-ready] .chat-bubble--me[data-chat-wait] { transform-origin: 100% 100%; }
+html.js .chat-stack[data-chat-ready] .chat-bubble[data-chat-wait].is-in { opacity: 1; translate: 0 0; scale: 1; }
+
+.chat-typing {
+  position: absolute;
+  display: flex;
+  gap: 4px;
+  padding: 0.75rem 0.9rem;
+  border-radius: 22px 22px 22px 6px;
+  background: var(--paper);
+  box-shadow: 0 6px 16px rgba(31, 48, 71, 0.1);
+  translate: 0 -100%;      /* sits on the bottom edge of the message it stands in for */
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out);
+}
+.chat-typing--me { background: var(--petal); border-radius: 22px 22px 6px 22px; }
+.chat-typing.is-on { opacity: 1; }
+.chat-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-muted);
+  animation: chat-dot 0.9s ease-in-out infinite;
+}
+.chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes chat-dot {
+  0%, 60%, 100% { opacity: 0.35; translate: 0 0; }
+  30% { opacity: 1; translate: 0 -3px; }
 }
 .chat-bubble--me { background: var(--petal); }
 .chat-bubble .sender {
@@ -257,6 +307,52 @@ strong, .hero__lead strong { font-weight: 700; }
 
 /* Instagram gallery */
 .transform { background: var(--seafoam); }
+
+/* Pear ring seal across the seam between the Cape Cod connections band and
+   the Side Quest band (markup at the top of #side-quest; guide §10.4: paper disc, Pear deep caps ring, the real
+   pear centred, tilted -8°; hover turns the ring 140° over 1.4s). Ring text
+   is "THE PARTY PAIR ✦ CAPE COD ✦" (no XO, by request). */
+.seam-seal {
+  position: absolute;
+  left: 50%;
+  top: -78px;
+  z-index: 3;
+  width: 156px;
+  height: 156px;
+  translate: -50% 0;
+  rotate: -8deg;
+}
+.seam-seal svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 8px 14px rgba(31, 48, 71, 0.18));
+  transition: transform 1.4s var(--ease-out);
+}
+.seam-seal circle { fill: var(--paper); }
+.seam-seal text {
+  font-family: var(--font-caps);
+  font-size: 10.5px;
+  fill: var(--pear-deep);
+}
+.seam-seal img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 64px;                     /* fills the inside of the ring (guide's 40px left too much space) */
+  height: auto;
+  translate: -50% -50%;
+}
+.seam-seal:hover svg { transform: rotate(140deg); }
+@media (max-width: 47.5em) {
+  .seam-seal { width: 120px; height: 120px; top: -60px; }
+  .seam-seal img { width: 49px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .seam-seal svg { transition: none; }
+}
 .transform h2 { color: var(--pear-deep); }
 
 /* Reviews (layout: css/reviews.css) */
@@ -274,6 +370,150 @@ strong, .hero__lead strong { font-weight: 700; }
 }
 
 /* Booking */
+/* Placeholder: "Not just a party, her kind of party". "her" is in the
+   script face from the CTA sign-off ("xo, the pair") */
+/* Bold berry band: paper text on Pear Deep clears 6:1 */
+.her-party { background: var(--pear-deep); overflow: hidden; }
+.her-party h2 { color: var(--paper); margin-bottom: 1.625rem; text-wrap: balance; }
+.her-party h2 .script {
+  display: inline-block;
+  font-size: 1.3em;
+  line-height: 0.8;
+  color: var(--petal);
+  rotate: -4deg;
+  padding-inline: 0.06em;
+}
+.her-party__copy p { max-width: 36em; color: var(--paper); }
+.her-party__copy p + p { margin-top: 1rem; }
+
+.her-party__grid { display: grid; gap: 3rem; align-items: center; }
+@media (min-width: 52em) {
+  .her-party__grid { grid-template-columns: 1.05fr 0.95fr; gap: 4rem; }
+}
+
+/* Polaroid pile: smaller prints scattered around the centre of the area,
+   each pushed off by its own --x/--y (a share of the print's own size) and
+   tilted by --r, so it reads as a loose pile tossed on a table rather than
+   a neat stack. Later photos land on top. */
+.polaroids {
+  position: relative;
+  width: min(100%, 32rem);
+  aspect-ratio: 1 / 0.98;
+  margin-inline: auto;
+  container-type: inline-size;     /* prints size their frame in cqw (pile width) */
+}
+/* phones: the scattered prints reach past the pile's box, so shrink it to keep them on screen */
+@media (max-width: 47.5em) {
+  .polaroids { width: 80%; }
+}
+.polaroids__stamp {
+  position: absolute;
+  right: -18%;
+  bottom: -16%;
+  width: 72%;
+  height: auto;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.polaroid {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 59.8%;                    /* 15% bigger than the earlier 52% */
+  aspect-ratio: 0.82;              /* a real instant print's proportions */
+  margin: 0;
+  padding: 3cqw 3cqw 10.5cqw;      /* thin sides and top, deep bottom lip */
+  /* realistic, not aged: bright white print paper, a hairline edge and
+     corners that aren't machine-perfect */
+  background: #fefdfa;
+  border-radius: 2px 3px 2px 4px;
+  box-shadow:
+    inset 0 0 0 1px rgba(31, 48, 71, 0.05),
+    0 1px 2px rgba(31, 48, 71, 0.2),
+    0 12px 26px rgba(31, 48, 71, 0.26);
+  translate: calc(-50% + var(--x)) calc(-50% + var(--y));
+  rotate: var(--r);
+}
+.polaroid:nth-of-type(even) { background: #fcfbf7; }   /* papers never quite match */
+.polaroid img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* a very faint matte paper texture over the whole print */
+.polaroid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.27 0 0 0 0 0.16 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.09;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+/* the photo area: a whisper of edge shading and a faint scuff that catches the light */
+.polaroid::after {
+  content: '';
+  position: absolute;
+  inset: 3cqw 3cqw 10.5cqw;        /* exactly the photo: same values as the padding */
+  background:
+    linear-gradient(var(--scuff, 112deg), transparent 47%, rgba(255, 255, 255, 0.12) 49.5%, transparent 52%),
+    radial-gradient(ellipse at center, transparent 70%, rgba(31, 48, 71, 0.1) 100%);
+  box-shadow: inset 0 0 0 1px rgba(31, 48, 71, 0.08);
+  pointer-events: none;
+}
+.polaroid:nth-of-type(2) { --scuff: 64deg; }
+.polaroid:nth-of-type(3) { --scuff: 150deg; }
+.polaroid:nth-of-type(4) { --scuff: 28deg; }
+.polaroid:nth-of-type(5) { --scuff: 96deg; }
+/* Gate: only hidden once polaroids.js has armed the pile (no JS, ?static
+   and reduced motion all show the full stack) */
+.polaroids[data-pile-ready] .polaroid[data-pile-wait] { opacity: 0; }
+
+/* Landing (js/polaroids.js): each print falls straight down from just
+   above, already at its resting angle (no twist), starting a little larger
+   as if closer to the eye. The keyframes only describe where it comes FROM;
+   it ends on its resting place (--x/--y/--r). */
+.polaroid.is-landing { animation: pile-drop 0.65s var(--ease-spring) both; }
+@keyframes pile-drop {
+  from {
+    opacity: 0;
+    scale: 1.18;
+    translate: calc(-50% + var(--x)) calc(-50% + var(--y) - 14%);
+  }
+  25% { opacity: 1; }
+}
+
+/* Simple heading-only placeholders; backgrounds alternate so each reads
+   as its own band. Coastal sits under the reviews' blue bottom wave and
+   takes ink, since Punch fails contrast on it. */
+.placeholder h2 { color: var(--punch); text-wrap: balance; }
+.placeholder--petal { background: var(--petal); }
+.placeholder--petal h2 { color: var(--pear-deep); }
+.placeholder--paper { background: var(--paper); }
+.placeholder--cream { background: var(--cream); }
+.placeholder--coastal { background: var(--coastal); }
+
+/* Side quest: script kicker over the headline (guide §4.4 type stack), then
+   one body size for both paragraphs */
+.side-quest__kicker {
+  margin-bottom: 0.5rem;
+  font-size: clamp(2.25rem, 1.9rem + 1.2vw, 2.875rem);
+  color: var(--ink);
+  rotate: -3deg;
+}
+.side-quest .section-intro { max-width: 40em; }
+/* the pear seal sits on the seam between Cape Cod connections and Side
+   Quest, half in each band: both keep their text clear of it */
+.side-quest { padding-top: calc(var(--space-section) + 3.5rem); }
+#connections { padding-bottom: calc(var(--space-section) + 3.5rem); }
+.side-quest h2 { margin-bottom: 1.5rem; }
+.side-quest h2 + p,
+.side-quest p + p { color: var(--ink); }
+.side-quest p + p { margin-top: 1rem; }
+.placeholder--coastal :is(h2, .lead) { color: var(--ink); }
+
 .booking { background: var(--cream); }
 .booking h2 { color: var(--punch); }
 
@@ -330,7 +570,7 @@ strong, .hero__lead strong { font-weight: 700; }
 }
 .toast { font-weight: 400; }
 
-.modal { background: var(--paper); }
+.modal { --modal-bg: var(--paper); background: var(--modal-bg); }
 .modal::backdrop { background: rgba(31, 48, 71, 0.55); }
 .modal__title { color: var(--punch); }
 
