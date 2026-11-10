@@ -16,18 +16,6 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/img/pear.svg" type="image/svg+xml">
-  <!-- Preview only: which section versions to show, set before first paint (js/preview-switch.js) -->
-  <script>
-    (function () {
-      var q = new URLSearchParams(location.search);
-      function pick(key, alt, base) {
-        var v = q.get(key);
-        if (!v) { try { v = localStorage.getItem('pp-' + key); } catch (e) {} }
-        document.documentElement.dataset[key] = v === alt ? alt : base;
-      }
-      pick('reviews', 'b', 'a');
-    })();
-  </script>
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
@@ -168,10 +156,6 @@
     <!-- ============ Google reviews (rendered from js/content/reviews.js by js/reviews.js) ============ -->
     <section class="section reviews" id="reviews" aria-label="Google reviews">
       <svg class="finale__wave finale__wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><path style="fill: var(--cream)" d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
-      <div class="preview-switch" role="group" aria-label="Reviews section version">
-        <button type="button" data-preview="reviews" data-value="a">Version A</button>
-        <button type="button" data-preview="reviews" data-value="b">Version B</button>
-      </div>
       <div data-reviews-slot></div>
     </section>
 

@@ -1,8 +1,7 @@
 /* ============================================================
-   GOOGLE REVIEWS — homepage section (js/reviews.js renders both).
-
-   Desktop:          summary panel + a row of review cards, arrows under the row
-   Tablet and phone: centred quote cards with the reviewer's photo, edge to edge
+   GOOGLE REVIEWS — homepage section (js/reviews.js): a row of landscape
+   postcards (design guide §9.3, §10.3, §10.4) under a headline, a 5.0
+   burst sticker and the review count.
    ============================================================ */
 
 .reviews {
@@ -10,17 +9,10 @@
   --rv-star: var(--rose);
 }
 
-/* cards on desktop, photos at 60em and below */
-.rv-v--photos { display: none; }
-@media (max-width: 60em) {
-  .rv-v--cards { display: none; }
-  .rv-v--photos { display: block; }
-}
-
 /* ---------- Shared ---------- */
 .rv-stars { color: var(--rv-star); letter-spacing: 0.12em; font-size: 0.95rem; line-height: 1; white-space: nowrap; }
 
-/* "★★★★★ 5.0 on Google · 12 reviews" (in the dialog) */
+/* "★★★★★ See it on Google" (in the dialog) */
 .rv-proof {
   display: inline-flex;
   align-items: center;
@@ -39,25 +31,8 @@
 }
 .rv-proof:hover .rv-proof__stars + span { text-decoration-color: currentColor; }
 
-/* ============ Cards (desktop) ============
-   Panel on the left, the row of cards beside it, the arrows under the
-   row. Two and a bit cards in view on desktop, two on tablets, one plus
-   a peek on phones. No scrollbar: arrows, swipe or trackpad. */
-.rv-cards {
-  --rv-gap: clamp(1rem, 2vw, 1.5rem);
-  display: grid;
-  grid-template-columns: minmax(14rem, 1fr) minmax(0, 3fr);
-  gap: clamp(1.5rem, 4vw, 3rem);
-  align-items: start;
-}
-
-/* the summary panel */
-.rv-panel { display: grid; justify-items: start; gap: 0.35rem; }
-.rv-panel h2 { margin-bottom: 1rem; font-size: clamp(2.5rem, 4.4vw, 3.75rem); }
-.rv-panel__score { font-family: var(--font-display); font-variation-settings: 'SOFT' 100; font-size: 3.25rem; font-weight: 400; line-height: 1; }
-.rv-panel .rv-stars { font-size: 1.15rem; }
+/* the review count: the way out to Google, a quiet text link (↗ = leaves the site) */
 .rv-panel__count { font-size: var(--text-small); color: var(--ink-soft); }
-/* the way out to Google: the count itself, a quiet text link (↗ = leaves the site) */
 .rv-panel__link {
   display: inline-block;
   padding-block: 0.7rem;               /* 44px tap target */
@@ -72,16 +47,10 @@
 }
 .rv-panel__link:hover { text-decoration-color: currentColor; }
 
-/* the row */
-.rv-row { min-width: 0; }
+/* the row: scrolls sideways, no scrollbar (arrows, swipe or trackpad) */
 .rv-track {
-  --rv-cols: 2.4;                      /* a peek of the next card */
-  --rv-fade-l: 0rem;
-  --rv-fade-r: 0rem;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: calc((100% - (var(--rv-cols) - 1) * var(--rv-gap)) / var(--rv-cols));
-  column-gap: var(--rv-gap);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -89,30 +58,13 @@
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;               /* no scrollbar (Firefox) */
-  /* cards cut by an edge fade out instead of being sliced, only on the
-     side where more are hidden (js/reviews.js sets the classes) */
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--rv-fade-l), #000 calc(100% - var(--rv-fade-r)), transparent);
-  mask-image: linear-gradient(to right, transparent, #000 var(--rv-fade-l), #000 calc(100% - var(--rv-fade-r)), transparent);
 }
 .rv-track::-webkit-scrollbar { display: none; }   /* no scrollbar (Chrome, Safari) */
-
-/* desktop row: runs off the right edge of the screen, so no fade on that
-   side; the padding brings the last card back in line with the page */
-.rv-v--cards .rv-track {
-  --rv-edge: max(var(--gutter), calc((100vw - var(--content-max)) / 2));
-  grid-auto-columns: 21.5rem;
-  margin-right: calc(-1 * var(--rv-edge));
-  padding-right: var(--rv-edge);
-}
-.rv-v--cards .rv-track.has-after { --rv-fade-r: 0rem; }
-.reviews { overflow-x: clip; }
-.rv-track.has-before { --rv-fade-l: 3rem; }
-.rv-track.has-after { --rv-fade-r: 5rem; }
 .rv-track > li { display: grid; scroll-snap-align: start; }   /* equal heights */
 .rv-track:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: var(--radius-md); }
 
-/* the arrows, under the row: one gap below the cards, at the row's start */
-.rv-arrows { display: flex; gap: 0.5rem; margin-top: var(--rv-gap); }
+/* the arrows, under the row */
+.rv-arrows { display: flex; gap: 0.5rem; }
 .rv-arrow {
   display: grid;
   place-items: center;
@@ -129,33 +81,7 @@
 .rv-arrow:disabled { opacity: 0.35; cursor: default; }
 .rv-arrow svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-@media (max-width: 60em) {
-  .rv-track { --rv-cols: 2; }
-}
-/* phones: one card plus a peek; no fades (the peek already says "more") */
-@media (max-width: 40em) {
-  .rv-track { grid-auto-columns: 86%; -webkit-mask-image: none; mask-image: none; }
-}
-
-/* a card */
-.rv-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  padding: clamp(1.25rem, 2.4vw, 1.75rem);
-  background: var(--white);
-  border-radius: var(--radius-md);
-  box-shadow: inset 0 0 0 1px var(--rv-line);
-}
-.rv-card__text {
-  font-size: 0.98rem;
-  line-height: 1.6;
-  text-wrap: pretty;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-  overflow: hidden;
-}
+/* "Read more", shown only when a review is really cut off */
 .rv-more {
   align-self: flex-start;
   min-height: 2.75rem;
@@ -172,78 +98,7 @@
 }
 .rv-more:hover { text-decoration-color: currentColor; }
 
-/* signature: photo on the left, name over date on the right */
-.rv-card__person {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  column-gap: 0.75rem;
-  align-items: center;
-  margin-top: auto;
-  padding-top: 0.4rem;
-}
-.rv-card__person .rv-q__face { grid-row: span 2; width: 2.75rem; height: 2.75rem; font-size: 1.2rem; }
-.rv-card__name { align-self: end; font-family: var(--font-script); font-size: 1.625rem; font-weight: 400; line-height: 1.1; color: var(--pear-deep); }
-.rv-card__when { align-self: start; font-family: var(--font-caps); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; line-height: 1.3; color: var(--ink-soft); }
-.rv-sum { display: grid; gap: 0.3rem; }
-.rv-sum__line { display: flex; align-items: center; gap: 0.6rem; }
-.rv-sum__score { font-family: var(--font-display); font-variation-settings: 'SOFT' 100; font-size: 1.75rem; font-weight: 400; line-height: 1; }
-.rv-sum .rv-stars { font-size: 1.4rem; letter-spacing: 0.08em; }
-
-/* ============ Photos (tablet and phone) ============
-   Centred cards running off both edges of the page, the middle one
-   lifted (js/reviews.js sets .is-centre). */
-.rv-photos { --rv-gap: clamp(0.75rem, 1.6vw, 1.5rem); --rv-q-w: clamp(18rem, 34vw, 30rem); }
-.rv-photos h2 { margin-bottom: clamp(1.5rem, 3.5vw, 2.25rem); font-size: clamp(2.5rem, 4.4vw, 3.75rem); text-align: center; }
-.rv-track--q {
-  position: relative;
-  grid-auto-columns: var(--rv-q-w);
-  /* room below for the lifted card's shadow, which the scroller would clip */
-  padding: 1.5rem calc(50% - var(--rv-q-w) / 2) 3.5rem;
-  margin-bottom: -2.5rem;
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-.rv-track--q > li { scroll-snap-align: center; }
-.rv-track--q:focus-visible { outline-offset: -2px; }
-
-.rv-q {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: clamp(1.25rem, 2.6vw, 2rem);
-  text-align: center;
-  background: var(--white);
-  border-radius: var(--radius-md);
-  box-shadow: inset 0 0 0 1px var(--rv-line);
-  transform: scale(0.94);
-  transition: transform var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
-}
-.is-centre > .rv-q {
-  transform: none;
-  box-shadow: inset 0 0 0 1px var(--rv-line), 0 14px 34px rgba(31, 48, 71, 0.12);
-}
-.rv-q__mark {
-  height: 3rem;                        /* the glyph sits high in its line */
-  font-family: var(--font-display);
-  font-size: 5rem;
-  line-height: 1;
-  color: var(--rv-star);
-}
-.rv-q blockquote { flex: 1; }
-.rv-q__text {
-  font-size: 1rem;
-  line-height: 1.6;
-  text-wrap: pretty;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
-  overflow: hidden;
-}
-.rv-q .rv-more { align-self: center; margin-block: 0.15rem -0.5rem; }
-.rv-q__foot { display: grid; justify-items: center; gap: 0.7rem; margin-top: 1rem; }
-.rv-q__foot .rv-stars { font-size: 1.1rem; }
-
-/* the photo; the initial sits behind it and shows when there is none */
+/* the reviewer's photo; the initial sits behind it and shows when there is none */
 .rv-q__face {
   position: relative;
   display: grid;
@@ -261,22 +116,6 @@
 .rv-q__face--2 { background: var(--butter); }
 .rv-q__face--3 { background: var(--peri); }
 .rv-q__face img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.rv-q__by { display: grid; gap: 0.1rem; font-family: var(--font-script); font-size: 1.625rem; font-weight: 400; line-height: 1.1; color: var(--pear-deep); }
-.rv-q__by span { font-family: var(--font-caps); font-size: 0.6875rem; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; line-height: 1.5; color: var(--ink-soft); }
-
-/* above the track, whose shadow room runs underneath the arrows */
-.rv-photos__foot { position: relative; z-index: 1; display: grid; justify-items: center; gap: 1rem; margin-top: 0.5rem; }
-.rv-photos__foot .rv-arrows { margin-top: 0; }
-.rv-photos__foot .rv-sum { justify-items: center; }
-.rv-arrow[aria-disabled='true'] { opacity: 0.35; cursor: default; }
-.rv-arrow[aria-disabled='true']:hover { border-color: var(--rv-line); }
-
-@media (max-width: 40em) {
-  .rv-photos { --rv-q-w: 82vw; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .rv-q { transition: none; }
-}
 
 /* ---------- The whole review (dialog) ---------- */
 .rv-dialog figure { display: grid; gap: 0.9rem; padding-right: 2.5rem; }
@@ -286,14 +125,8 @@
 .rv-dialog__when { color: var(--ink-soft); }
 .rv-dialog .rv-proof { margin-top: 0.75rem; }
 
-/* ============================================================
-   VERSION B — landscape postcards (design guide §9.3, §10.3, §10.4).
-   html[data-reviews] picks the version.
-   ============================================================ */
-:root[data-reviews='b'] :is(.rv-v--cards, .rv-v--photos),
-:root:not([data-reviews='b']) .rv-v--b { display: none; }
-
-:root[data-reviews='b'] .reviews { overflow: clip; }
+/* ============ Postcards ============ */
+.reviews { overflow: clip; }
 .rv-v--b { position: relative; }
 
 /* giant script behind the cards: words from a real review */
