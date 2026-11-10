@@ -235,6 +235,8 @@ strong, .hero__lead strong { font-weight: 700; }
 .problem__copy p { max-width: 36em; }
 .problem__copy p + p { margin-top: 1rem; }
 
+.problem__cta { margin-top: 1.75rem; }
+
 .problem .chat-stack {
   padding: 2.75rem 2.25rem;
   border-radius: 28px;
@@ -258,6 +260,111 @@ strong, .hero__lead strong { font-weight: 700; }
    Gated on html.js + data-chat-ready, so without JS, with ?static or with
    reduced motion, every message is simply there. */
 .problem .chat-stack { position: relative; }
+/* depth: the panel sits on the page like a card, slightly turned, and the
+   bubbles lift off it (the theme's card shadow is only a hairline) */
+.problem .chat-stack {
+  box-shadow: 0 2px 6px rgba(31, 48, 71, 0.08), 0 22px 48px rgba(31, 48, 71, 0.18);
+  rotate: 1.5deg;
+}
+.problem .chat-bubble {
+  box-shadow: 0 1px 2px rgba(31, 48, 71, 0.1), 0 8px 18px rgba(31, 48, 71, 0.14);
+}
+
+/* Feature layout: a tall black-and-white photo runs the full height of the
+   band and off the left edge of the screen; the chat sits on its edge, the
+   bubbles placed rather than stacked under a time stamp, the reply breaking
+   out toward the copy. Print finish: warm grade and grain on the photo,
+   frosted bubbles over it. */
+.problem .chat-stack {
+  padding: 3rem 0 3.5rem 34%;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  rotate: none;
+}
+.chat-photo { position: absolute; z-index: 0; margin: 0; }
+.chat-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 40% 50%;
+  filter: sepia(0.12) saturate(0.92) contrast(1.04);
+  opacity: 0.8;                    /* the cream page shows through a touch */
+}
+.chat-photo::after {   /* fine grain */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+}
+@media (min-width: 52em) {
+  /* the photo measures from the whole section, so nothing between them is positioned */
+  .problem { isolation: isolate; }
+  .problem .problem__grid,
+  .problem .chat-stack { position: static; }
+  .problem :is(.problem__copy, .chat-bubble) { position: relative; z-index: 1; }
+  .chat-photo { inset: 0 auto 0 0; width: calc(50% - 15rem); }
+}
+@media (max-width: 51.99em) {
+  .problem .chat-stack { isolation: isolate; }
+  .chat-photo { inset: 0 34% 0 calc(-1 * var(--gutter)); z-index: -1; }
+}
+@media (max-width: 47.5em) {
+  .problem .chat-stack { padding: 2rem 0 2.5rem 22%; }
+  .chat-photo { right: 30%; }
+}
+
+.problem .chat-bubble {
+  max-width: 100%;
+  background: rgba(255, 253, 248, 0.78);
+  backdrop-filter: blur(8px) saturate(1.2);
+}
+.problem .chat-bubble--me { background: rgba(246, 216, 228, 0.85); }
+
+/* Bubbles stand out from the photo: near-opaque, a crisp shadow (70% of the
+   original strength) and the photo toned a little darker behind them */
+.problem .chat-bubble {
+  background: rgba(255, 253, 248, 0.94);
+  box-shadow: 0 1px 1px rgba(31, 48, 71, 0.126), 0 4px 10px rgba(31, 48, 71, 0.154), 0 14px 28px rgba(31, 48, 71, 0.126);
+}
+.problem .chat-bubble--me { background: rgba(246, 216, 228, 0.96); }
+.chat-photo img { filter: sepia(0.12) saturate(0.92) contrast(0.96) brightness(0.84); }
+
+/* more air between the chat and the copy */
+@media (min-width: 52em) {
+  .problem .problem__grid { gap: 7rem; }
+  .problem .chat-bubble--me { margin-right: 0; }
+}
+.problem .chat-bubble:nth-of-type(1) { margin-left: -14%; }
+.problem .chat-bubble:nth-of-type(2) { margin-left: 8%; }
+.problem .chat-bubble:nth-of-type(3) { margin-left: -6%; }
+.problem .chat-bubble--me { justify-self: end; margin: 0.75rem -7% 0.75rem 0; }
+.problem .chat-bubble:nth-of-type(5) { margin-left: 4%; }
+@media (max-width: 51.99em) {
+  /* stacked: no room to break out on the right, so the stagger stays inside the screen */
+  .problem .chat-bubble { max-width: 94%; }
+  .problem .chat-bubble:nth-of-type(2) { margin-left: 5%; }
+  .problem .chat-bubble--me { margin-right: 0; }
+}
+.problem .chat-stack::before {   /* time stamp */
+  content: 'Friday \00B7  4:12 pm';
+  position: relative;
+  z-index: 1;
+  justify-self: start;
+  margin: 0 0 0.25rem -14%;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--paper);
+  font-family: var(--font-caps);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
 html.js .chat-stack[data-chat-ready] .chat-bubble[data-chat-wait] {
   opacity: 0;
   translate: 0 10px;
@@ -308,8 +415,8 @@ html.js .chat-stack[data-chat-ready] .chat-bubble[data-chat-wait].is-in { opacit
 /* Instagram gallery */
 .transform { background: var(--seafoam); }
 
-/* Pear ring seal across the seam between the Cape Cod connections band and
-   the Side Quest band (markup at the top of #side-quest; guide §10.4: paper disc, Pear deep caps ring, the real
+/* Pear ring seal across the seam between the group chat band and the
+   "look on her face" band (markup at the top of #her-face; guide §10.4: paper disc, Pear deep caps ring, the real
    pear centred, tilted -8°; hover turns the ring 140° over 1.4s). Ring text
    is "THE PARTY PAIR ✦ CAPE COD ✦" (no XO, by request). */
 .seam-seal {
@@ -495,6 +602,108 @@ html.js .chat-stack[data-chat-ready] .chat-bubble[data-chat-wait].is-in { opacit
 .placeholder--cream { background: var(--cream); }
 .placeholder--coastal { background: var(--coastal); }
 
+/* Cape Cod connections (partners), after Bach Babes' partners band: the
+   copy on the left, centred, with a caps line with one script word (guide
+   §4.4) and a pill; a stack of black-and-white prints with a scalloped
+   sticker on the right, all on plain cream. On phones and tablets the
+   prints stack above the copy. */
+.partners {
+  display: grid;
+  /* the two columns sit together as a centred pair, a set gap apart */
+  grid-template-columns: minmax(0, 46rem) minmax(0, 28rem);   /* 46rem fits "Minus the research spiral." on one line from 1440px up */
+  justify-content: center;
+  column-gap: clamp(3rem, 8.5vw, 8rem);
+  padding-inline: var(--gutter);
+  background: var(--cream);
+}
+.partners__art {
+  display: grid;
+  place-items: center;
+  order: 2;                        /* desktop: prints on the right */
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+}
+.partners__stack {
+  position: relative;
+  width: min(100%, 22rem);
+  aspect-ratio: 4 / 5;
+}
+.partners__print {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 4% 4% 16%;
+  background: #fefdfa;
+  box-shadow: 0 2px 4px rgba(31, 48, 71, 0.16), 0 14px 30px rgba(31, 48, 71, 0.22);
+}
+.partners__print--back { rotate: -7deg; translate: -4% 3%; }
+.partners__print--mid { rotate: 5deg; translate: 3% -2%; background: #f8f6f1; }
+.partners__print--front { rotate: -2deg; }
+.partners__print img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);   /* black and white, as in the reference */
+}
+/* scalloped sticker over the front print's top-right corner (about a third over, guide §6) */
+.partners__badge {
+  position: absolute;
+  top: -11%;
+  right: -16%;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: 50%;
+  aspect-ratio: 1;
+  rotate: 8deg;
+  text-align: center;
+  color: var(--paper);
+  filter: drop-shadow(0 6px 10px rgba(31, 48, 71, 0.18));
+}
+.partners__badge svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.partners__badge path { fill: var(--pear); stroke: var(--paper); stroke-width: 5px; }
+.partners__badge span { position: relative; line-height: 1; }
+.partners__badge-script { font-family: var(--font-script); font-size: clamp(1.25rem, 2vw, 1.75rem); }
+.partners__badge-name {
+  font-family: var(--font-display);
+  font-variation-settings: 'SOFT' 100;
+  font-size: clamp(1.05rem, 1.75vw, 1.5rem);
+  line-height: 0.92;
+  text-transform: lowercase;
+}
+.partners__badge-place {
+  margin-top: 0.35rem;
+  font-family: var(--font-caps);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.partners__copy {
+  align-self: center;
+  padding-block: clamp(4rem, 7vw, 6rem);
+  text-align: center;
+}
+/* two lines on desktop: a set break after "connections.", sized so the
+   second line fits the column; stacked layouts wrap naturally */
+.partners__copy h2 { color: var(--punch); font-size: clamp(2.5rem, 3.9vw, 3.6rem); text-wrap: balance; }
+@media (max-width: 63.75em) { .partners__br { display: none; } }
+.partners__caps { margin-top: 1.25rem; color: var(--punch); }
+.partners__copy p:not(.caps) { max-width: 38em; margin: 1rem auto 0; color: var(--ink); text-wrap: balance; }
+.partners__btn {
+  margin-top: 1.75rem;
+  background: var(--seaglass);
+  color: var(--ink);
+  box-shadow: none;
+}
+.partners__btn:hover { background: #8fc0b9; }
+@media (max-width: 63.75em) {
+  .partners { grid-template-columns: minmax(0, 1fr); }
+  .partners__copy { padding-top: 2.5rem; }
+  .partners__art { order: 0; padding-bottom: 0; }   /* stacked: prints above the copy */
+  .partners__stack { width: min(70%, 20rem); }   /* leaves room for the sticker inside the screen edge */
+}
+
 /* Side quest: script kicker over the headline (guide §4.4 type stack), then
    one body size for both paragraphs */
 .side-quest__kicker {
@@ -503,11 +712,232 @@ html.js .chat-stack[data-chat-ready] .chat-bubble[data-chat-wait].is-in { opacit
   color: var(--ink);
   rotate: -3deg;
 }
-.side-quest .section-intro { max-width: 40em; }
-/* the pear seal sits on the seam between Cape Cod connections and Side
-   Quest, half in each band: both keep their text clear of it */
-.side-quest { padding-top: calc(var(--space-section) + 3.5rem); }
-#connections { padding-bottom: calc(var(--space-section) + 3.5rem); }
+/* Layout (after the client's reference): a light film strip flush against the
+   left edge; a big headline in the middle; the copy, centred, with the route
+   card under it on the right. The grid starts past the strip's box, so the
+   strip can never run into the text. Below 1020px it all stacks, with the
+   strip as a band across the top. */
+.side-quest { --film-w: clamp(13rem, 23vw, 22rem); }
+.side-quest__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: center;
+  --sq-pad-r: max(var(--gutter), calc((100vw - 100rem) / 2));
+  padding-left: calc(var(--film-w) + clamp(2rem, 4vw, 4rem));
+  padding-right: var(--sq-pad-r);
+}
+.side-quest__head h2 {
+  margin: 0;
+  font-size: clamp(2.75rem, 4.6vw, 4.75rem);
+  line-height: 0.98;
+}
+.side-quest__head p { max-width: 30em; margin-top: 1.5rem; }
+.side-quest__copy .route { margin-top: 0; }   /* the card is all that's left in the right column */
+/* travel line art behind the route card, out past its bottom-right corner
+   at full strength (the pile's stamp stays at 50%) */
+.side-quest__copy { position: relative; isolation: isolate; }
+/* nothing spills into the next band or off the screen's sides */
+.side-quest { clip-path: inset(0); }
+.side-quest__copy .route { z-index: 1; }
+.side-quest__stamp {
+  position: absolute;
+  /* 40% smaller than before (30rem → 18rem); its right edge sits just inside
+     the screen and it drops well below the card, so most of it shows */
+  right: calc(var(--sq-pad-r) * -1 + 0.5rem);
+  bottom: -8.25rem;                /* low enough to clear the card, high enough not to be cut by the band's edge */
+  z-index: 0;
+  width: 18rem;
+  height: auto;
+  opacity: 1;
+  pointer-events: none;
+}
+/* the art shows mostly below the card (beside it too on wide screens and
+   tablets): give the band extra room underneath for it */
+.side-quest { padding-bottom: calc(var(--space-section) + 3rem); }
+@media (max-width: 63.75em) {
+  .side-quest__stamp { bottom: -7.5rem; }
+}
+@media (max-width: 47.5em) {
+  .side-quest__stamp { width: 12rem; bottom: -6.75rem; }
+}
+@media (max-width: 63.75em) {
+  .side-quest__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-left: var(--gutter);
+  }
+  .side-quest__copy .route { margin: 1rem 0 0; }
+}
+
+/* The film strip: pale stock with photos edge to edge, thin gaps between
+   frames and a soft row of sprocket holes down the right edge; tilted a few
+   degrees, bleeding off the left edge and the top and bottom of the band. */
+.film {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--film-w);
+  clip-path: inset(0 -6rem 0 0);   /* clip top, bottom and left; the starburst may poke out to the right */
+  pointer-events: none;
+}
+.film__strip {
+  position: absolute;
+  top: -12%;
+  bottom: -12%;
+  left: -1.5rem;
+  right: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 30px 10px 10px;
+  overflow: hidden;
+  background: #fdfbf7;
+  box-shadow: 0 14px 34px rgba(31, 48, 71, 0.2);
+  rotate: -4deg;
+}
+.film__strip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 7px;
+  width: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='22'%3E%3Crect x='4' y='6' width='8' height='10' rx='2' fill='%23ddd6cc'/%3E%3C/svg%3E") center top / 16px 22px repeat-y;
+}
+.film__strip img {
+  flex: none;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+}
+/* a soft pink star on the strip's edge, as in the reference: slim rays with
+   rounded tips and rounded curves between them (drawn in index.html) */
+.film__spark {
+  position: absolute;
+  top: 2.5rem;                     /* up near the band's top edge, well above the headline */
+  right: -1.5rem;                  /* pokes out less than the gap to the text column */
+  width: clamp(5.25rem, 7vw, 8rem);
+  height: clamp(5.25rem, 7vw, 8rem);
+  fill: var(--pear);
+  rotate: 8deg;                    /* a touch off upright, as if stuck on by hand */
+}
+@media (max-width: 63.75em) {
+  /* stacked: the strip turns sideways into a band above the copy */
+  .film {
+    --len: calc(100vw + 4rem);
+    position: relative;
+    width: auto;
+    height: calc(var(--len) * 0.07 + 13.5rem);
+    margin-bottom: 1rem;
+    clip-path: inset(-4rem 0);   /* cut only at the screen's sides; the shadow fades out above and below */
+  }
+  .film__strip {
+    inset: 50% auto auto 50%;
+    width: var(--len);
+    height: auto;
+    flex-direction: row;
+    padding: 10px 10px 30px;
+    translate: -50% -50%;
+    rotate: -3deg;
+  }
+  .film__strip::after {
+    top: auto;
+    bottom: 7px;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='16'%3E%3Crect x='6' y='4' width='10' height='8' rx='2' fill='%23ddd6cc'/%3E%3C/svg%3E");
+    background-position: left center;
+    background-size: 22px 16px;
+    background-repeat: repeat-x;
+  }
+  .film__strip img { width: 8.5rem; }
+  .film__spark { top: 0.5rem; right: auto; left: 62%; width: 4.5rem; height: 4.5rem; }
+}
+
+/* Route card: paper, slightly tilted; a dashed Sea glass line joins the pins */
+.route {
+  position: relative;
+  max-width: 30rem;
+  margin: 2.5rem auto 0;
+  text-align: left;
+  padding: 1.875rem 2.125rem 1.875rem 1.875rem;
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: var(--lift);
+  rotate: 1.2deg;
+}
+.route h3 {
+  margin: 0 0 1.125rem;
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.route ol { position: relative; margin: 0; padding: 0; list-style: none; }
+.route ol::before {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 14px;
+  bottom: 14px;
+  border-left: 3px dashed var(--seaglass);
+}
+.route li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.625rem 0;
+}
+.route__pin {
+  position: relative;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 4px solid var(--paper);
+  background: var(--seaglass);
+  box-shadow: 0 2px 6px rgba(31, 48, 71, 0.18);
+}
+.route li:first-child .route__pin { background: var(--punch); }   /* home base */
+.route__place {
+  font-family: var(--font-display);
+  font-variation-settings: 'SOFT' 100;
+  font-size: 1.625rem;
+  line-height: 1.05;
+  text-transform: lowercase;
+  color: var(--ink);
+}
+.route__how {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--seafoam);
+  font-family: var(--font-caps);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.route li:first-child .route__how { background: var(--petal); color: var(--pear-deep); }
+
+@media (max-width: 47.5em) {
+  .route { padding: 1.5rem 1.125rem; }
+  .route__place { font-size: 1.3125rem; }
+}
+/* the pear seal sits on the seam between the group chat band and the
+   "look on her face" band, half in each: both keep their text clear of it */
+#group-chat { padding-bottom: calc(var(--space-section) + 3.5rem); }
+#her-face { padding-top: calc(var(--space-section) + 3.5rem); }
 .side-quest h2 { margin-bottom: 1.5rem; }
 .side-quest h2 + p,
 .side-quest p + p { color: var(--ink); }

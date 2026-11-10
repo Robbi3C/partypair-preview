@@ -98,8 +98,14 @@
           <p>Fourteen girls. Four group chats. A rental with a "no tape on the walls" rule. And somehow you're supposed to make the whole place look incredible. While on vacation. Sure.</p>
           <p>We turn your rental into the bachelorette weekend you've all been dreaming about: decorations up, welcome bags waiting, fridge stocked, everything ready for her big entrance.</p>
           <p>Katie still gets to be the Cricut queen. Nobody checks a second suitcase. You get to enjoy the party.</p>
+          <button type="button" class="btn btn--primary problem__cta" data-open-inquiry>Hand it to us <span aria-hidden="true">&rarr;</span></button>
         </div>
         <div class="chat-stack" aria-label="The group chat, before The Party Pair">
+          <!-- extras for the editorial chat styles; hidden in the others -->
+          <!-- a tall photo bleeding off the left edge; the chat sits on its edge -->
+          <figure class="chat-photo" aria-hidden="true">
+            <img src="assets/img/toast-forever.webp" alt="" width="1024" height="1536" loading="lazy" decoding="async">
+          </figure>
           <p class="chat-bubble" style="--tilt: -1deg"><span class="sender">Jess</span>wait… who's bringing decorations??</p>
           <p class="chat-bubble" style="--tilt: 0.8deg"><span class="sender">Katie</span>I have a Cricut! let me customize all 14 Stanley cups 🙌</p>
           <p class="chat-bubble" style="--tilt: -0.6deg"><span class="sender">Mel</span>the airbnb says NO TAPE ON WALLS 😭😭</p>
@@ -148,6 +154,11 @@
 
     <!-- ============ PLACEHOLDER: The look on her face ============ -->
     <section class="section placeholder placeholder--cream" id="her-face">
+      <!-- The pear ring seal (guide §10.4), sitting across the seam with the group chat band above -->
+      <div class="seam-seal" aria-hidden="true">
+        <svg viewBox="0 0 132 132"><defs><path id="sealring" d="M66 66 m-50 0 a50 50 0 1 1 100 0 a50 50 0 1 1 -100 0"/></defs><circle cx="66" cy="66" r="64"/><text><textPath href="#sealring" textLength="306" lengthAdjust="spacing">THE PARTY PAIR ✦ CAPE COD ✦</textPath></text></svg>
+        <img src="assets/img/pear.svg" alt="" width="90" height="100">
+      </div>
       <div class="container section-intro">
         <h2>Already picturing the look on her face?</h2>
         <p class="lead">Placeholder: content for this section to come.</p>
@@ -157,7 +168,6 @@
     <!-- ============ Google reviews (rendered from js/content/reviews.js by js/reviews.js) ============ -->
     <section class="section reviews" id="reviews" aria-label="Google reviews">
       <svg class="finale__wave finale__wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><path style="fill: var(--cream)" d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
-      <svg class="finale__wave finale__wave--bottom" viewBox="0 0 1248 76" preserveAspectRatio="none" aria-hidden="true"><path style="fill: var(--coastal)" d="M0 0 H1248 L1248 19.3 L1200 23.1 L1152 25.8 L1104 25.7 L1056 25.3 L1008 29.2 L960 38.3 L912 48.9 L864 54.7 L816 52.2 L768 43.7 L720 35 L672 30.6 L624 29.8 L576 28.8 L528 24.5 L480 18.4 L432 15.7 L384 20.4 L336 31.3 L288 42.8 L240 49 L192 48.3 L144 44.4 L96 42 L48 42.4 L0 42.5 Z"/></svg>
       <div class="preview-switch" role="group" aria-label="Reviews section version">
         <button type="button" data-preview="reviews" data-value="a">Version A</button>
         <button type="button" data-preview="reviews" data-value="b">Version B</button>
@@ -166,26 +176,73 @@
     </section>
 
     <!-- ============ PLACEHOLDER: Cape Cod connections ============ -->
-    <section class="section placeholder placeholder--coastal" id="connections">
-      <div class="container section-intro">
-        <h2>Cape Cod connections. Minus the research spiral.</h2>
-        <p class="lead">Placeholder: content for this section to come.</p>
+    <!-- ============ Cape Cod connections (partners) ============
+         Split band after Bach Babes' partners section: copy on the left,
+         a stack of prints with a sticker on the right (order set in CSS).
+         PROPOSED copy (from the v2 reference) and PLACEHOLDER photos. -->
+    <section class="partners" id="connections">
+      <div class="partners__art">
+        <div class="partners__stack">
+          <div class="partners__print partners__print--back" aria-hidden="true"></div>
+          <div class="partners__print partners__print--mid" aria-hidden="true"></div>
+          <figure class="partners__print partners__print--front">
+            <img src="assets/img/deck-floats.webp" alt="Ocean-view deck with a flamingo float and string lights" width="1400" height="1046" loading="lazy" decoding="async">
+          </figure>
+          <div class="partners__badge" aria-hidden="true">
+            <svg viewBox="0 0 120 120"><path d="M113.5 60.0 L113.0 62.3 L111.6 64.5 L109.6 66.5 L107.5 68.4 L105.9 70.2 L104.9 72.0 L104.8 74.1 L105.3 76.5 L106.2 79.1 L106.9 81.9 L107.0 84.5 L106.3 86.8 L104.7 88.5 L102.4 89.7 L99.7 90.4 L97.0 91.0 L94.6 91.7 L92.9 92.9 L91.7 94.6 L91.0 97.0 L90.4 99.7 L89.7 102.4 L88.5 104.7 L86.8 106.3 L84.5 107.0 L81.9 106.9 L79.1 106.2 L76.5 105.3 L74.1 104.8 L72.0 104.9 L70.2 105.9 L68.4 107.5 L66.5 109.6 L64.5 111.6 L62.3 113.0 L60.0 113.5 L57.7 113.0 L55.5 111.6 L53.5 109.6 L51.6 107.5 L49.8 105.9 L48.0 104.9 L45.9 104.8 L43.5 105.3 L40.9 106.2 L38.1 106.9 L35.5 107.0 L33.3 106.3 L31.5 104.7 L30.3 102.4 L29.6 99.7 L29.0 97.0 L28.3 94.6 L27.1 92.9 L25.4 91.7 L23.0 91.0 L20.3 90.4 L17.6 89.7 L15.3 88.5 L13.7 86.8 L13.0 84.5 L13.1 81.9 L13.8 79.1 L14.7 76.5 L15.2 74.1 L15.1 72.0 L14.1 70.2 L12.5 68.4 L10.4 66.5 L8.4 64.5 L7.0 62.3 L6.5 60.0 L7.0 57.7 L8.4 55.5 L10.4 53.5 L12.5 51.6 L14.1 49.8 L15.1 48.0 L15.2 45.9 L14.7 43.5 L13.8 40.9 L13.1 38.1 L13.0 35.5 L13.7 33.2 L15.3 31.5 L17.6 30.3 L20.3 29.6 L23.0 29.0 L25.4 28.3 L27.1 27.1 L28.3 25.4 L29.0 23.0 L29.6 20.3 L30.3 17.6 L31.5 15.3 L33.2 13.7 L35.5 13.0 L38.1 13.1 L40.9 13.8 L43.5 14.7 L45.9 15.2 L48.0 15.1 L49.8 14.1 L51.6 12.5 L53.5 10.4 L55.5 8.4 L57.7 7.0 L60.0 6.5 L62.3 7.0 L64.5 8.4 L66.5 10.4 L68.4 12.5 L70.2 14.1 L72.0 15.1 L74.1 15.2 L76.5 14.7 L79.1 13.8 L81.9 13.1 L84.5 13.0 L86.7 13.7 L88.5 15.3 L89.7 17.6 L90.4 20.3 L91.0 23.0 L91.7 25.4 L92.9 27.1 L94.6 28.3 L97.0 29.0 L99.7 29.6 L102.4 30.3 L104.7 31.5 L106.3 33.3 L107.0 35.5 L106.9 38.1 L106.2 40.9 L105.3 43.5 L104.8 45.9 L104.9 48.0 L105.9 49.8 L107.5 51.6 L109.6 53.5 L111.6 55.5 L113.0 57.7 Z"/></svg>
+            <span class="partners__badge-script">the</span>
+            <span class="partners__badge-name">party<br>pair</span>
+            <span class="partners__badge-place">Cape Cod</span>
+          </div>
+        </div>
+      </div>
+      <div class="partners__copy">
+        <h2>Cape Cod connections.<br class="partners__br"> Minus the research spiral.</h2>
+        <p class="caps partners__caps">The ones we'd book for our own friends</p>
+        <p>Skip the 47 open tabs. These are our favorite local businesses, the ones we'd book for our own friends, and every one of them offers Party Pair clients a little something extra.</p>
+        <a class="btn btn--lg partners__btn" href="partners.html">Meet our favorites <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
     <!-- ============ Instagram gallery (rendered by js/insta-grid.js) ============ -->
     <!-- ============ PLACEHOLDER: Side quest (travel beyond the Cape) ============ -->
     <section class="section placeholder placeholder--petal side-quest" id="side-quest">
-      <!-- The pear ring seal (guide §10.4), sitting across the seam with the Cape Cod connections band above -->
-      <div class="seam-seal" aria-hidden="true">
-        <svg viewBox="0 0 132 132"><defs><path id="sealring" d="M66 66 m-50 0 a50 50 0 1 1 100 0 a50 50 0 1 1 -100 0"/></defs><circle cx="66" cy="66" r="64"/><text><textPath href="#sealring" textLength="306" lengthAdjust="spacing">THE PARTY PAIR ✦ CAPE COD ✦</textPath></text></svg>
-        <img src="assets/img/pear.svg" alt="" width="90" height="100">
+      <!-- Film strip flush against the left edge, gently tilted, running off the
+           top and bottom. PLACEHOLDER photos (one beach shot repeated): swap each
+           frame for a real out-of-Cape weekend. -->
+      <div class="film" aria-hidden="true">
+        <div class="film__strip">
+          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+        </div>
+        <svg class="film__spark" viewBox="-2 -2 104 104"><path d="M50.71 3.43 L54.66 22.60 Q56.89 33.37 66.08 27.33 L82.43 16.57 Q85.36 14.64 83.43 17.57 L72.67 33.92 Q66.63 43.11 77.40 45.34 L96.57 49.29 Q100.00 50.00 96.57 50.71 L77.40 54.66 Q66.63 56.89 72.67 66.08 L83.43 82.43 Q85.36 85.36 82.43 83.43 L66.08 72.67 Q56.89 66.63 54.66 77.40 L50.71 96.57 Q50.00 100.00 49.29 96.57 L45.34 77.40 Q43.11 66.63 33.92 72.67 L17.57 83.43 Q14.64 85.36 16.57 82.43 L27.33 66.08 Q33.37 56.89 22.60 54.66 L3.43 50.71 Q0.00 50.00 3.43 49.29 L22.60 45.34 Q33.37 43.11 27.33 33.92 L16.57 17.57 Q14.64 14.64 17.57 16.57 L33.92 27.33 Q43.11 33.37 45.34 22.60 L49.29 3.43 Q50.00 0.00 50.71 3.43 Z"/></svg>
       </div>
-      <div class="container section-intro">
-        <p class="script side-quest__kicker">Side Quest</p>
-        <h2>Partying beyond the Cape? Consider it handled.</h2>
-        <p>Love our decor, but your bride's heart is set on somewhere beyond Cape Cod? No problem, babe! While the Cape is our home base, we're always up for taking the celebration on the road.</p>
-        <p>From Nantucket and Martha's Vineyard to Newport, Rhode Island, Boston, and beyond, we'll pack up our signature Party Pair magic and bring it straight to your dream destination. By ferry, car, or even plane, we're happy to go the extra mile (or hundred!).</p>
+      <div class="side-quest__grid">
+        <div class="side-quest__head">
+          <p class="script side-quest__kicker">Side Quest</p>
+          <h2>Partying beyond the Cape? Consider it handled.</h2>
+          <p>Love our decor, but your bride's heart is set on somewhere beyond Cape Cod? No problem, babe! While the Cape is our home base, we're always up for taking the celebration on the road.</p>
+        </div>
+        <div class="side-quest__copy">
+          <!-- travel line art, peeking out from behind the route card's bottom-right corner -->
+          <img class="side-quest__stamp" src="assets/img/travel_stamp.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
+          <!-- Route card: the places we travel to, joined by a dashed line -->
+          <div class="route">
+            <h3>Where we'll go</h3>
+            <ol>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">Cape Cod</span><span class="route__how">Home base</span></li>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">Nantucket</span><span class="route__how">By ferry</span></li>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">Martha's Vineyard</span><span class="route__how">By ferry</span></li>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">Newport, RI</span><span class="route__how">By car</span></li>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">Boston</span><span class="route__how">By car</span></li>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">&amp; beyond</span><span class="route__how">By plane</span></li>
+            </ol>
+          </div>
+        </div>
       </div>
     </section>
 
