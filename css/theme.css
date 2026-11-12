@@ -599,6 +599,10 @@ html.js .chat-stack[data-chat-ready] .chat-bubble[data-chat-wait].is-in { opacit
 .placeholder--petal { background: var(--petal); }
 .placeholder--petal h2 { color: var(--pear-deep); }
 .placeholder--paper { background: var(--paper); }
+/* Seafoam, not Paper, above the cream "look on her face" band: Paper and Cream are
+   near-identical, which left the seam seal floating with no visible seam (guide §9.4) */
+.placeholder--seafoam { background: var(--seafoam); }
+.placeholder--seafoam h2 { color: var(--pear-deep); }
 .placeholder--cream { background: var(--cream); }
 .placeholder--coastal { background: var(--coastal); }
 

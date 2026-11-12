@@ -2,8 +2,8 @@
    HERO — "Into the light" (was preview option C4). Homepage only;
    loaded after sections.css, whose .hero rules other pages still use.
 
-   Text on Pear pink at the left; the lifestyle photo sits on the right and
-   its left edge dissolves into the pink (a mask), so the copy reads on
+   Text on paper (warm off-white) at the left; the lifestyle photo sits on
+   the right and its left edge dissolves into the paper (a mask), so the copy reads on
    a clean ground that slowly becomes the picture. Phones and portrait
    tablets stack it: photo on top, fading down into the copy.
 
@@ -45,11 +45,11 @@
   align-content: center;
   justify-items: start;
   text-align: left;
-  background-color: var(--pear);
-  background-image: radial-gradient(rgba(255, 253, 248, 0.32) 1px, transparent 1.3px);
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(222, 100, 165, 0.13) 1px, transparent 1.3px);   /* faint rose dots */
   background-size: 7px 7px;
 }
-/* focus blue is too faint on Pear pink (2.65:1) */
+/* ink focus ring, to match the ink copy */
 .hero :focus-visible { outline-color: var(--ink); }
 .hero::before { display: none; }
 
