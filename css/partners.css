@@ -1,0 +1,99 @@
+/* ============================================================
+   CAPE COD CONNECTIONS (homepage, .partners)
+   ============================================================ */
+
+/* Cape Cod connections (partners), after Bach Babes' partners band: the
+   copy on the left, centred, with a caps line with one script word (guide
+   §4.4) and a pill; a stack of black-and-white prints with a scalloped
+   sticker on the right, all on plain cream. On phones and tablets the
+   prints stack above the copy. */
+.partners {
+  display: grid;
+  /* the two columns sit together as a centred pair, a set gap apart */
+  grid-template-columns: minmax(0, 46rem) minmax(0, 28rem);   /* 46rem fits "Minus the research spiral." on one line from 1440px up */
+  justify-content: center;
+  column-gap: clamp(3rem, 8.5vw, 8rem);
+  padding-inline: var(--gutter);
+  background: var(--cream);
+}
+.partners__art {
+  display: grid;
+  place-items: center;
+  order: 2;                        /* desktop: prints on the right */
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+}
+.partners__stack {
+  position: relative;
+  width: min(100%, 22rem);
+  aspect-ratio: 4 / 5;
+}
+.partners__print {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 4% 4% 16%;
+  background: #fefdfa;
+  box-shadow: 0 2px 4px rgba(31, 48, 71, 0.16), 0 14px 30px rgba(31, 48, 71, 0.22);
+}
+.partners__print--back { rotate: -7deg; translate: -4% 3%; }
+.partners__print--mid { rotate: 5deg; translate: 3% -2%; background: #f8f6f1; }
+.partners__print--front { rotate: -2deg; }
+.partners__print img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05) brightness(1.15);   /* black and white, as in the reference; lifted for the dusk Provincetown shot */
+}
+/* scalloped sticker over the front print's top-right corner (about a third over, guide §6) */
+.partners__badge {
+  position: absolute;
+  top: -11%;
+  right: -16%;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: 50%;
+  aspect-ratio: 1;
+  rotate: 8deg;
+  text-align: center;
+  color: var(--badge-ink);
+  filter: drop-shadow(0 6px 10px rgba(31, 48, 71, 0.18));
+}
+.partners__badge svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.partners__badge path { fill: var(--badge-fill); stroke: var(--paper); stroke-width: 5px; }
+.partners__badge span { position: relative; line-height: 1; }
+.partners__badge-script { font-family: var(--font-script); font-size: clamp(1.25rem, 2vw, 1.75rem); }
+.partners__badge-name {
+  font-family: var(--font-display);
+  font-variation-settings: 'SOFT' 100;
+  font-size: clamp(1.05rem, 1.75vw, 1.5rem);
+  line-height: 0.92;
+  text-transform: lowercase;
+}
+.partners__badge-place {
+  margin-top: 0.35rem;
+  font-family: var(--font-caps);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.partners__copy {
+  align-self: center;
+  padding-block: clamp(4rem, 7vw, 6rem);
+  text-align: center;
+}
+/* two lines on desktop: a set break after "connections.", sized so the
+   second line fits the column; stacked layouts wrap naturally */
+.partners__copy h2 { color: var(--punch); font-size: clamp(2.5rem, 3.9vw, 3.6rem); text-wrap: balance; }
+@media (max-width: 63.75em) { .partners__br { display: none; } }
+.partners__caps { margin-top: 1.25rem; color: var(--caps-accent); }
+.partners__copy p:not(.caps) { max-width: 38em; margin: 1rem auto 0; color: var(--ink); text-wrap: balance; }
+.partners__btn { margin-top: 1.75rem; }   /* a Sea glass pill (components.css) */
+@media (max-width: 63.75em) {
+  .partners { grid-template-columns: minmax(0, 1fr); }
+  .partners__copy { padding-top: 2.5rem; }
+  .partners__art { order: 0; padding-bottom: 0; }   /* stacked: prints above the copy */
+  .partners__stack { width: min(70%, 20rem); }   /* leaves room for the sticker inside the screen edge */
+}

@@ -3,7 +3,6 @@
    <div data-partial="header|footer"></div>; the modal and sticky CTA are
    appended to <body>. Content comes from js/content/site.js.
 
-   Pages without slots (the archived /original/ page) are left untouched.
    Netlify can't see JS-rendered forms, so netlify-forms.html carries a
    hidden copy of the inquiry form for its deploy-time scan. */
 
@@ -39,7 +38,7 @@ function header() {
     </div>
     <nav class="site-menu" id="site-menu" aria-label="Main" inert>
       ${navLinks()}
-      <div class="site-menu__cta"><button class="btn btn--primary btn--lg" data-open-inquiry>${site.cta}</button></div>
+      <div class="site-menu__cta"><button class="btn btn--primary" data-open-inquiry>${site.cta}</button></div>
     </nav>
   </header>`;
 }
@@ -110,7 +109,7 @@ const inquiryModal = () => `
           <textarea id="inq-details" name="details" rows="3" placeholder="Tell us what you're looking for and any special details!"></textarea>
         </div>
         <div class="modal__actions">
-          <button class="btn btn--primary btn--lg" type="submit">Check availability</button>
+          <button class="btn btn--primary" type="submit">Check availability</button>
           <p class="form-note">Sending this means you're okay with us texting you back — that's it, no strings. Message &amp; data rates may apply.</p>
         </div>
       </form>

@@ -1,5 +1,5 @@
 /* ============================================================
-   Navigation — "Fitted": one pill that hugs its content, centred.
+   Header + menu — "Fitted": one pill that hugs its content, centred.
    Logo + links + CTA. It shows as much as fits, measured by js/nav.js
    (not fixed breakpoints, so adding or removing links in
    js/content/site.js just works):
@@ -8,15 +8,39 @@
                                 bottom bar carries it
      html[data-nav="collapsed"] logo + burger only; the CTA lives in
                                 the menu panel and the sticky bar
+   The header tucks away on scroll down (scroll.js) below 75em.
    ============================================================ */
 
-.site-header__actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.site-header {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 60;
+  transition: transform var(--dur-med) var(--ease-out);
+  /* the header's box is taller than its visible bar (the closed menu
+     panel sits in it); clicks fall through to the page below */
+  pointer-events: none;
 }
+.site-header > * { pointer-events: auto; }
+.site-header.is-hidden { transform: translateY(-110%); }
+/* a tucked-away header comes back when it gets keyboard focus */
+.site-header.is-hidden:focus-within { transform: none; }
 
 /* ---------- The pill ---------- */
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.9rem auto 0;
+  padding: 0.55rem 0.7rem 0.55rem 1.1rem;
+  width: min(100% - 2 * var(--gutter), var(--content-max));
+  background: rgba(255, 253, 248, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-card);
+}
 :root:not([data-nav='collapsed']) .site-header__inner {
   width: fit-content;
   max-width: calc(100% - 2 * var(--gutter));
@@ -26,17 +50,46 @@
 /* no CTA in the pill: close it up on the right */
 :root[data-nav='no-cta'] .site-header__inner { padding-right: 1.6rem; }
 
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.site-header .btn {
+  min-height: 2.75rem;
+  padding: 0 1.375rem;
+  white-space: nowrap;
+}
+
 /* ---------- Inline links ---------- */
 .site-nav { gap: clamp(1.1rem, 2vw, 1.6rem); }
 .site-nav a {
-  font-size: 0.94rem;
-  white-space: nowrap;
+  position: relative;
   /* 44px touch target without looking any bigger (the padding is
      taken back by the negative margin) */
   padding-block: 0.65rem;
   margin-block: -0.65rem;
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+  text-decoration: none;
 }
-.site-nav a::after { bottom: calc(0.65rem - 4px); }
+/* Punch underline growing from the left (§10.11) */
+.site-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 100%;
+  bottom: calc(0.65rem - 4px);
+  height: 2px;
+  background: var(--punch);
+  border-radius: 2px;
+  transition: right var(--dur-quick) var(--ease-out);
+}
+.site-nav a:hover::after,
 .site-nav a[aria-current='page']::after { right: 0; }
 
 /* ---------- The measured states ---------- */
@@ -58,14 +111,19 @@
   padding: 0 1rem 0 0.75rem;
   border: none;
   border-radius: var(--radius-pill);
-  font: 600 0.9rem/1 var(--font-body);
-  background: var(--shell-deep);
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--petal);
   color: var(--ink);
   cursor: pointer;
   transition: background-color var(--dur-quick) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
-.menu-toggle:hover { background: var(--pink-100, #f7cfe0); }
+.menu-toggle:hover { background: var(--pear); }
 .menu-toggle svg { overflow: visible; }
 .menu-toggle path {
   fill: none;
@@ -87,7 +145,7 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: rgba(43, 33, 41, 0.38);
+  background: rgba(31, 48, 71, 0.38);
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--dur-med) var(--ease-out);
@@ -96,8 +154,6 @@
 :root.nav-open { overflow: hidden; }
 /* one CTA at a time: the panel's own */
 :root.nav-open .sticky-cta { visibility: hidden; }
-/* a tucked-away header comes back when it gets keyboard focus */
-.site-header.is-hidden:focus-within { transform: none; }
 
 /* ---------- Panel ---------- */
 .site-menu {
@@ -105,7 +161,7 @@
   width: min(100% - 2 * var(--gutter), var(--content-max));
   margin: 0.6rem auto 0;
   padding: 0.6rem clamp(1.2rem, 4vw, 2rem) clamp(1.2rem, 4vw, 1.8rem);
-  background: var(--white);
+  background: var(--paper);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-pop);
   /* never taller than the screen below the header: it scrolls inside,
@@ -137,21 +193,23 @@
   gap: 1rem;
   padding: 0.85rem 0.2rem;
   font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 560;
-  font-size: clamp(1.35rem, 5vw, 1.6rem);
+  font-weight: 400;
+  font-variation-settings: 'SOFT' 100;
+  font-size: 2.75rem;
+  line-height: 1.15;
+  text-transform: lowercase;
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px dashed rgba(43, 33, 41, 0.16);
+  border-bottom: 1px dashed var(--hairline);
 }
-.site-menu a:hover { color: var(--rose-deep); }
+.site-menu a:hover { color: var(--pear-deeper); }
 /* current page: a small pear-pink dot */
 .site-menu a[aria-current='page']::after {
   content: '';
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 50%;
-  background: var(--rose);
+  background: var(--pear-deep);
   flex-shrink: 0;
 }
 .site-menu a:last-of-type { border-bottom: 0; }
@@ -166,7 +224,7 @@
   margin-inline: calc(-1 * clamp(1.2rem, 4vw, 2rem));
   margin-bottom: calc(-1 * clamp(1.2rem, 4vw, 1.8rem));
   padding: 1rem clamp(1.2rem, 4vw, 2rem) clamp(1.2rem, 4vw, 1.8rem);
-  background: var(--white);
+  background: var(--paper);
 }
 
 /* ---------- Desktop: sticky ----------

@@ -16,23 +16,27 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/img/pear.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/sections.css">
-  <link rel="stylesheet" href="css/v3.css">
-  <link rel="stylesheet" href="css/nav.css">
-  <link rel="stylesheet" href="css/pages.css">
-  <link rel="stylesheet" href="css/hero.css">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,900,100&family=Josefin+Sans:wght@600&family=Questrial&family=Yellowtail&display=swap">
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/insta-grid.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="css/her-party.css">
+  <link rel="stylesheet" href="css/placeholders.css">
+  <link rel="stylesheet" href="css/booking.css">
   <link rel="stylesheet" href="css/reviews.css">
+  <link rel="stylesheet" href="css/partners.css">
+  <link rel="stylesheet" href="css/side-quest.css">
+  <link rel="stylesheet" href="css/insta-grid.css">
   <link rel="stylesheet" href="css/faq.css">
   <link rel="stylesheet" href="css/finale.css">
+  <!-- PALETTE PREVIEW: remove these two lines (and both files) once a palette is chosen -->
+  <link rel="stylesheet" href="css/palettes.css">
+  <script src="js/palette-switcher.js"></script>
 
   <script type="application/ld+json">
   {
@@ -66,7 +70,7 @@
         <h1><span class="hero__line">She opens the door.</span> <span class="hero__line">Everyone screams.</span></h1>
         <p class="hero__lead">The decorations are up. The welcome bags are waiting. The champagne's cold. <strong>The whole house is ready for her big entrance before you've even crossed the bridge.</strong></p>
         <div class="hero__ctas">
-          <button class="btn btn--primary btn--lg" data-open-inquiry>Check your weekend</button>
+          <button class="btn btn--primary" data-open-inquiry>Check your weekend</button>
         </div>
       </div>
     </section>
@@ -78,7 +82,7 @@
       </div>
     </div>
 
-    <!-- ============ The maid-of-honor group chat (kept as is) ============ -->
+    <!-- ============ The maid-of-honor group chat ============ -->
     <section class="section problem">
       <div class="container problem__grid">
         <div class="problem__copy">
@@ -89,7 +93,6 @@
           <button type="button" class="btn btn--primary problem__cta" data-open-inquiry>Hand it to us <span aria-hidden="true">&rarr;</span></button>
         </div>
         <div class="chat-stack" aria-label="The group chat, before The Party Pair">
-          <!-- extras for the editorial chat styles; hidden in the others -->
           <!-- a tall photo bleeding off the left edge; the chat sits on its edge -->
           <figure class="chat-photo" aria-hidden="true">
             <img src="assets/img/toast-forever.webp" alt="" width="1024" height="1536" loading="lazy" decoding="async">
@@ -115,11 +118,11 @@
              PLACEHOLDER photos: swap for real Party Pair weekends. -->
         <div class="polaroids" aria-label="Photos from recent weekends">
           <img class="polaroids__stamp" src="assets/img/background_stamp.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
-          <figure class="polaroid" style="--r: -13deg; --x: -40%; --y: -24%"><img src="assets/img/tablescape.webp" alt="Styled tablescape" loading="lazy" decoding="async"></figure>
-          <figure class="polaroid" style="--r: 11deg; --x: 39%; --y: -28%"><img src="assets/img/balloon-arch.webp" alt="Balloon arch" loading="lazy" decoding="async"></figure>
-          <figure class="polaroid" style="--r: 4deg; --x: -36%; --y: 25%"><img src="assets/img/bride-suite.webp" alt="Decorated bride suite" loading="lazy" decoding="async"></figure>
-          <figure class="polaroid" style="--r: -17deg; --x: 38%; --y: 20%"><img src="assets/img/welcome-table.webp" alt="Welcome table with gift bags" loading="lazy" decoding="async"></figure>
-          <figure class="polaroid" style="--r: -4deg; --x: 1%; --y: -2%"><img src="assets/img/deck-floats.webp" alt="Pool floats on the deck" loading="lazy" decoding="async"></figure>
+          <figure class="polaroid" style="--r: -13deg; --x: -40%; --y: -24%"><img src="assets/PP_Images/Coastal%20Lobster%20Gift%20Favour%20Display.webp" alt="Coastal lobster-themed gift favour display" loading="lazy" decoding="async"></figure>
+          <figure class="polaroid" style="--r: 11deg; --x: 39%; --y: -28%"><img src="assets/PP_Images/Balloon-Filled%20Bedroom%20Retreat.webp" alt="Bedroom filled with balloons" loading="lazy" decoding="async"></figure>
+          <figure class="polaroid" style="--r: 4deg; --x: -36%; --y: 25%"><img src="assets/PP_Images/Lobster-Themed%20Blue%20and%20White%20Party%20Cart.webp" alt="Lobster-themed blue and white party cart" loading="lazy" decoding="async"></figure>
+          <figure class="polaroid" style="--r: -17deg; --x: 38%; --y: 20%"><img src="assets/PP_Images/Lobster_Table.webp" alt="Outdoor table set with a giant lobster, red gingham and striped runners" loading="lazy" decoding="async"></figure>
+          <figure class="polaroid" style="--r: -4deg; --x: 1%; --y: -2%"><img src="assets/PP_Images/Love%20Is%20Brewing_%20Nikki%E2%80%99s%20Bachelorette.webp" alt="“Love Is Brewing” bachelorette setup for Nikki" loading="lazy" decoding="async"></figure>
         </div>
       </div>
     </section>
@@ -140,37 +143,43 @@
       </div>
     </section>
 
-    <!-- ============ PLACEHOLDER: The look on her face ============ -->
-    <section class="section placeholder placeholder--cream" id="her-face">
-      <!-- The pear ring seal (guide §10.4), sitting across the seam with the group chat band above -->
+    <!-- ============ How booking works (css/booking.css; steps from js/content/booking.js) ============ -->
+    <section class="section booking" id="how-booking-works" aria-labelledby="booking-title" data-booking>
+      <!-- The pear ring seal (guide §10.4), on the seam with the group chat band above,
+           where the cream and pink halves meet -->
       <div class="seam-seal" aria-hidden="true">
         <svg viewBox="0 0 132 132"><defs><path id="sealring" d="M66 66 m-50 0 a50 50 0 1 1 100 0 a50 50 0 1 1 -100 0"/></defs><circle cx="66" cy="66" r="64"/><text><textPath href="#sealring" textLength="306" lengthAdjust="spacing">THE PARTY PAIR ✦ CAPE COD ✦</textPath></text></svg>
         <img src="assets/img/pear.svg" alt="" width="90" height="100">
       </div>
-      <div class="container section-intro">
-        <h2>Already picturing the look on her face?</h2>
-        <p class="lead">Placeholder: content for this section to come.</p>
+      <div class="container booking__inner">
+        <div class="booking__head">
+          <h2 id="booking-title">Already picturing the look on her face?</h2>
+          <!-- PLACEHOLDER copy -->
+          <p class="booking__lead">You send the date and the rental. We plan it with you, shop it, haul it and set it all up before check-in.</p>
+          <button type="button" class="btn btn--primary" data-open-inquiry>Check your weekend <span class="arr" aria-hidden="true">→</span></button>
+        </div>
+        <div class="booking__stage" data-booking-steps></div>
       </div>
     </section>
 
     <!-- ============ Google reviews (rendered from js/content/reviews.js by js/reviews.js) ============ -->
     <section class="section reviews" id="reviews" aria-label="Google reviews">
-      <svg class="finale__wave finale__wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><path style="fill: var(--cream)" d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
+      <!-- hangs from the booking band: cream on the left half, pink on the right (css/booking.css) -->
+      <svg class="wave wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="wave-split"><stop class="wave__split-l" offset="0.5"/><stop class="wave__split-r" offset="0.5"/></linearGradient></defs><path fill="url(#wave-split)" d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
       <div data-reviews-slot></div>
     </section>
 
-    <!-- ============ PLACEHOLDER: Cape Cod connections ============ -->
     <!-- ============ Cape Cod connections (partners) ============
          Split band after Bach Babes' partners section: copy on the left,
          a stack of prints with a sticker on the right (order set in CSS).
-         PROPOSED copy (from the v2 reference) and PLACEHOLDER photos. -->
+         PROPOSED copy; the front print is a real photo. -->
     <section class="partners" id="connections">
       <div class="partners__art">
         <div class="partners__stack">
           <div class="partners__print partners__print--back" aria-hidden="true"></div>
           <div class="partners__print partners__print--mid" aria-hidden="true"></div>
           <figure class="partners__print partners__print--front">
-            <img src="assets/img/deck-floats.webp" alt="Ocean-view deck with a flamingo float and string lights" width="1400" height="1046" loading="lazy" decoding="async">
+            <img src="assets/PP_Images/ProvinceTown.jpg" alt="Commercial Street in Provincetown at dusk, strung with flags and busy with people" width="678" height="452" style="object-position: 100% 50%" loading="lazy" decoding="async">
           </figure>
           <div class="partners__badge" aria-hidden="true">
             <svg viewBox="0 0 120 120"><path d="M113.5 60.0 L113.0 62.3 L111.6 64.5 L109.6 66.5 L107.5 68.4 L105.9 70.2 L104.9 72.0 L104.8 74.1 L105.3 76.5 L106.2 79.1 L106.9 81.9 L107.0 84.5 L106.3 86.8 L104.7 88.5 L102.4 89.7 L99.7 90.4 L97.0 91.0 L94.6 91.7 L92.9 92.9 L91.7 94.6 L91.0 97.0 L90.4 99.7 L89.7 102.4 L88.5 104.7 L86.8 106.3 L84.5 107.0 L81.9 106.9 L79.1 106.2 L76.5 105.3 L74.1 104.8 L72.0 104.9 L70.2 105.9 L68.4 107.5 L66.5 109.6 L64.5 111.6 L62.3 113.0 L60.0 113.5 L57.7 113.0 L55.5 111.6 L53.5 109.6 L51.6 107.5 L49.8 105.9 L48.0 104.9 L45.9 104.8 L43.5 105.3 L40.9 106.2 L38.1 106.9 L35.5 107.0 L33.3 106.3 L31.5 104.7 L30.3 102.4 L29.6 99.7 L29.0 97.0 L28.3 94.6 L27.1 92.9 L25.4 91.7 L23.0 91.0 L20.3 90.4 L17.6 89.7 L15.3 88.5 L13.7 86.8 L13.0 84.5 L13.1 81.9 L13.8 79.1 L14.7 76.5 L15.2 74.1 L15.1 72.0 L14.1 70.2 L12.5 68.4 L10.4 66.5 L8.4 64.5 L7.0 62.3 L6.5 60.0 L7.0 57.7 L8.4 55.5 L10.4 53.5 L12.5 51.6 L14.1 49.8 L15.1 48.0 L15.2 45.9 L14.7 43.5 L13.8 40.9 L13.1 38.1 L13.0 35.5 L13.7 33.2 L15.3 31.5 L17.6 30.3 L20.3 29.6 L23.0 29.0 L25.4 28.3 L27.1 27.1 L28.3 25.4 L29.0 23.0 L29.6 20.3 L30.3 17.6 L31.5 15.3 L33.2 13.7 L35.5 13.0 L38.1 13.1 L40.9 13.8 L43.5 14.7 L45.9 15.2 L48.0 15.1 L49.8 14.1 L51.6 12.5 L53.5 10.4 L55.5 8.4 L57.7 7.0 L60.0 6.5 L62.3 7.0 L64.5 8.4 L66.5 10.4 L68.4 12.5 L70.2 14.1 L72.0 15.1 L74.1 15.2 L76.5 14.7 L79.1 13.8 L81.9 13.1 L84.5 13.0 L86.7 13.7 L88.5 15.3 L89.7 17.6 L90.4 20.3 L91.0 23.0 L91.7 25.4 L92.9 27.1 L94.6 28.3 L97.0 29.0 L99.7 29.6 L102.4 30.3 L104.7 31.5 L106.3 33.3 L107.0 35.5 L106.9 38.1 L106.2 40.9 L105.3 43.5 L104.8 45.9 L104.9 48.0 L105.9 49.8 L107.5 51.6 L109.6 53.5 L111.6 55.5 L113.0 57.7 Z"/></svg>
@@ -184,20 +193,19 @@
         <h2>Cape Cod connections.<br class="partners__br"> Minus the research spiral.</h2>
         <p class="caps partners__caps">The ones we'd book for our own friends</p>
         <p>Skip the 47 open tabs. These are our favorite local businesses, the ones we'd book for our own friends, and every one of them offers Party Pair clients a little something extra.</p>
-        <a class="btn btn--lg partners__btn" href="partners.html">Meet our favorites <span aria-hidden="true">→</span></a>
+        <a class="btn btn--seaglass partners__btn" href="partners.html">Meet our favorites <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
-    <!-- ============ Instagram gallery (rendered by js/insta-grid.js) ============ -->
     <!-- ============ PLACEHOLDER: Side quest (travel beyond the Cape) ============ -->
     <section class="section placeholder placeholder--petal side-quest" id="side-quest">
       <!-- Film strip flush against the left edge, gently tilted, running off the
-           top and bottom. PLACEHOLDER photos (one beach shot repeated): swap each
-           frame for a real out-of-Cape weekend. -->
+           top and bottom. Frames 1–2 are real photos; frames 3–6 are still a
+           PLACEHOLDER beach shot: swap for real out-of-Cape weekends. -->
       <div class="film" aria-hidden="true">
         <div class="film__strip">
-          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
-          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/PP_Images/Blonde%20Women%20Aboard%20a%20Sunlit%20Boat.webp" alt="" width="1032" height="1524" loading="lazy" decoding="async">
+          <img src="assets/PP_Images/Veiled%20Bride%20Toasting%20by%20the%20Sea.webp" alt="" width="1063" height="1479" loading="lazy" decoding="async">
           <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
           <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
           <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
@@ -230,6 +238,7 @@
       </div>
     </section>
 
+    <!-- ============ Instagram gallery (rendered by js/insta-grid.js) ============ -->
     <section class="section transform" id="gallery">
       <div class="container">
         <div class="section-intro reveal">
@@ -251,12 +260,12 @@
 
     <!-- ============ Booking CTA ============ -->
     <section class="section finale">
-      <svg class="finale__wave finale__wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><path fill="#F6D8E4" d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
-      <svg class="finale__wave finale__wave--bottom" viewBox="0 0 1248 76" preserveAspectRatio="none" aria-hidden="true"><path fill="#8FC7F4" d="M0 0 H1248 L1248 19.3 L1200 23.1 L1152 25.8 L1104 25.7 L1056 25.3 L1008 29.2 L960 38.3 L912 48.9 L864 54.7 L816 52.2 L768 43.7 L720 35 L672 30.6 L624 29.8 L576 28.8 L528 24.5 L480 18.4 L432 15.7 L384 20.4 L336 31.3 L288 42.8 L240 49 L192 48.3 L144 44.4 L96 42 L48 42.4 L0 42.5 Z"/></svg>
+      <svg class="wave wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
+      <svg class="wave wave--bottom" viewBox="0 0 1248 76" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H1248 L1248 19.3 L1200 23.1 L1152 25.8 L1104 25.7 L1056 25.3 L1008 29.2 L960 38.3 L912 48.9 L864 54.7 L816 52.2 L768 43.7 L720 35 L672 30.6 L624 29.8 L576 28.8 L528 24.5 L480 18.4 L432 15.7 L384 20.4 L336 31.3 L288 42.8 L240 49 L192 48.3 L144 44.4 L96 42 L48 42.4 L0 42.5 Z"/></svg>
       <div class="container reveal">
         <h2>Make it the weekend she never stops talking about.</h2>
         <p class="caps">Tell us your date and your rental — we'll take it from there. <span class="script">Two minutes,</span> promise.</p>
-        <button class="btn btn--primary btn--lg" data-open-inquiry>Check your weekend <span class="arr" aria-hidden="true">→</span></button>
+        <button class="btn btn--primary" data-open-inquiry>Check your weekend <span class="arr" aria-hidden="true">→</span></button>
         <p class="script-note">xo, the pair</p>
       </div>
     </section>

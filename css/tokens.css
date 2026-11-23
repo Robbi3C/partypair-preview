@@ -1,80 +1,102 @@
 /* ============================================================
-   The Party Pair — Design tokens
-   Palette: Cape Cod postcard meets modern girly maximalism
+   The Party Pair — design tokens (docs/design-guide.md §3, §4, §14)
+   Every page loads this first.
    ============================================================ */
 
-@font-face {
-  font-family: 'Melodrama';
-  src: url('../assets/fonts/Melodrama-Variable.woff2') format('woff2');
-  font-weight: 300 700;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'General Sans';
-  src: url('../assets/fonts/GeneralSans-Variable.woff2') format('woff2');
-  font-weight: 200 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'General Sans';
-  src: url('../assets/fonts/GeneralSans-VariableItalic.woff2') format('woff2');
-  font-weight: 200 700;
-  font-style: italic;
-  font-display: swap;
-}
 :root {
-  /* Color — pear-logo palette (shared with V2) */
-  --ink: #2b2129;
-  --ink-soft: #6e6069;
-  --shell: #fdf9f6;
-  --shell-deep: #f5eae6;
-  --rose: #de64a5;
-  --rose-deep: #c2528f;
-  --peri: #a9bce6;
-  --peri-deep: #7d92cc;
-  --butter: #f5d98f;
-  --butter-deep: #d0aa4f;
-  --seafoam: #cde9df;
-  --leaf: #8fc4b7;
-  --white: #fffdfc;
+  /* ---------- Colour (§3.2) ---------- */
+  --cream: #fbf5ec;          /* page ground */
+  --sand: #f3e9da;
+  --paper: #fffdf8;          /* prints, cards, labels */
+  --punch: #de4f96;          /* loud pink: display text 24px+ only */
+  --pear: #ea9cc0;
+  --petal: #f6d8e4;
+  --pear-deep: #ae2f6b;      /* primary pill, small pink text */
+  --pear-deeper: #8f2357;
+  --seaglass: #a2ccc6;
+  --seafoam: #dceeeb;
+  --coastal: #8fc7f4;
+  --seaglass-deep: #2c6a63;
+  --butter: #f6e7a8;
+  --butter-deep: #e3cf6e;
+  --ink: #1f3047;            /* all body text */
+  --ink-muted: #4f5b6c;
+  --line: #e2d6c4;
+  --focus: #2b6ca3;
+  --hairline: rgba(31, 48, 71, 0.16);
 
-  /* Hero silk shader palette (hex only — read by js/shader.js) */
-  --silk-base: #fdf9f6;
-  --silk-1: #e982b8;
-  --silk-2: #a9bce6;
-  --silk-3: #f5d98f;
-  --silk-4: #cde9df;
+  /* ---------- Colour roles: what a colour DOES, not what it is ----------
+     Sections read these instead of a named colour, so a palette can give
+     each job its own colour (css/palettes.css). Every default resolves to
+     exactly today's colour. */
+  --btn-alt-bg: var(--seaglass);          /* secondary pill ("Meet our favorites") */
+  --btn-alt-bg-hover: #8fc0b9;
+  --btn-alt-ink: var(--ink);
+  --hero-dot: rgba(222, 100, 165, 0.13);  /* hero's faint dot grain */
+  --chat-me-bg: rgba(246, 216, 228, 0.96);/* "my" chat bubble */
+  --her-party-bg: var(--pear-deep);       /* the bold band */
+  --her-party-heading: var(--paper);
+  --her-party-ink: var(--paper);
+  --her-party-script: var(--petal);
+  --badge-fill: var(--pear);              /* partners "the party pair" stamp */
+  --badge-ink: var(--paper);
+  --caps-accent: var(--punch);            /* small caps line under a headline */
+  --side-quest-bg: var(--petal);
+  --side-quest-spark: var(--pear);
+  --route-line: var(--seaglass);          /* side quest route card */
+  --route-pin: var(--seaglass);
+  --route-home: var(--punch);
+  --route-chip: var(--seafoam);
+  --route-home-chip: var(--petal);
+  --route-home-ink: var(--pear-deep);
+  --faq-bg: var(--petal);
+  --footer-bg: var(--coastal);
+  /* booking-step stickers and sparkle trio (js/booking.js) */
+  --sticker-hot: var(--punch);
+  --sticker-pink: var(--pear);
+  --sticker-leaf: var(--seaglass);
+  --sticker-butter: var(--butter);
+  --sticker-pin: var(--butter-deep);
+  --sticker-deep: var(--pear-deep);
+  --sticker-spark2: var(--seaglass-deep);
+  /* form-success confetti (js/confetti.js), comma-separated */
+  --confetti: #de64a5, #f2a9cc, #a9bce6, #f5d98f, #cde9df, #8fc4b7;
 
-  /* Type */
-  --font-display: 'Melodrama', Georgia, serif;
-  --font-body: 'General Sans', -apple-system, 'Segoe UI', sans-serif;
+  /* ---------- Type (§4.1). Licensed faces first; the free Google
+     stand-ins second (loaded in each page's <head>) ---------- */
+  --font-display: 'Sunday Club', 'Fraunces', Georgia, serif;
+  --font-script: 'Flanogant', 'Flanogant Clean', 'Yellowtail', cursive;
+  --font-caps: 'Milk and Clay', 'Josefin Sans', 'Helvetica Neue', sans-serif;
+  --font-body: 'Gentle Side', 'Questrial', 'Helvetica Neue', Arial, sans-serif;
 
   --text-hero: clamp(2.9rem, 10vw, 6.75rem);
-  --text-h2: clamp(2.1rem, 6vw, 3.9rem);
-  --text-h3: clamp(1.35rem, 3.5vw, 1.85rem);
-  --text-lead: clamp(1.06rem, 2.4vw, 1.3rem);
-  --text-body: clamp(1rem, 2.2vw, 1.09rem);
+  --text-h2: clamp(2.5rem, 4.6vw, 4rem);
+  --text-h3: clamp(1.4375rem, 2.6vw, 2.25rem);
+  --text-lead: clamp(1.0625rem, 1.8vw, 1.25rem);
+  --text-body: 1.0625rem;
   --text-small: 0.875rem;
 
-  /* Space & shape */
-  --space-section: clamp(4.5rem, 12vw, 8.5rem);
-  --gutter: clamp(1.25rem, 4.5vw, 2.5rem);
-  --content-max: 72rem;
+  /* ---------- Layout ---------- */
+  --space-section: clamp(4rem, 9vw, 6rem);
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --content-max: 75rem;
   --narrow-max: 46rem;
-  --radius-lg: 1.75rem;
-  --radius-md: 1.125rem;
+
+  /* ---------- Shape and depth ---------- */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
   --radius-pill: 999px;
+  --lift: 0 10px 28px rgba(31, 48, 71, 0.14);
+  --shadow-card: 0 0 0 1px rgba(31, 48, 71, 0.08);
+  --shadow-pop: var(--lift);
 
-  /* Elevation — soft long ink shadows */
-  --shadow-card: 0 2px 4px rgba(43, 33, 41, 0.05), 0 12px 32px rgba(43, 33, 41, 0.09);
-  --shadow-pop: 0 4px 10px rgba(43, 33, 41, 0.10), 0 22px 60px rgba(43, 33, 41, 0.18);
-  --shadow-cta: 0 4px 0 var(--rose-deep), 0 10px 24px rgba(222, 100, 165, 0.35);
-
-  /* Motion */
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* ---------- Motion ---------- */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-quick: 180ms;
-  --dur-med: 420ms;
+  --dur-quick: 200ms;
+  --dur-med: 280ms;
   --dur-slow: 800ms;
+}
+@media (max-width: 47.5em) {
+  :root { --text-body: 1rem; }
 }

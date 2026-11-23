@@ -5,6 +5,10 @@
    full-screen viewer.
    ============================================================ */
 
+/* Band (§5.5: Seafoam) */
+.transform { background: var(--seafoam); }
+.transform h2 { color: var(--pear-deep); }
+
 /* ---------- The viewer: full screen, no scrollbars anywhere ---------- */
 :root:has(.ig-viewer[open]) { overflow: hidden; }   /* page behind can't scroll */
 
@@ -276,7 +280,7 @@
   scroll-snap-align: start;
   scroll-snap-stop: always;   /* a swipe or flick moves one card, never several */
   cursor: pointer;
-  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease-spring);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
 .pol-card:nth-child(3n + 2) { --r: 2.5deg; margin-top: 22px; }
 .pol-card:nth-child(3n) { --r: -1.5deg; margin-top: 8px; }
@@ -385,7 +389,7 @@
   color: var(--ink);
   box-shadow: 0 6px 14px rgba(31, 48, 71, 0.1);
   cursor: pointer;
-  transition: transform var(--dur-quick) var(--ease-spring), opacity var(--dur-quick) var(--ease-spring);
+  transition: transform var(--dur-quick) var(--ease-out), opacity var(--dur-quick) var(--ease-out);
 }
 .pol-arrows button:hover:not(:disabled) { transform: translateY(-2px); }
 .pol-arrows button:disabled { opacity: 0.4; cursor: default; }

@@ -1,8 +1,13 @@
-/* Booking CTA: the bride photo as a full-section backdrop, washed with
-   cream (design guide §5.4). All type is ink on the wash. */
+/* ============================================================
+   CLOSING CTA (.finale, every page): the bride photo as a full-section
+   backdrop, washed with cream (design guide §5.4). All type is ink on
+   the wash. The homepage adds waves top and bottom.
+   ============================================================ */
 
 .finale {
   position: relative;
+  overflow: clip;
+  text-align: center;
   background:
     linear-gradient(rgba(251, 245, 236, 0.76), rgba(251, 245, 236, 0.76)),
     url('../assets/img/finale-bride.webp') center 40% / cover no-repeat var(--cream);
@@ -10,34 +15,38 @@
 }
 .finale .container { position: relative; }
 
-/* Waves: FAQ pink hangs over the top edge, footer blue rises at the bottom */
-.finale__wave {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-}
-.finale__wave--top { top: -1px; height: 56px; }
-.finale__wave--bottom { bottom: -1px; height: 76px; transform: scaleY(-1); }
-@media (max-width: 47.5em) {
-  .finale__wave--top { height: 28px; }
-  .finale__wave--bottom { height: 38px; }
-}
 .finale :is(h2, .caps) { color: var(--ink); }
 
 .finale h2 {
   max-width: 14em;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem;
   font-size: clamp(2.875rem, 6vw, 5.375rem);
 }
 .finale .caps { max-width: 34em; margin: 0 auto 2.5rem; }
+.finale .lead { max-width: 44ch; margin: 0 auto 2.2rem; }
 .finale .script-note { margin-top: 2.25rem; }
 
 /* Button from the design file: tilts and lifts, arrow slides on hover */
 .finale .btn {
   gap: 10px;
-  transition: transform 0.2s var(--ease-spring), background-color 0.2s;
+  transition: transform 0.2s var(--ease-out), background-color 0.2s;
 }
 .finale .btn:hover { transform: rotate(-1.5deg) translateY(-2px); }
-.finale .btn .arr { display: inline-block; transition: transform 0.2s var(--ease-spring); }
+.finale .btn .arr { display: inline-block; transition: transform 0.2s var(--ease-out); }
 .finale .btn:hover .arr { transform: translateX(5px); }
+
+/* Script sign-off ("xo, the pair") */
+.script-note {
+  display: block;
+  font-family: var(--font-script);
+  font-size: clamp(2.25rem, 4vw, 2.875rem);
+  line-height: 1.1;
+  color: var(--pear-deep);
+  text-align: center;
+  rotate: -3deg;
+  margin-top: 1.2rem;
+}
+
+/* waves: the band above (FAQ) hangs down; the footer's colour rises up (§8.2) */
+.finale .wave--top path { fill: var(--faq-bg); }
+.finale .wave--bottom path { fill: var(--footer-bg); }

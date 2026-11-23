@@ -1,137 +1,68 @@
 /* ============================================================
-   Components: nav, buttons, marquee, cards, forms, modal,
-   accordion, before/after slider, dividers, sticky CTA
+   Components (design guide §10): buttons, brand, ticker, pear seal,
+   footer, sticky CTA, toast, inquiry modal and fields.
+   The header and menu are in nav.css.
    ============================================================ */
 
-/* ---------- Buttons ---------- */
+/* ---------- Pills (§10.1) ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.55em;
-  padding: 0.95em 1.9em;
+  min-height: 3.125rem;
+  padding: 0 1.75rem;
   border: none;
   border-radius: var(--radius-pill);
-  font-weight: 600;
-  font-size: 1.02rem;
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   transition:
-    transform var(--dur-quick) var(--ease-spring),
+    transform var(--dur-quick) var(--ease-out),
     box-shadow var(--dur-quick) var(--ease-out),
     background-color var(--dur-quick) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
 
-.btn--primary {
-  background: var(--rose);
-  color: var(--white);
-  box-shadow: var(--shadow-cta);
-}
-.btn--primary:hover { transform: translateY(-2px) rotate(-0.5deg); }
-.btn--primary:active {
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--rose-deep), 0 4px 10px rgba(222, 100, 165, 0.3);
-}
+.btn--primary { background: var(--pear-deep); color: var(--paper); }
+.btn--primary:hover { transform: translateY(-2px) rotate(-0.5deg); background: var(--pear-deeper); }
+.btn--primary:active { transform: translateY(2px); }
 
-.btn--ghost {
-  background: transparent;
-  color: var(--ink);
-  box-shadow: inset 0 0 0 2px var(--ink);
-}
-.btn--ghost:hover { background: var(--ink); color: var(--shell); transform: translateY(-2px); }
+.btn--light { background: var(--paper); color: var(--ink); }
+.btn--light:hover { transform: translateY(-2px) rotate(0.5deg); background: var(--petal); }
 
-.btn--light {
-  background: var(--white);
-  color: var(--ink);
-  box-shadow: var(--shadow-card);
-}
-.btn--light:hover { transform: translateY(-2px) rotate(0.5deg); }
+.btn--seaglass { background: var(--btn-alt-bg); color: var(--btn-alt-ink); }
+.btn--seaglass:hover { background: var(--btn-alt-bg-hover); }
 
-.btn--lg { padding: 1.1em 2.3em; font-size: 1.08rem; }
-
-/* ---------- Header / nav ---------- */
-.site-header {
-  position: fixed;
-  inset-inline: 0;
-  top: 0;
-  z-index: 60;
-  transition: transform var(--dur-med) var(--ease-out);
-}
-.site-header.is-hidden { transform: translateY(-110%); }
-
-.site-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 0.9rem auto 0;
-  padding: 0.55rem 0.7rem 0.55rem 1.1rem;
-  width: min(100% - 2 * var(--gutter), var(--content-max));
-  background: rgba(255, 253, 252, 0.85);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-card);
-}
-
+/* ---------- Brand: the pear + wordmark (§2) ---------- */
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
   font-family: var(--font-display);
-  font-weight: 620;
-  font-size: 1.28rem;
+  font-weight: 400;
+  font-variation-settings: 'SOFT' 100;
+  font-size: 1.3125rem;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: lowercase;
   color: var(--ink);
   text-decoration: none;
-  letter-spacing: 0.01em;
   white-space: nowrap;
 }
-.brand em { font-style: italic; color: var(--rose); }
+.brand em { font-style: normal; }   /* the wordmark is one colour, upright */
 .brand__pear { width: 1.9em; height: auto; flex-shrink: 0; }
 
-.site-nav { display: none; }
-
-/* link look at every width: the fitted header (css/nav.css) shows the
-   links wherever they fit, not only above a breakpoint */
-.site-nav a {
-  color: var(--ink);
-  text-decoration: none;
-  font-weight: 520;
-  font-size: 0.97rem;
-  position: relative;
-}
-.site-nav a::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 100%;
-  bottom: -4px;
-  height: 2px;
-  background: var(--rose);
-  border-radius: 2px;
-  transition: right var(--dur-quick) var(--ease-out);
-}
-.site-nav a:hover::after { right: 0; }
-
-/* pages without the fitted header (guide.html) show the links from here */
-@media (min-width: 46em) {
-  .site-nav { display: flex; align-items: center; gap: 1.8rem; }
-}
-
-.site-header .btn { padding: 0.7em 1.4em; font-size: 0.95rem; white-space: nowrap; }
-
-@media (max-width: 26em) {
-  .brand { font-size: 1.12rem; }
-  .site-header .btn { padding: 0.65em 1.1em; font-size: 0.88rem; }
-}
-
-/* ---------- Marquee ---------- */
+/* ---------- Ticker (§10.5) ---------- */
 .marquee {
   overflow: hidden;
-  padding-block: 0.9rem;
-  background: var(--ink);
-  color: var(--shell);
-  transform: rotate(-1.2deg) scale(1.02);
+  padding-block: 1rem;
+  background: var(--petal);
+  color: var(--pear-deep);
 }
 .marquee__track {
   display: flex;
@@ -143,16 +74,16 @@
   display: inline-flex;
   align-items: center;
   gap: 2.5rem;
-  font-weight: 600;
-  font-size: 0.88rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-variation-settings: 'SOFT' 100;
+  font-size: 1.875rem;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
   white-space: nowrap;
 }
-.marquee__item .glyph { color: var(--butter); }
-
-/* Track is the item duplicated once, joined by the same 2.5rem flex gap;
-   a seamless loop must travel one item + one gap = 50% + half the gap. */
+/* Track is the item duplicated once (main.js), joined by the same 2.5rem
+   flex gap; a seamless loop travels one item + one gap = 50% + half the gap. */
 @keyframes marquee-scroll {
   to { transform: translateX(calc(-50% - 1.25rem)); }
 }
@@ -160,69 +91,160 @@
   .marquee__track { animation: none; }
 }
 
-/* ---------- Cards ---------- */
-.card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  padding: clamp(1.5rem, 4vw, 2.25rem);
+/* ---------- Pear ring seal on a seam (§9.4, §10.4) ----------
+   Paper disc, Pear deep caps ring, the real pear centred, tilted -8°;
+   hover turns the ring 140° over 1.4s. Its band needs position: relative
+   and a visibly different ground from the band above. */
+.seam-seal {
+  position: absolute;
+  left: 50%;
+  top: -78px;
+  z-index: 3;
+  width: 156px;
+  height: 156px;
+  translate: -50% 0;
+  rotate: -8deg;
 }
-
-/* Polaroid-style photo card */
-.photo-card {
-  background: var(--white);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-card);
-  padding: 0.65rem 0.65rem 1rem;
-  transition: transform var(--dur-med) var(--ease-spring), box-shadow var(--dur-med) var(--ease-out);
-}
-.photo-card img {
-  border-radius: calc(var(--radius-md) - 0.35rem);
+.seam-seal svg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  overflow: visible;
+  filter: drop-shadow(0 8px 14px rgba(31, 48, 71, 0.18));
+  transition: transform 1.4s var(--ease-out);
 }
-.photo-card figcaption {
-  font-style: italic;
-  font-size: 0.9rem;
-  font-weight: 470;
-  color: var(--ink-soft);
-  text-align: center;
-  padding-top: 0.65rem;
+.seam-seal circle { fill: var(--paper); }
+.seam-seal text {
+  font-family: var(--font-caps);
+  font-size: 10.5px;
+  fill: var(--pear-deep);
 }
-.photo-card:hover { transform: translateY(-6px) rotate(var(--tilt, -1.5deg)); box-shadow: var(--shadow-pop); }
+.seam-seal img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 64px;                     /* fills the inside of the ring */
+  height: auto;
+  translate: -50% -50%;
+}
+.seam-seal:hover svg { transform: rotate(140deg); }
+@media (max-width: 47.5em) {
+  .seam-seal { width: 120px; height: 120px; top: -60px; }
+  .seam-seal img { width: 49px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .seam-seal svg { transition: none; }
+}
 
-/* ---------- Forms ---------- */
-.field { display: grid; gap: 0.4rem; }
-.field label {
-  font-weight: 560;
-  font-size: 0.94rem;
-}
-.field input, .field select, .field textarea {
+/* ---------- Coastal waves (§8.2) ----------
+   An inline SVG laid over a band's edge, filled with the neighbouring
+   band's colour: --top hangs from the band above, --bottom rises from
+   the band below (the same path, flipped). Its band needs
+   position: relative. Heights halve on phones. */
+.wave {
+  position: absolute;
+  left: 0;
   width: 100%;
-  padding: 0.85em 1.1em;
-  border: 2px solid rgba(43, 33, 41, 0.14);
-  border-radius: var(--radius-md);
-  background: var(--white);
-  transition: border-color var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+  pointer-events: none;
 }
-.field input:focus, .field select:focus, .field textarea:focus {
-  outline: none;
-  border-color: var(--peri);
-  box-shadow: 0 0 0 4px rgba(169, 188, 230, 0.3);
-}
-.field input[aria-invalid='true'] { border-color: var(--rose-deep); }
-
-.field__hint { font-size: 0.82rem; color: var(--ink-soft); }
-
-.form-note {
-  font-size: 0.82rem;
-  color: var(--ink-soft);
-  line-height: 1.5;
+.wave--top { top: -1px; height: 56px; }
+.wave--bottom { bottom: -1px; height: 76px; transform: scaleY(-1); }
+@media (max-width: 47.5em) {
+  .wave--top { height: 28px; }
+  .wave--bottom { height: 38px; }
 }
 
-/* ---------- Modal (inquiry) ---------- */
-/* Scroll handling, in short:
+/* ---------- Footer (§10.12) ---------- */
+.site-footer {
+  background: var(--footer-bg);
+  color: var(--ink);
+  padding: 3.5rem 0 7rem;
+  font-size: 1rem;
+}
+.site-footer__grid {
+  display: grid;
+  gap: 2rem;
+}
+@media (min-width: 46em) {
+  .site-footer__grid { grid-template-columns: 2fr 1fr 1fr; }
+  .site-footer { padding-bottom: 3.5rem; }
+}
+.site-footer .brand { font-size: 1.625rem; }
+/* the pear disappears on colour, so it sits on a Paper disc (§2) */
+.site-footer .brand__pear {
+  box-sizing: content-box;
+  width: 1.5rem;
+  padding: 0.55rem;
+  border-radius: 50%;
+  background: var(--paper);
+}
+.site-footer__blurb { margin-top: 1rem; max-width: 34ch; }
+.site-footer .footer-title {
+  margin-bottom: 0.6rem;
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.site-footer ul { list-style: none; padding: 0; display: grid; gap: 0.45rem; }
+.site-footer ul a { display: inline-block; padding-block: 0.3rem; }   /* comfortable touch targets */
+.site-footer :is(.brand, a) { color: var(--ink); }
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+.site-footer .fineprint {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(31, 48, 71, 0.2);
+  font-size: 0.875rem;
+  color: var(--ink);
+}
+
+/* ---------- Sticky mobile CTA ----------
+   Shown once the hero is scrolled past (scroll.js); nav.css decides
+   whether the bar carries the CTA at all. */
+.sticky-cta {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 50;
+  padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
+  background: rgba(255, 253, 248, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 -6px 24px rgba(31, 48, 71, 0.12);
+  transform: translateY(110%);
+  transition: transform var(--dur-med) var(--ease-out);
+}
+.sticky-cta.is-visible { transform: none; }
+.sticky-cta .btn { width: 100%; }
+@media (min-width: 46em) {
+  .sticky-cta { display: none; }
+}
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(1.5rem, 5vh, 3rem);
+  z-index: 80;
+  background: var(--ink);
+  color: var(--cream);
+  padding: 0.9em 1.6em;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-pop);
+  font-weight: 400;
+  opacity: 0;
+  translate: -50% 20px;
+  transition: opacity var(--dur-med) var(--ease-out), translate var(--dur-med) var(--ease-out);
+  pointer-events: none;
+}
+.toast.is-visible { opacity: 1; translate: -50% 0; }
+
+/* ---------- Inquiry modal ----------
+   Scroll handling, in short:
    - the page behind a modal is locked; its scrollbar goes away and the
      page and header are padded by its width (--scrollbar-w, measured in
      main.js) so nothing jumps sideways and the dim covers everything;
@@ -235,6 +257,7 @@
 :root:has(dialog.modal[open]) .site-header { right: var(--scrollbar-w, 0px); }
 
 .modal {
+  --modal-bg: var(--paper);
   border: none;
   padding: 0;
   margin: auto;
@@ -242,18 +265,16 @@
   max-height: calc(100dvh - 2rem);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-pop);
-  --modal-bg: var(--shell);
   background: var(--modal-bg);
   overflow: hidden;
   overscroll-behavior: contain;
 }
-.modal[open] { display: flex; flex-direction: column; }
+.modal[open] { display: flex; flex-direction: column; animation: modal-in var(--dur-med) var(--ease-out); }
 .modal:focus-visible { outline: none; }   /* the card itself isn't a control */
 .modal::backdrop {
-  background: rgba(43, 33, 41, 0.55);
+  background: rgba(31, 48, 71, 0.55);
   backdrop-filter: blur(6px);
 }
-.modal[open] { animation: modal-in var(--dur-med) var(--ease-spring); }
 @keyframes modal-in {
   from { opacity: 0; transform: translateY(30px) scale(0.96); }
 }
@@ -268,12 +289,34 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(43, 33, 41, 0.28) transparent;
 }
+.modal__title { font-size: clamp(1.8rem, 5vw, 2.4rem); margin-bottom: 0.6rem; padding-right: 2.6rem; color: var(--punch); }
+.modal__lead { color: var(--ink-muted); margin-bottom: 1.25rem; }
+.modal__close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-quick) var(--ease-out);
+}
+.modal__close:hover { transform: rotate(90deg) scale(1.08); }
+.modal__close path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
 
 /* Inquiry form: pairs side by side once there's room, and the button
    stays in view at the bottom if a short screen makes the form scroll. */
+.modal__form { display: grid; gap: 0.85rem; }
 .modal__form .field--wide,
 .modal__actions { grid-column: 1 / -1; }
-.modal__form { gap: 0.85rem; }
 .modal__form .field input { padding-block: 0.7em; }
 .modal__form textarea { resize: vertical; min-height: 4.75rem; font: inherit; }
 .modal__form input[type='number'] { appearance: textfield; -moz-appearance: textfield; }
@@ -315,93 +358,28 @@
   }
   .modal:has(.modal__form) .modal__body { margin-block: 0; padding-top: 1.25rem; }
 }
-.modal__close {
-  position: absolute;
-  top: 0.8rem;
-  right: 0.8rem;
-  width: 2.6rem;
-  height: 2.6rem;
-  border: none;
-  border-radius: 50%;
-  background: var(--white);
-  color: var(--ink);
-  font-size: 1.2rem;
-  cursor: pointer;
-  box-shadow: var(--shadow-card);
-  transition: transform var(--dur-quick) var(--ease-spring);
-  z-index: 1;
-}
-.modal__close:hover { transform: rotate(90deg) scale(1.08); }
 
-/* ---------- Accordion (FAQ) ---------- */
-.faq-item {
-  background: var(--white);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-card);
-  overflow: hidden;
+/* ---------- Fields ---------- */
+.field { display: grid; gap: 0.4rem; }
+.field label { font-weight: 400; font-size: 0.94rem; }
+.field__optional { font-weight: 400; color: var(--ink-muted); }
+.field input, .field select, .field textarea {
+  width: 100%;
+  padding: 0.85em 1.1em;
+  border: 1.5px solid var(--ink-muted);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  transition: border-color var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
 }
-.faq-item + .faq-item { margin-top: 0.9rem; }
-.faq-item summary {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.15rem 1.4rem;
-  font-weight: 600;
-  cursor: pointer;
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--focus);
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after {
-  content: '+';
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: var(--rose);
-  transition: rotate var(--dur-quick) var(--ease-spring);
-  flex-shrink: 0;
-}
-.faq-item[open] summary::after { rotate: 45deg; }
-.faq-item__body {
-  padding: 0 1.4rem 1.3rem;
-  color: var(--ink-soft);
-}
+.field input[aria-invalid='true'] { border-color: var(--pear-deeper); }
 
-/* ---------- Sticky mobile CTA ---------- */
-.sticky-cta {
-  position: fixed;
-  inset-inline: 0;
-  bottom: 0;
-  z-index: 50;
-  padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
-  background: rgba(253, 249, 246, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 -6px 24px rgba(43, 33, 41, 0.12);
-  transform: translateY(110%);
-  transition: transform var(--dur-med) var(--ease-spring);
+.form-note {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
 }
-.sticky-cta.is-visible { transform: none; }
-.sticky-cta .btn { width: 100%; }
-@media (min-width: 46em) {
-  .sticky-cta { display: none; }
-}
-
-/* ---------- Toast ---------- */
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: clamp(1.5rem, 5vh, 3rem);
-  translate: -50% 0;
-  z-index: 80;
-  background: var(--ink);
-  color: var(--shell);
-  padding: 0.9em 1.6em;
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-pop);
-  font-weight: 520;
-  opacity: 0;
-  translate: -50% 20px;
-  transition: opacity var(--dur-med) var(--ease-out), translate var(--dur-med) var(--ease-spring);
-  pointer-events: none;
-}
-.toast.is-visible { opacity: 1; translate: -50% 0; }

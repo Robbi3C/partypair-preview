@@ -1,10 +1,10 @@
 /* "Her kind of party" polaroid pile: the first photo is already down;
    once the pile scrolls into view, the rest drop onto it one every 1.5s
-   (straight down, already at their resting angle: pile-drop in theme.css).
+   (straight down, already at their resting angle: pile-drop in her-party.css).
    Plays once.
 
    Without JS, with ?static, or with reduced motion, nothing is hidden:
-   see the data-pile-ready gate in theme.css. */
+   see the data-pile-ready gate in her-party.css. */
 
 const DROP_EVERY_MS = 1500;
 

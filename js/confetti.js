@@ -1,7 +1,13 @@
 /* Canvas confetti bursts in brand colors.
    One shared full-screen canvas, lazily created, removed when idle. */
 
-const COLORS = ['#de64a5', '#f2a9cc', '#a9bce6', '#f5d98f', '#cde9df', '#8fc4b7'];
+const FALLBACK = ['#de64a5', '#f2a9cc', '#a9bce6', '#f5d98f', '#cde9df', '#8fc4b7'];
+// the active palette's confetti (--confetti in css/tokens.css / palettes.css)
+const palette = () => {
+  const list = getComputedStyle(document.documentElement).getPropertyValue('--confetti')
+    .split(',').map((s) => s.trim()).filter(Boolean);
+  return list.length ? list : FALLBACK;
+};
 const GRAVITY = 0.16;
 const DRAG = 0.992;
 
@@ -74,6 +80,7 @@ function tick() {
 export function burst(x, y, count = 90) {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   ensureCanvas();
+  const colors = palette();
   for (let i = 0; i < count; i++) {
     const angle = Math.random() * Math.PI * 2;
     const speed = 3 + Math.random() * 9;
@@ -85,7 +92,7 @@ export function burst(x, y, count = 90) {
       vr: (Math.random() - 0.5) * 0.35,
       phase: Math.random() * Math.PI * 2,
       size: 5 + Math.random() * 7,
-      color: COLORS[(Math.random() * COLORS.length) | 0],
+      color: colors[(Math.random() * colors.length) | 0],
       shape: Math.random() < 0.18 ? 'heart' : 'rect',
       life: 90 + Math.random() * 60,
     });

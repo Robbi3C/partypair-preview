@@ -1,4 +1,4 @@
-/* Form handling for the inquiry modal and the guide lead magnet.
+/* Form handling for the inquiry modal.
 
    Forms carry data-netlify="true" so they go live automatically when the
    site is deployed to Netlify. Until then (local preview), submissions are
@@ -78,21 +78,6 @@ export function initForms() {
       modal?.close();
       showToast("You're on our list! We'll text you within 24 hours. 🥂");
       inquiry.reset();
-      btn.disabled = false;
-    });
-  }
-
-  for (const magnet of document.querySelectorAll('.magnet-form')) {
-    clearOnInput(magnet);
-    magnet.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!validate(magnet)) return;
-      const btn = magnet.querySelector('button[type="submit"]');
-      btn.disabled = true;
-      await submit(magnet);
-      burstFrom(btn, 80);
-      showToast('The guide is on its way to your inbox! 💌');
-      magnet.reset();
       btn.disabled = false;
     });
   }

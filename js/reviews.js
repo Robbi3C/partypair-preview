@@ -70,9 +70,8 @@ const postcard = (r, i) => `
   </figure>`;
 
 const postcards = () => `
-  <p class="rvb-script" aria-hidden="true">10/10</p>
   <div class="container rvb-head">
-    <h2>Kind words</h2>
+    <h2>okay, now<br> we’re blushing.</h2>
     <div class="rvb-burst">
       <svg viewBox="0 0 120 120" aria-hidden="true"><path d="${burstPath}"/></svg>
       <p><b>${score}</b>${starsImg()}</p>

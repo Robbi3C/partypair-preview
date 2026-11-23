@@ -1,5 +1,5 @@
 /* ============================================================
-   Base: reset, typography, layout primitives
+   Base: reset, the type system (design guide §4), layout primitives
    ============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -15,10 +15,10 @@ html {
 body {
   font-family: var(--font-body);
   font-size: var(--text-body);
-  font-weight: 420;
-  line-height: 1.6;
+  font-weight: 400;
+  line-height: 1.65;
   color: var(--ink);
-  background: var(--shell);
+  background: var(--cream);
   overflow-x: clip;
 }
 
@@ -29,25 +29,62 @@ button, input, select, textarea {
   color: inherit;
 }
 
+/* ---------- Type ----------
+   The licensed fonts have one weight each, so nothing asks for bold
+   outside body copy (§4.2). Headings are lowercase display (§4.5). */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 560;
-  line-height: 1.04;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: 'SOFT' 100;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-transform: lowercase;
   text-wrap: balance;
 }
-
-h1 { font-size: var(--text-hero); letter-spacing: -0.015em; }
-h2 { font-size: var(--text-h2); letter-spacing: -0.01em; }
-h3 { font-size: var(--text-h3); font-family: var(--font-body); font-weight: 600; line-height: 1.25; }
+h1 { font-size: var(--text-hero); }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-h3); letter-spacing: 0; }
 
 p { text-wrap: pretty; }
 
-a { color: var(--peri-deep); text-underline-offset: 3px; }
+/* the type stack's other two voices (§4.4) */
+.script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: 1;
+}
+.caps {
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.caps .script {
+  font-size: 1.65em;
+  letter-spacing: 0;
+  text-transform: none;
+  vertical-align: -0.12em;
+}
 
-::selection { background: var(--rose); color: var(--white); }
+.lead {
+  font-size: var(--text-lead);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink);
+}
+/* bold is allowed only here, in body copy (§4.2) */
+strong { font-weight: 700; }
+
+a { color: var(--focus); text-underline-offset: 3px; }
+:is(p, li) a:not(.btn) { color: var(--focus); }
+
+::selection { background: var(--petal); color: var(--ink); }
 
 :focus-visible {
-  outline: 3px solid var(--peri);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -60,8 +97,9 @@ a { color: var(--peri-deep); text-underline-offset: 3px; }
   translate: -50% 0;
   z-index: 100;
   background: var(--ink);
-  color: var(--shell);
-  font-weight: 600;
+  color: var(--cream);
+  font-family: var(--font-caps);
+  font-weight: 400;
   text-decoration: none;
   padding: 0.7em 1.5em;
   border-radius: var(--radius-pill);
@@ -74,38 +112,18 @@ a { color: var(--peri-deep); text-underline-offset: 3px; }
   pointer-events: auto;
 }
 
-/* Layout primitives */
+/* ---------- Layout ---------- */
 .container {
   width: min(100% - 2 * var(--gutter), var(--content-max));
   margin-inline: auto;
 }
 
-.container--narrow { max-width: var(--narrow-max); }
-
 .section { padding-block: var(--space-section); position: relative; }
 
-/* Text utilities */
-.eyebrow {
-  font-family: var(--font-body);
-  font-weight: 640;
-  font-size: 0.82rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--rose);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  margin-bottom: 1rem;
-}
-
-.lead {
-  font-size: var(--text-lead);
-  line-height: 1.55;
-  color: var(--ink-soft);
-  font-weight: 450;
-}
-
-.display-italic { font-style: italic; }
+/* a centred heading + lead above a section's content */
+.section-intro { max-width: var(--narrow-max); margin-inline: auto; text-align: center; margin-bottom: 3rem; }
+.section-intro:last-child { margin-bottom: 0; }
+.section-intro .lead { margin-top: 1rem; }
 
 .u-center { text-align: center; }
 
@@ -119,8 +137,9 @@ a { color: var(--peri-deep); text-underline-offset: 3px; }
   border: 0;
 }
 
-/* Scroll reveal — .reveal elements rise+fade in via scroll.js.
-   Gated behind html.js so content stays visible without JavaScript. */
+/* ---------- Scroll reveal ----------
+   .reveal elements rise and fade in via scroll.js. Gated behind html.js
+   so content stays visible without JavaScript. */
 html.js .reveal {
   opacity: 0;
   transform: translateY(26px);

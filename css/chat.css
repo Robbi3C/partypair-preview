@@ -1,0 +1,172 @@
+/* ============================================================
+   MAID OF HONOR + GROUP CHAT (homepage, .problem)
+   Copy on the right; on the left a tall black-and-white photo runs the
+   full height of the band and off the screen's edge, and the group chat
+   sits on its edge: a time stamp, then near-opaque bubbles staggered
+   across the seam, the "You" reply breaking out toward the copy.
+   Below 52em it stacks, copy first.
+
+   Messages arrive one by one as the chat scrolls into view (js/chat.js):
+   a "…" typing bubble, then the message pops up from its tail corner.
+   Gated on html.js + data-chat-ready, so without JS, with ?static or with
+   reduced motion every message is simply there.
+   ============================================================ */
+
+/* One text size under the headline: the guide's Body (§4.3, 17/16 px) for
+   every paragraph; §4.4 asks for body *or* lead in a block. */
+.problem { background: var(--cream); }
+.problem h2 { color: var(--punch); margin-bottom: 1.625rem; }
+.problem__copy p { max-width: 36em; }
+.problem__copy p + p { margin-top: 1rem; }
+.problem__cta { margin-top: 1.75rem; }
+
+.problem__grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+/* ---------- The chat ---------- */
+.problem .chat-stack {
+  position: relative;
+  display: grid;
+  gap: 0.7rem;
+  padding: 3rem 0 3.5rem 34%;
+}
+.problem .chat-stack::before {   /* time stamp */
+  content: 'Friday \00B7  4:12 pm';
+  position: relative;
+  z-index: 1;
+  justify-self: start;
+  margin: 0 0 0.25rem -14%;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--paper);
+  font-family: var(--font-caps);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.chat-bubble {
+  justify-self: start;
+  max-width: 100%;
+  padding: 0.8em 1.2em;
+  border-radius: 1.3em 1.3em 1.3em 0.35em;
+  background: rgba(255, 253, 248, 0.94);
+  backdrop-filter: blur(8px) saturate(1.2);
+  box-shadow: 0 1px 1px rgba(31, 48, 71, 0.126), 0 4px 10px rgba(31, 48, 71, 0.154), 0 14px 28px rgba(31, 48, 71, 0.126);
+  font-size: 1rem;
+  line-height: 1.45;
+  rotate: var(--tilt, 0deg);
+}
+.chat-bubble--me {
+  justify-self: end;
+  border-radius: 1.3em 1.3em 0.35em 1.3em;
+  background: var(--chat-me-bg);
+  color: var(--ink);
+}
+.chat-bubble .sender {
+  display: block;
+  margin-bottom: 0.15em;
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pear-deep);
+}
+.chat-bubble--me .sender { color: var(--ink); }
+
+/* placed, not stacked: each bubble nudged off the column */
+.problem .chat-bubble:nth-of-type(1) { margin-left: -14%; }
+.problem .chat-bubble:nth-of-type(2) { margin-left: 8%; }
+.problem .chat-bubble:nth-of-type(3) { margin-left: -6%; }
+.problem .chat-bubble--me { margin: 0.75rem -7% 0.75rem 0; }
+.problem .chat-bubble:nth-of-type(5) { margin-left: 4%; }
+
+/* ---------- The photo: warm grade, toned down, fine grain ---------- */
+.chat-photo { position: absolute; z-index: 0; margin: 0; }
+.chat-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 40% 50%;
+  filter: sepia(0.12) saturate(0.92) contrast(0.96) brightness(0.84);
+  opacity: 0.8;                    /* the cream page shows through a touch */
+}
+.chat-photo::after {   /* fine grain */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+}
+
+/* ---------- Layout by width ---------- */
+@media (min-width: 52em) {
+  /* chat left, copy right; copy stays first in the source for phones */
+  .problem__grid { grid-template-columns: 0.95fr 1.05fr; gap: 7rem; }
+  .problem__grid .chat-stack { order: -1; }
+  /* the photo measures from the whole section, so nothing between them is positioned */
+  .problem { isolation: isolate; }
+  .problem .problem__grid,
+  .problem .chat-stack { position: static; }
+  .problem :is(.problem__copy, .chat-bubble) { position: relative; z-index: 1; }
+  .chat-photo { inset: 0 auto 0 0; width: calc(50% - 15rem); }
+}
+@media (max-width: 51.99em) {
+  .problem .chat-stack { isolation: isolate; }
+  .chat-photo { inset: 0 34% 0 calc(-1 * var(--gutter)); z-index: -1; }
+  /* stacked: no room to break out on the right, so the stagger stays inside the screen */
+  .problem .chat-bubble { max-width: 94%; }
+  .problem .chat-bubble:nth-of-type(2) { margin-left: 5%; }
+  .problem .chat-bubble--me { margin-right: 0; }
+}
+@media (max-width: 47.5em) {
+  .problem .chat-stack { padding: 2rem 0 2.5rem 22%; }
+  .chat-photo { right: 30%; }
+}
+
+/* ---------- Arrival (js/chat.js) ---------- */
+html.js .chat-stack[data-chat-ready] .chat-bubble[data-chat-wait] {
+  opacity: 0;
+  translate: 0 10px;
+  scale: 0.92;
+  transform-origin: 0% 100%;
+  transition: opacity 0.3s var(--ease-out), translate 0.45s var(--ease-out), scale 0.45s var(--ease-out);
+}
+html.js .chat-stack[data-chat-ready] .chat-bubble--me[data-chat-wait] { transform-origin: 100% 100%; }
+html.js .chat-stack[data-chat-ready] .chat-bubble[data-chat-wait].is-in { opacity: 1; translate: 0 0; scale: 1; }
+
+.chat-typing {
+  position: absolute;
+  display: flex;
+  gap: 4px;
+  padding: 0.75rem 0.9rem;
+  border-radius: 22px 22px 22px 6px;
+  background: var(--paper);
+  box-shadow: 0 6px 16px rgba(31, 48, 71, 0.1);
+  translate: 0 -100%;      /* sits on the bottom edge of the message it stands in for */
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out);
+}
+.chat-typing--me { background: var(--petal); border-radius: 22px 22px 6px 22px; }
+.chat-typing.is-on { opacity: 1; }
+.chat-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-muted);
+  animation: chat-dot 0.9s ease-in-out infinite;
+}
+.chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes chat-dot {
+  0%, 60%, 100% { opacity: 0.35; translate: 0 0; }
+  30% { opacity: 1; translate: 0 -3px; }
+}

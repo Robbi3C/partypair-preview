@@ -41,7 +41,7 @@ export function initScrollEffects() {
   // Sticky mobile CTA appears once the hero is scrolled past,
   // and hides near the footer (the finale section has its own CTA)
   const sticky = document.querySelector('.sticky-cta');
-  const hero = document.querySelector('.hero, .guide-hero, .page-head, .section--first');
+  const hero = document.querySelector('.hero, .guide-hero, .page-head');
   const footer = document.querySelector('.site-footer');
   if (sticky && hero) {
     let heroGone = false;

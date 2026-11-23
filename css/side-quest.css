@@ -1,0 +1,240 @@
+/* ============================================================
+   SIDE QUEST (homepage, .side-quest) — partying beyond the Cape:
+   a film strip down the left edge, the headline, and a route card.
+   The band also carries .placeholder--petal (placeholders.css).
+   ============================================================ */
+
+/* Side quest: script kicker over the headline (guide §4.4 type stack), then
+   one body size for both paragraphs */
+.side-quest__kicker {
+  margin-bottom: 0.5rem;
+  font-size: clamp(2.25rem, 1.9rem + 1.2vw, 2.875rem);
+  color: var(--ink);
+  rotate: -3deg;
+}
+/* Layout (after the client's reference): a light film strip flush against the
+   left edge; a big headline in the middle; the copy, centred, with the route
+   card under it on the right. The grid starts past the strip's box, so the
+   strip can never run into the text. Below 1020px it all stacks, with the
+   strip as a band across the top. */
+.side-quest { --film-w: clamp(13rem, 23vw, 22rem); background: var(--side-quest-bg); }
+.side-quest__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: center;
+  --sq-pad-r: max(var(--gutter), calc((100vw - 100rem) / 2));
+  padding-left: calc(var(--film-w) + clamp(2rem, 4vw, 4rem));
+  padding-right: var(--sq-pad-r);
+}
+.side-quest__head h2 {
+  margin: 0;
+  font-size: clamp(2.75rem, 4.6vw, 4.75rem);
+  line-height: 0.98;
+}
+.side-quest__head p { max-width: 30em; margin-top: 1.5rem; }
+.side-quest__copy .route { margin-top: 0; }   /* the card is all that's left in the right column */
+/* travel line art behind the route card, out past its bottom-right corner
+   at full strength (the pile's stamp stays at 50%) */
+.side-quest__copy { position: relative; isolation: isolate; }
+/* nothing spills into the next band or off the screen's sides */
+.side-quest { clip-path: inset(0); }
+.side-quest__copy .route { z-index: 1; }
+.side-quest__stamp {
+  position: absolute;
+  /* 40% smaller than before (30rem → 18rem); its right edge sits just inside
+     the screen and it drops well below the card, so most of it shows */
+  right: calc(var(--sq-pad-r) * -1 + 0.5rem);
+  bottom: -8.25rem;                /* low enough to clear the card, high enough not to be cut by the band's edge */
+  z-index: 0;
+  width: 18rem;
+  height: auto;
+  opacity: 1;
+  pointer-events: none;
+}
+/* the art shows mostly below the card (beside it too on wide screens and
+   tablets): give the band extra room underneath for it */
+.side-quest { padding-bottom: calc(var(--space-section) + 3rem); }
+@media (max-width: 63.75em) {
+  .side-quest__stamp { bottom: -7.5rem; }
+}
+@media (max-width: 47.5em) {
+  .side-quest__stamp { width: 12rem; bottom: -6.75rem; }
+}
+@media (max-width: 63.75em) {
+  .side-quest__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-left: var(--gutter);
+  }
+  .side-quest__copy .route { margin: 1rem 0 0; }
+}
+
+/* The film strip: pale stock with photos edge to edge, thin gaps between
+   frames and a soft row of sprocket holes down the right edge; tilted a few
+   degrees, bleeding off the left edge and the top and bottom of the band. */
+.film {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--film-w);
+  clip-path: inset(0 -6rem 0 0);   /* clip top, bottom and left; the starburst may poke out to the right */
+  pointer-events: none;
+}
+.film__strip {
+  position: absolute;
+  top: -12%;
+  bottom: -12%;
+  left: -1.5rem;
+  right: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 30px 10px 10px;
+  overflow: hidden;
+  background: #fdfbf7;
+  box-shadow: 0 14px 34px rgba(31, 48, 71, 0.2);
+  rotate: -4deg;
+}
+.film__strip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 7px;
+  width: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='22'%3E%3Crect x='4' y='6' width='8' height='10' rx='2' fill='%23ddd6cc'/%3E%3C/svg%3E") center top / 16px 22px repeat-y;
+}
+.film__strip img {
+  flex: none;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+}
+/* a soft pink star on the strip's edge, as in the reference: slim rays with
+   rounded tips and rounded curves between them (drawn in index.html) */
+.film__spark {
+  position: absolute;
+  top: 2.5rem;                     /* up near the band's top edge, well above the headline */
+  right: -1.5rem;                  /* pokes out less than the gap to the text column */
+  width: clamp(5.25rem, 7vw, 8rem);
+  height: clamp(5.25rem, 7vw, 8rem);
+  fill: var(--side-quest-spark);
+  rotate: 8deg;                    /* a touch off upright, as if stuck on by hand */
+}
+@media (max-width: 63.75em) {
+  /* stacked: the strip turns sideways into a band above the copy */
+  .film {
+    --len: calc(100vw + 4rem);
+    position: relative;
+    width: auto;
+    height: calc(var(--len) * 0.07 + 13.5rem);
+    margin-bottom: 1rem;
+    clip-path: inset(-4rem 0);   /* cut only at the screen's sides; the shadow fades out above and below */
+  }
+  .film__strip {
+    inset: 50% auto auto 50%;
+    width: var(--len);
+    height: auto;
+    flex-direction: row;
+    padding: 10px 10px 30px;
+    translate: -50% -50%;
+    rotate: -3deg;
+  }
+  .film__strip::after {
+    top: auto;
+    bottom: 7px;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='16'%3E%3Crect x='6' y='4' width='10' height='8' rx='2' fill='%23ddd6cc'/%3E%3C/svg%3E");
+    background-position: left center;
+    background-size: 22px 16px;
+    background-repeat: repeat-x;
+  }
+  .film__strip img { width: 8.5rem; }
+  .film__spark { top: 0.5rem; right: auto; left: 62%; width: 4.5rem; height: 4.5rem; }
+}
+
+/* Route card: paper, slightly tilted; a dashed Sea glass line joins the pins */
+.route {
+  position: relative;
+  max-width: 30rem;
+  margin: 2.5rem auto 0;
+  text-align: left;
+  padding: 1.875rem 2.125rem 1.875rem 1.875rem;
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: var(--lift);
+  rotate: 1.2deg;
+}
+.route h3 {
+  margin: 0 0 1.125rem;
+  font-family: var(--font-caps);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.route ol { position: relative; margin: 0; padding: 0; list-style: none; }
+.route ol::before {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 14px;
+  bottom: 14px;
+  border-left: 3px dashed var(--route-line);
+}
+.route li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.625rem 0;
+}
+.route__pin {
+  position: relative;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 4px solid var(--paper);
+  background: var(--route-pin);
+  box-shadow: 0 2px 6px rgba(31, 48, 71, 0.18);
+}
+.route li:first-child .route__pin { background: var(--route-home); }   /* home base */
+.route__place {
+  font-family: var(--font-display);
+  font-variation-settings: 'SOFT' 100;
+  font-size: 1.625rem;
+  line-height: 1.05;
+  text-transform: lowercase;
+  color: var(--ink);
+}
+.route__how {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--route-chip);
+  font-family: var(--font-caps);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.route li:first-child .route__how { background: var(--route-home-chip); color: var(--route-home-ink); }
+
+@media (max-width: 47.5em) {
+  .route { padding: 1.5rem 1.125rem; }
+  .route__place { font-size: 1.3125rem; }
+
+.side-quest h2 { margin-bottom: 1.5rem; }
+.side-quest h2 + p,
+.side-quest p + p { color: var(--ink); }
+.side-quest p + p { margin-top: 1rem; }

@@ -1,0 +1,119 @@
+/* ============================================================
+   HER KIND OF PARTY (homepage, .her-party) — PLACEHOLDER copy.
+   A bold berry band: copy on the left, a pile of polaroids on the
+   right that drop in one at a time (js/polaroids.js).
+   ============================================================ */
+
+/* Paper text on Pear Deep clears 6:1. "her" is in the script face, as in
+   the CTA sign-off ("xo, the pair"). */
+.her-party { background: var(--her-party-bg); overflow: hidden; }
+.her-party h2 { color: var(--her-party-heading); margin-bottom: 1.625rem; text-wrap: balance; }
+.her-party h2 .script {
+  display: inline-block;
+  font-size: 1.3em;
+  line-height: 0.8;
+  color: var(--her-party-script);
+  rotate: -4deg;
+  padding-inline: 0.06em;
+}
+.her-party__copy p { max-width: 36em; color: var(--her-party-ink); }
+.her-party__copy p + p { margin-top: 1rem; }
+
+.her-party__grid { display: grid; gap: 3rem; align-items: center; }
+@media (min-width: 52em) {
+  .her-party__grid { grid-template-columns: 1.05fr 0.95fr; gap: 4rem; }
+}
+
+/* Polaroid pile: smaller prints scattered around the centre of the area,
+   each pushed off by its own --x/--y (a share of the print's own size) and
+   tilted by --r, so it reads as a loose pile tossed on a table rather than
+   a neat stack. Later photos land on top. */
+.polaroids {
+  position: relative;
+  width: min(100%, 32rem);
+  aspect-ratio: 1 / 0.98;
+  margin-inline: auto;
+  container-type: inline-size;     /* prints size their frame in cqw (pile width) */
+}
+/* phones: the scattered prints reach past the pile's box, so shrink it to keep them on screen */
+@media (max-width: 47.5em) {
+  .polaroids { width: 80%; }
+}
+.polaroids__stamp {
+  position: absolute;
+  right: -18%;
+  bottom: -16%;
+  width: 72%;
+  height: auto;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.polaroid {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 59.8%;                    /* 15% bigger than the earlier 52% */
+  aspect-ratio: 0.82;              /* a real instant print's proportions */
+  margin: 0;
+  padding: 3cqw 3cqw 10.5cqw;      /* thin sides and top, deep bottom lip */
+  /* realistic, not aged: bright white print paper, a hairline edge and
+     corners that aren't machine-perfect */
+  background: #fefdfa;
+  border-radius: 2px 3px 2px 4px;
+  box-shadow:
+    inset 0 0 0 1px rgba(31, 48, 71, 0.05),
+    0 1px 2px rgba(31, 48, 71, 0.2),
+    0 12px 26px rgba(31, 48, 71, 0.26);
+  translate: calc(-50% + var(--x)) calc(-50% + var(--y));
+  rotate: var(--r);
+}
+.polaroid:nth-of-type(even) { background: #fcfbf7; }   /* papers never quite match */
+.polaroid img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* a very faint matte paper texture over the whole print */
+.polaroid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.27 0 0 0 0 0.16 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.09;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+/* the photo area: a whisper of edge shading and a faint scuff that catches the light */
+.polaroid::after {
+  content: '';
+  position: absolute;
+  inset: 3cqw 3cqw 10.5cqw;        /* exactly the photo: same values as the padding */
+  background:
+    linear-gradient(var(--scuff, 112deg), transparent 47%, rgba(255, 255, 255, 0.12) 49.5%, transparent 52%),
+    radial-gradient(ellipse at center, transparent 70%, rgba(31, 48, 71, 0.1) 100%);
+  box-shadow: inset 0 0 0 1px rgba(31, 48, 71, 0.08);
+  pointer-events: none;
+}
+.polaroid:nth-of-type(2) { --scuff: 64deg; }
+.polaroid:nth-of-type(3) { --scuff: 150deg; }
+.polaroid:nth-of-type(4) { --scuff: 28deg; }
+.polaroid:nth-of-type(5) { --scuff: 96deg; }
+/* Gate: only hidden once polaroids.js has armed the pile (no JS, ?static
+   and reduced motion all show the full stack) */
+.polaroids[data-pile-ready] .polaroid[data-pile-wait] { opacity: 0; }
+
+/* Landing (js/polaroids.js): each print falls straight down from just
+   above, already at its resting angle (no twist), starting a little larger
+   as if closer to the eye. The keyframes only describe where it comes FROM;
+   it ends on its resting place (--x/--y/--r). */
+.polaroid.is-landing { animation: pile-drop 0.65s var(--ease-out) both; }
+@keyframes pile-drop {
+  from {
+    opacity: 0;
+    scale: 1.18;
+    translate: calc(-50% + var(--x)) calc(-50% + var(--y) - 14%);
+  }
+  25% { opacity: 1; }
+}

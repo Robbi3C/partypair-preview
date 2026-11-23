@@ -1,0 +1,157 @@
+/* ============================================================
+   HOW BOOKING WORKS (homepage) — guide template A, "split tint".
+   The type stack on cream; the steps on a Pear pink half, as paper
+   cards with die-cut stickers, numbered discs on a foam thread.
+   One screen tall on desktop; stacks at 1020 px (guide §5.1).
+   Steps come from js/content/booking.js, rendered by js/booking.js.
+   ============================================================ */
+
+.booking {
+  --rail: 84px;
+  --art: clamp(68px, calc(100svh * 0.8 / var(--n, 4) * 0.66), 112px);
+  position: relative;
+  min-height: 640px;
+  height: 100svh;
+  padding: 0;                                   /* sized to the screen, not the band padding */
+  background: linear-gradient(90deg, var(--cream) 50%, var(--pear) 50%);
+  overflow-x: clip;
+}
+.booking__inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding-top: clamp(6rem, 14vh, 7.5rem);        /* clears the seal hanging over the seam (and the header) */
+  padding-bottom: clamp(2rem, 6vh, 3.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(4rem, 8vw, 7rem);
+  align-items: center;
+}
+
+/* ---------- Heading, lead, one pill ---------- */
+.booking__head { max-width: 30rem; }
+.booking h2 { color: var(--punch); line-height: 1; margin-bottom: 1.1rem; text-wrap: balance; }
+.booking__lead { max-width: 27rem; margin-bottom: 1.75rem; }
+
+/* ---------- Steps down a line ---------- */
+.booking__stage { position: relative; height: 100%; }
+.booking__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: grid;
+  grid-template-columns: var(--rail) 1fr;
+  grid-template-rows: repeat(var(--n, 4), 1fr);
+}
+.booking__step { display: contents; }
+.booking__anchor { grid-column: 1; grid-row: var(--i); place-self: center; width: 2px; height: 2px; }
+
+.booking__card {
+  position: relative;
+  grid-column: 2;
+  grid-row: var(--i);
+  align-self: center;
+  justify-self: start;
+  width: min(100% - 2.5rem, 30rem);
+  padding: 1.05rem calc(var(--art) * 0.6 + 1.25rem) 1.15rem 1.5rem;
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: 0 8px 22px rgba(31, 48, 71, 0.14);
+  rotate: -0.8deg;
+  transition: rotate var(--dur-med) var(--ease-out), translate var(--dur-med) var(--ease-out);
+}
+.booking__step:nth-child(even) .booking__card { rotate: 0.8deg; }
+.booking__card:hover { rotate: 0deg; translate: 0 -6px; }
+.booking__card h3 { font-size: clamp(1.35rem, 1.9vw, 1.65rem); line-height: 1.05; margin-bottom: 0.3rem; }
+.booking__card p { font-size: 0.9375rem; line-height: 1.5; color: var(--ink-muted); }
+/* a small tab pointing at the line */
+.booking__card::after {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  translate: 0 -50%;
+  rotate: 45deg;
+  border-radius: 2px;
+  background: var(--paper);
+}
+
+.booking__sticker {
+  position: absolute;
+  top: 50%;
+  right: calc(var(--art) * -0.4);
+  width: var(--art);
+  height: auto;
+  max-width: none;
+  overflow: visible;
+  translate: 0 -50%;
+  rotate: -6deg;
+  filter: drop-shadow(0 6px 10px rgba(31, 48, 71, 0.18));
+  transition: rotate var(--dur-med) var(--ease-out), translate var(--dur-med) var(--ease-out);
+}
+.booking__step:nth-child(even) .booking__sticker { rotate: 7deg; }
+
+/* ---------- Numbered discs on the foam thread (§10.9, §9.7) ---------- */
+.booking__rail { position: absolute; inset: 0; pointer-events: none; }
+.booking__thread { position: absolute; inset: 0 auto auto 0; overflow: visible; max-width: none; }
+.booking__track, .booking__fill { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.booking__track { stroke: rgba(255, 253, 248, 0.55); }
+.booking__fill { stroke: var(--paper); stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.booking__dot {
+  position: absolute;
+  translate: -50% -50%;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--paper);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--punch);
+  transition: box-shadow var(--dur-quick) var(--ease-out), background var(--dur-med) var(--ease-out), color var(--dur-med) var(--ease-out);
+}
+.booking__dot.is-on { box-shadow: 0 0 0 3px var(--pear-deep); }
+
+/* ---------- The finish: last disc fills Punch, sparkle trio lands top-right ---------- */
+.booking__trio { position: absolute; top: 0; right: calc(var(--art) * 0.55); width: 0; height: 0; }
+.booking__spark { position: absolute; max-width: none; scale: 0; rotate: -30deg; transition: scale 0.45s var(--ease-out), rotate 0.45s var(--ease-out); }
+.booking__spark--1 { left: -6px; top: -40px; }
+.booking__spark--2 { left: 30px; top: -26px; transition-delay: 80ms; }
+.booking__spark--3 { left: 18px; top: 2px; transition-delay: 160ms; }
+.booking.is-done .booking__spark { scale: 1; rotate: 0deg; }
+.booking.is-done .booking__dot:last-of-type { background: var(--punch); color: var(--paper); box-shadow: 0 0 0 3px var(--punch); }
+.booking.is-done .booking__step:last-child .booking__sticker { rotate: 0deg; translate: 0 calc(-50% - 8px); }
+
+/* the reviews band's wave hangs from this band: cream on the left, pink on the right */
+.wave__split-l { stop-color: var(--cream); }
+.wave__split-r { stop-color: var(--pear); }
+
+/* ---------- Stacked (guide §5.1: two-column grids stack at 1020 px) ---------- */
+@media (max-width: 63.75em) {
+  .booking { height: auto; min-height: 0; background: var(--cream); }
+  .booking__inner { display: block; height: auto; padding-bottom: 0; }
+  .booking__head { margin-bottom: 2.5rem; }
+  .booking__stage {
+    height: auto;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 3rem var(--gutter) 4.5rem;
+    background: var(--pear);
+  }
+  .booking__steps { height: auto; grid-template-rows: none; row-gap: 1.75rem; }
+  .wave__split-l { stop-color: var(--pear); }
+}
+@media (max-width: 47.5em) {
+  .booking { --art: 64px; --rail: 56px; }
+  .booking__card { width: calc(100% - 1.75rem); }
+  .booking__dot { width: 42px; height: 42px; font-size: 1.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booking__card, .booking__sticker, .booking__dot, .booking__spark { transition: none; }
+}

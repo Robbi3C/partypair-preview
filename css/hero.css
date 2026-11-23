@@ -1,6 +1,5 @@
 /* ============================================================
-   HERO — "Into the light" (was preview option C4). Homepage only;
-   loaded after sections.css, whose .hero rules other pages still use.
+   HERO — "Into the light". Homepage only.
 
    Text on paper (warm off-white) at the left; the lifestyle photo sits on
    the right and its left edge dissolves into the paper (a mask), so the copy reads on
@@ -40,23 +39,21 @@
 .hero {
   --hero-h1-max: 3.485rem;
   --hero-h: min(100svh, 62rem);
+  position: relative;
+  display: grid;
+  isolation: isolate;
+  overflow: clip;
   min-height: var(--hero-h);
   padding: var(--hero-top) var(--hero-inline) var(--hero-bottom);
   align-content: center;
   justify-items: start;
   text-align: left;
   background-color: var(--paper);
-  background-image: radial-gradient(rgba(222, 100, 165, 0.13) 1px, transparent 1.3px);   /* faint rose dots */
+  background-image: radial-gradient(var(--hero-dot) 1px, transparent 1.3px);   /* faint rose dots */
   background-size: 7px 7px;
 }
 /* ink focus ring, to match the ink copy */
 .hero :focus-visible { outline-color: var(--ink); }
-.hero::before { display: none; }
-
-/* the header's outer box is taller than its visible bar (the closed menu
-   panel sits in it); let clicks fall through to the hero below */
-.site-header { pointer-events: none; }
-.site-header > * { pointer-events: auto; }
 
 /* the copy column is the container the headline sizes against */
 .hero__copy {
@@ -65,22 +62,14 @@
   justify-items: start;
 }
 
-.hero__script {
-  margin-bottom: clamp(0.4rem, 1.2svh, 0.9rem);
-  font-size: clamp(2.25rem, 1.9rem + 1.2vw, 2.875rem);
-  color: var(--ink);
-}
-
 .hero__kicker {
   margin-bottom: clamp(0.5rem, 1.4svh, 0.9rem);
-  line-height: 1.5;
   text-wrap: balance;
   color: var(--ink);
 }
 
 /* the longer headline line is ~9.2em wide; /9.8 leaves slack */
 .hero h1 {
-  max-width: none;
   margin-bottom: clamp(0.75rem, 2.2svh, 1.4rem);
   font-size: clamp(2rem, 100cqi / 9.8, calc(var(--hero-h1-max) * var(--hero-hk)));
 }
@@ -89,9 +78,10 @@
 .hero__lead {
   max-width: 40ch;
   margin-bottom: clamp(1.25rem, 3.2svh, 2.2rem);
-  line-height: 1.5;
+  font-size: var(--text-lead);
+  line-height: 1.6;
 }
-.hero__ctas { justify-content: flex-start; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 
 /* ---------- The photo: right side, fading in from the white ---------- */
 .hero__bg {

@@ -1,0 +1,266 @@
+/* ============================================================
+   Palette preview — owner feedback: "lean into coastal blues and
+   hydrangeas for a more classic, elevated Cape Cod feel."
+   Two layers per palette:
+     1. base tokens (tokens.css §3.2): the palette's colours
+     2. colour ROLES (tokens.css "Colour roles"): which colour does which
+        job (secondary pill, stamp, route card, stickers, bands...). A role
+        a palette doesn't set keeps its default, which follows the base
+        tokens. Set roles here instead of overriding section selectors.
+   Decided per palette (owner-visible, so written down):
+     - The logo pear is NEVER recoloured. Cape Cod hydrangeas grow pink AND
+       blue (soil acidity), so the pink pear sits naturally in every palette.
+     - Everything else follows the palette: stickers, sparkles, the "party
+       pair" stamp, route card, chips, confetti, chat bubble, waves.
+   Switch with the bar at the top, or ?palette=mophead|pastel|harbor|coast
+   Delete this file + js/palette-switcher.js once a palette is chosen, then
+   move the winner's values into tokens.css.
+   QA: docs/qa/palette-audit.mjs (contrast + off-palette colours, every
+   section, every palette).
+   ============================================================ */
+
+/* ---------- 1 · Mophead: one hydrangea family, a blush accent ----------
+   Rebuilt on research (see the note at the end of this file). 60 / 30 / 10:
+   one blue-violet hydrangea family carries the bands and type (hue 282-286,
+   periwinkle -> lavender), cool violet-white neutrals underneath (no yellow
+   cream fighting the cool hues), blush from the logo as the one contrasting
+   accent ("blue + blush"), and a muted sage leaf. */
+:root[data-palette="mophead"] {
+  --cream: #f6f6fb;          /* cool violet-white */
+  --sand: #ececf5;
+  --paper: #fdfdff;
+  --punch: #544e9d;          /* hydrangea violet-blue headlines (6.6:1) */
+  --pear: #c0bfea;           /* lavender bloom: hero + split band */
+  --petal: #f9e0ea;          /* logo blush: the accent band */
+  --pear-deep: #423c82;      /* deep bloom: pill + bold band */
+  --pear-deeper: #312c64;
+  --seaglass: #afc4b2;       /* muted sage leaf */
+  --seafoam: #ebebfa;        /* palest bloom */
+  --coastal: #babceb;        /* periwinkle footer */
+  --seaglass-deep: #415d47;
+  --butter: #f5e7c3;
+  --butter-deep: #dec582;
+  --ink: #272748;
+  --ink-muted: #575871;
+  --line: #dad9e4;
+  --focus: #423c82;
+
+  /* roles: the bloom family does the work; blush stays the accent */
+  --hero-dot: rgba(84, 78, 157, 0.1);
+  --btn-alt-bg: var(--pear);           /* lavender pill, not a stray sage one (8.1:1) */
+  --btn-alt-bg-hover: #b0aee0;
+  --badge-fill: var(--pear-deep);      /* deep-bloom stamp, paper type (9.4:1) */
+  --side-quest-bg: var(--pear);        /* lavender band; blush stays on tickers, dream-it, FAQ */
+  --side-quest-spark: var(--petal);    /* blush star on lavender */
+  --route-line: var(--pear);
+  --route-pin: var(--pear);
+  --chat-me-bg: var(--petal);
+  --confetti: #544e9d, #c0bfea, #f9e0ea, #afc4b2, #f5e7c3, #babceb;
+}
+
+/* ---------- 2 · Pastel: today's palette, softened but clean ----------
+   Follows the logo: pale tiers with one strong base. Rebuilt on research
+   after v1 read dull: v1 greyed every colour (mixing "dirty" and clean
+   colours: sea glass 22% clean vs pinks 73%) and stacked pastel on pastel.
+   Now: high-key pastels kept CLEAN (tinted with white, not grey: 75-90% of
+   max chroma), a clean shell-white ground in the pinks' own undertone, and
+   two saturated anchors for contrast: magenta for headlines + button, navy
+   for text. Sea glass matches the logo leaf (33% vs 32%). */
+:root[data-palette="pastel"] {
+  --cream: #fff8f5;          /* shell white, pink undertone */
+  --sand: #faede8;
+  --paper: #fffdfb;
+  --punch: #cb4987;          /* clean magenta-rose: display headlines (4.1:1) */
+  --pear: #f8bdd8;           /* clean pastel pink: hero, split, "her party" band */
+  --petal: #fde1ed;          /* clean blush */
+  --pear-deep: #ab366e;      /* the strong base tier: button (paper label 5.9:1) */
+  --pear-deeper: #8e2859;
+  --seaglass: #aad9d2;       /* logo leaf, clean */
+  --seafoam: #e1f5f2;
+  --coastal: #aad8f7;        /* clean powder blue footer */
+  --seaglass-deep: #2b6a62;
+  --butter: #faecb6;
+  --butter-deep: #e4cd77;
+  --ink: #1c2e49;            /* navy anchor */
+  --ink-muted: #4f5c6f;
+  --line: #ebd9d6;
+  --focus: #2b6ca3;
+
+  /* roles: pastel bands, magenta + navy anchors */
+  --hero-dot: rgba(203, 73, 135, 0.1);
+  --btn-alt-bg-hover: #96cac2;
+  --her-party-bg: var(--pear);         /* pale pink band, magenta headline */
+  --her-party-heading: var(--pear-deep);
+  --her-party-script: var(--pear-deep);
+  --her-party-ink: var(--ink);
+  --badge-fill: var(--pear-deep);      /* magenta stamp, paper type (5.9:1) */
+  --caps-accent: var(--pear-deep);     /* small caps need 4.5:1; this is 5.7:1 */
+  --chat-me-bg: var(--petal);
+  --confetti: #cb4987, #f8bdd8, #fde1ed, #aad9d2, #faecb6, #aad8f7;
+}
+
+/* ---------- 3 · Harbor & Hydrangea: one harbour-blue family, blush and sage ----------
+   Rebuilt on research. Every blue now shares one hue (255: navy -> harbour ->
+   chambray -> mist), so nothing reads as a near-miss. The lilac is gone: blush
+   from the logo is the single accent ("pink + navy: tailored"), sage is the
+   leaf, and a soft wheat is the one warm neutral (hydrangea + sage + wheat). */
+:root[data-palette="harbor"] {
+  --cream: #f6f3ee;          /* soft wheat-white */
+  --sand: #eee7dc;
+  --paper: #fffdfa;
+  --punch: #284e7d;          /* harbour blue headlines (7.7:1) */
+  --pear: #b1c6e2;           /* chambray / blue hydrangea */
+  --petal: #f8e3ea;          /* logo blush accent */
+  --pear-deep: #18365b;      /* navy */
+  --pear-deeper: #102743;
+  --seaglass: #b1c4b4;       /* muted sage leaf */
+  --seafoam: #e9eff7;        /* sea mist */
+  --coastal: #c7d6ea;        /* pale harbour footer */
+  --seaglass-deep: #415a45;
+  --butter: #efe0c0;         /* wheat */
+  --butter-deep: #d4bb86;
+  --ink: #142539;
+  --ink-muted: #4d5969;
+  --line: #dbd3c6;
+  --focus: #284e7d;
+
+  /* roles: blue does the work, wheat the warmth, blush the accent */
+  --hero-dot: rgba(40, 78, 125, 0.09);
+  --btn-alt-bg: var(--pear);           /* chambray pill, not a stray sage one (8.9:1) */
+  --btn-alt-bg-hover: #9fb6d4;
+  --badge-fill: var(--pear-deep);      /* navy stamp, paper type (12:1) */
+  --side-quest-bg: var(--sand);        /* wheat band; blush stays on tickers, dream-it, FAQ */
+  --route-line: var(--pear);
+  --route-pin: var(--pear);
+  --chat-me-bg: var(--petal);
+  --confetti: #18365b, #284e7d, #b1c6e2, #f8e3ea, #efe0c0, #c7d6ea;
+}
+
+/* ---------- 4 · Pastel Coast: Pastel with Cape Cod blues woven in ----------
+   Palette 2 kept whole (clean pinks, magenta + navy anchors), plus ONE
+   classic Cape Cod blue family at hue 255 (between harbour blue and
+   hydrangea blue) so the blues never clash with each other. Blues are
+   matched to the pinks' cleanliness (80-83% vs 84%) so neither looks dull
+   beside the other. 60/30/10: pink leads, blue weaves through the calm
+   bands, the "her party" band and the footer; magenta stays the accent.
+   Pairings from the hydrangea research: "blue + blush", "pink + navy". */
+:root[data-palette="coast"] {
+  --cream: #fff8f5;
+  --sand: #faede8;
+  --paper: #fffdfb;
+  --punch: #cb4987;          /* magenta-rose headlines */
+  --pear: #f8bdd8;           /* pink band: hero, booking split */
+  --petal: #fde1ed;          /* blush: header, tickers, FAQ */
+  --pear-deep: #ab366e;      /* button */
+  --pear-deeper: #8e2859;
+  --seaglass: #aad9d2;       /* logo leaf */
+  --seafoam: #e8f1fc;        /* Cape Cod mist blue: calm bands, gallery */
+  --coastal: #b8d4f7;        /* pastel Cape Cod blue footer */
+  --seaglass-deep: #2b6a62;
+  --butter: #faecb6;
+  --butter-deep: #e4cd77;
+  --ink: #152c48;            /* Cape Cod navy */
+  --ink-muted: #4f5c6f;
+  --line: #ebd9d6;
+  --focus: #315c92;          /* harbour blue: focus + links */
+
+  /* roles: blue woven into bands, the secondary pill, route card, stickers */
+  --hero-dot: rgba(203, 73, 135, 0.1);
+  --her-party-bg: #c0d8f8;             /* hydrangea-blue band, magenta headline (4.1:1 large) */
+  --her-party-heading: var(--pear-deep);
+  --her-party-script: var(--pear-deep);
+  --her-party-ink: var(--ink);
+  --btn-alt-bg: var(--coastal);        /* blue pill (9.3:1) */
+  --btn-alt-bg-hover: #a3c4ee;
+  --badge-fill: var(--pear-deep);
+  --caps-accent: var(--pear-deep);
+  --route-line: var(--coastal);
+  --route-pin: var(--coastal);
+  --sticker-leaf: var(--coastal);      /* pink + blue balloons and bubbles */
+  --chat-me-bg: var(--petal);
+  --confetti: #cb4987, #f8bdd8, #c0d8f8, #e8f1fc, #faecb6, #aad9d2;
+}
+
+/* ---------- The switcher bar (preview only) ---------- */
+:root { --pal-bar: 0px; }
+:root.has-pal-bar { --pal-bar: 44px; }
+.has-pal-bar body { padding-top: var(--pal-bar); }
+.has-pal-bar .site-header { top: var(--pal-bar); }
+.has-pal-bar .site-header.is-hidden { transform: translateY(calc(-110% - var(--pal-bar))); }
+
+.pal-bar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: var(--pal-bar);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  background: #14243a;
+  color: #fffdf8;
+  font: 600 0.72rem/1 var(--font-caps);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.pal-bar__label { opacity: 0.7; white-space: nowrap; margin-right: 0.25rem; }
+.pal-bar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: none;
+  padding: 0.4rem 0.75rem 0.35rem 0.45rem;
+  border: 1px solid rgba(255, 253, 248, 0.25);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+.pal-bar button:hover { border-color: rgba(255, 253, 248, 0.6); }
+.pal-bar button[aria-pressed="true"] { background: #fffdf8; color: #14243a; border-color: #fffdf8; }
+.pal-bar button:focus-visible { outline: 2px solid #8fc7f4; outline-offset: 2px; }
+.pal-bar__chips { display: inline-flex; }
+.pal-bar__chips i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5px rgba(255, 253, 248, 0.85);
+}
+.pal-bar__chips i + i { margin-left: -4px; }
+@media (max-width: 40em) {
+  .pal-bar { justify-content: flex-start; }
+  .pal-bar__label { display: none; }
+}
+
+/* ---------- Research behind palette 2 (Pastel) ----------
+   - Clean vs dirty: "Dirty colours ... in a room full of clean colours, they
+     will look muddy and dull"; accents should be "all similarly clean or
+     dirty" (Maria Killam, Killam Colour System).
+   - "Pastel on pastel can result in a faded look the eye has trouble
+     viewing"; layer saturated lettering; darker tones that pair with pale
+     colours include "magenta ... navy blue" (MasterClass, pastel colours).
+   - "Pastels work beautifully with ... darker and/or more vibrant tones that
+     create stark contrasts" (PicMonkey).
+   - The most saturated colour belongs on buttons and highlights (Webflow). */
+
+/* ---------- Research behind palettes 1 and 3 ----------
+   - One dominant hue family, then 60/30/10 dominant/secondary/accent; too
+     many colours "can make a space feel cluttered" (Interior Design Institute,
+     analogous schemes).
+   - Mute the accent colours "so they're more cohesive with your dominant
+     colour" (IxDF, colour harmony).
+   - Proven hydrangea pairings: blue + white, blue + soft green, blue + blush,
+     blue + gold/brass; pink + navy "tailored, modern" (The Last Straw,
+     hydrangea colour guide); hydrangea + sage + wheat + gold, with hydrangea
+     used "sparingly so it can really shine" (Ann's Bridal Bargains).
+   - Whites clash when their undertones contrast; cool whites carry blue/violet
+     undertones (Benjamin Moore; Young House Love) -> the neutrals follow the
+     dominant hue.
+   - Built in OKLCH so each family keeps steady lightness/chroma steps
+     (oklch.fyi; Evil Martians). */

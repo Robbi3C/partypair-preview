@@ -4,7 +4,7 @@
 
    Messages stay in the DOM the whole time (screen readers get them all at
    once). Without JS, with ?static, or with reduced motion, nothing is
-   hidden: see the html.js / data-chat-ready gate in theme.css. */
+   hidden: see the html.js / data-chat-ready gate in chat.css. */
 
 const TYPING_MS = 650;   // how long the dots show before a message lands
 const GAP_MS = 250;      // pause after a message before the next one types
