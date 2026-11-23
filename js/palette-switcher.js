@@ -5,7 +5,7 @@
 (function () {
   var OPTIONS = [
     { id: '', name: 'Current', chips: ['#de4f96', '#ea9cc0', '#a2ccc6'] },
-    { id: 'mophead', name: '1 · Mophead', chips: ['#423c82', '#c0bfea', '#f9e0ea', '#afc4b2'] },
+    { id: 'mophead', name: '1 · Mophead', chips: ['#423c82', '#c0bfea', '#f9e0ea', '#afc4b2'], hidden: true },   // off the bar; ?palette=mophead still works
     { id: 'pastel', name: '2 · Pastel', chips: ['#ab366e', '#f8bdd8', '#fde1ed', '#aad9d2'] },
     { id: 'harbor', name: '3 · Harbor & Hydrangea', chips: ['#18365b', '#b1c6e2', '#f8e3ea', '#b1c4b4'] },
     { id: 'coast', name: '4 · Pastel Coast', chips: ['#ab366e', '#f8bdd8', '#c0d8f8', '#e8f1fc'] },
@@ -39,7 +39,7 @@
     bar.setAttribute('aria-label', 'Colour palette preview');
     bar.innerHTML = '<span class="pal-bar__label">Palette preview</span>';
 
-    OPTIONS.forEach(function (o) {
+    OPTIONS.filter(function (o) { return !o.hidden; }).forEach(function (o) {
       var b = document.createElement('button');
       b.type = 'button';
       b.setAttribute('aria-pressed', String(o.id === current));

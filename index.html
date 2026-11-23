@@ -117,7 +117,7 @@
         <!-- Polaroids drop onto the pile one every 1.5s (js/polaroids.js).
              PLACEHOLDER photos: swap for real Party Pair weekends. -->
         <div class="polaroids" aria-label="Photos from recent weekends">
-          <img class="polaroids__stamp" src="assets/img/background_stamp.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
+          <img class="polaroids__stamp" src="assets/Stamps/background_stamp.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
           <figure class="polaroid" style="--r: -13deg; --x: -40%; --y: -24%"><img src="assets/PP_Images/Coastal%20Lobster%20Gift%20Favour%20Display.webp" alt="Coastal lobster-themed gift favour display" loading="lazy" decoding="async"></figure>
           <figure class="polaroid" style="--r: 11deg; --x: 39%; --y: -28%"><img src="assets/PP_Images/Balloon-Filled%20Bedroom%20Retreat.webp" alt="Bedroom filled with balloons" loading="lazy" decoding="async"></figure>
           <figure class="polaroid" style="--r: 4deg; --x: -36%; --y: 25%"><img src="assets/PP_Images/Lobster-Themed%20Blue%20and%20White%20Party%20Cart.webp" alt="Lobster-themed blue and white party cart" loading="lazy" decoding="async"></figure>
@@ -128,44 +128,54 @@
     </section>
 
     <!-- ============ PLACEHOLDER: You dream it ============ -->
-    <section class="section placeholder placeholder--petal" id="dream-it">
+    <section class="section placeholder placeholder--dream" id="dream-it">
       <div class="container section-intro">
         <h2>You dream it. We do the running around.</h2>
         <p class="lead">Placeholder: content for this section to come.</p>
       </div>
     </section>
 
-    <!-- ============ PLACEHOLDER: The group chat ============ -->
-    <section class="section placeholder placeholder--seafoam" id="group-chat">
-      <div class="container section-intro">
-        <h2>The only thing complicated should be the group chat.</h2>
-        <p class="lead">Placeholder: content for this section to come.</p>
-      </div>
-    </section>
-
     <!-- ============ How booking works (css/booking.css; steps from js/content/booking.js) ============ -->
     <section class="section booking" id="how-booking-works" aria-labelledby="booking-title" data-booking>
-      <!-- The pear ring seal (guide §10.4), on the seam with the group chat band above,
-           where the cream and pink halves meet -->
-      <div class="seam-seal" aria-hidden="true">
-        <svg viewBox="0 0 132 132"><defs><path id="sealring" d="M66 66 m-50 0 a50 50 0 1 1 100 0 a50 50 0 1 1 -100 0"/></defs><circle cx="66" cy="66" r="64"/><text><textPath href="#sealring" textLength="306" lengthAdjust="spacing">THE PARTY PAIR ✦ CAPE COD ✦</textPath></text></svg>
-        <img src="assets/img/pear.svg" alt="" width="90" height="100">
-      </div>
       <div class="container booking__inner">
         <div class="booking__head">
-          <h2 id="booking-title">Already picturing the look on her face?</h2>
-          <!-- PLACEHOLDER copy -->
-          <p class="booking__lead">You send the date and the rental. We plan it with you, shop it, haul it and set it all up before check-in.</p>
+          <h2 id="booking-title">The only thing complicated should be the group chat.</h2>
+          <p class="booking__lead">No 47-step planning spreadsheet required. Here’s how we get from your first message to her first look.</p>
           <button type="button" class="btn btn--primary" data-open-inquiry>Check your weekend <span class="arr" aria-hidden="true">→</span></button>
         </div>
-        <div class="booking__stage" data-booking-steps></div>
+        <!-- The plan card; steps rendered from js/content/booking.js -->
+        <div class="plan-wrap">
+          <span class="booking__art booking__art--lobster" aria-hidden="true" style="--icon:url('assets/Stamps/icons/lobster.png')"></span>
+          <span class="booking__art booking__art--scallop" aria-hidden="true" style="--icon:url('assets/Stamps/icons/scallop.png')"></span>
+          <span class="booking__art booking__art--sailboat" aria-hidden="true" style="--icon:url('assets/Stamps/icons/sailboat.png')"></span>
+          <div class="plan">
+            <span class="plan__tape" aria-hidden="true"></span>
+            <h3>Your weekend, sorted.</h3>
+            <ol class="plan__steps" data-booking-steps></ol>
+            <svg class="plan__postmark" viewBox="0 0 220 120" aria-hidden="true">
+              <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+                <path d="M4 40 q9 -7 18 0 t18 0 t18 0 t18 0 t18 0"/>
+                <path d="M4 56 q9 -7 18 0 t18 0 t18 0 t18 0 t18 0"/>
+                <path d="M4 72 q9 -7 18 0 t18 0 t18 0 t18 0 t18 0"/>
+                <path d="M4 88 q9 -7 18 0 t18 0 t18 0 t18 0 t18 0"/>
+              </g>
+              <g>
+                <defs><path id="booking-ring" d="M162 64 m-40 0 a40 40 0 1 1 80 0 a40 40 0 1 1 -80 0"/></defs>
+                <circle cx="162" cy="64" r="53" fill="none" stroke="currentColor" stroke-width="2.4"/>
+                <circle cx="162" cy="64" r="30" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                <text class="plan__postmark-ringtext"><textPath href="#booking-ring" textLength="244" lengthAdjust="spacing">CAPE COD &#10022; THE PARTY PAIR &#10022;</textPath></text>
+                <text class="plan__postmark-word" x="162" y="71" text-anchor="middle">booked</text>
+              </g>
+            </svg>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ============ Google reviews (rendered from js/content/reviews.js by js/reviews.js) ============ -->
     <section class="section reviews" id="reviews" aria-label="Google reviews">
-      <!-- hangs from the booking band: cream on the left half, pink on the right (css/booking.css) -->
-      <svg class="wave wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="wave-split"><stop class="wave__split-l" offset="0.5"/><stop class="wave__split-r" offset="0.5"/></linearGradient></defs><path fill="url(#wave-split)" d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
+      <!-- hangs from the booking band: in the booking band's colour (css/booking.css) -->
+      <svg class="wave wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
       <div data-reviews-slot></div>
     </section>
 
@@ -179,7 +189,7 @@
           <div class="partners__print partners__print--back" aria-hidden="true"></div>
           <div class="partners__print partners__print--mid" aria-hidden="true"></div>
           <figure class="partners__print partners__print--front">
-            <img src="assets/PP_Images/ProvinceTown.jpg" alt="Commercial Street in Provincetown at dusk, strung with flags and busy with people" width="678" height="452" style="object-position: 100% 50%" loading="lazy" decoding="async">
+            <img src="assets/PP_Images/Blurred%20Nighttime%20Street%20Celebration.webp" alt="Friends arm in arm on a busy Provincetown street at night, under strings of flags" width="1536" height="1024" loading="lazy" decoding="async">
           </figure>
           <div class="partners__badge" aria-hidden="true">
             <svg viewBox="0 0 120 120"><path d="M113.5 60.0 L113.0 62.3 L111.6 64.5 L109.6 66.5 L107.5 68.4 L105.9 70.2 L104.9 72.0 L104.8 74.1 L105.3 76.5 L106.2 79.1 L106.9 81.9 L107.0 84.5 L106.3 86.8 L104.7 88.5 L102.4 89.7 L99.7 90.4 L97.0 91.0 L94.6 91.7 L92.9 92.9 L91.7 94.6 L91.0 97.0 L90.4 99.7 L89.7 102.4 L88.5 104.7 L86.8 106.3 L84.5 107.0 L81.9 106.9 L79.1 106.2 L76.5 105.3 L74.1 104.8 L72.0 104.9 L70.2 105.9 L68.4 107.5 L66.5 109.6 L64.5 111.6 L62.3 113.0 L60.0 113.5 L57.7 113.0 L55.5 111.6 L53.5 109.6 L51.6 107.5 L49.8 105.9 L48.0 104.9 L45.9 104.8 L43.5 105.3 L40.9 106.2 L38.1 106.9 L35.5 107.0 L33.3 106.3 L31.5 104.7 L30.3 102.4 L29.6 99.7 L29.0 97.0 L28.3 94.6 L27.1 92.9 L25.4 91.7 L23.0 91.0 L20.3 90.4 L17.6 89.7 L15.3 88.5 L13.7 86.8 L13.0 84.5 L13.1 81.9 L13.8 79.1 L14.7 76.5 L15.2 74.1 L15.1 72.0 L14.1 70.2 L12.5 68.4 L10.4 66.5 L8.4 64.5 L7.0 62.3 L6.5 60.0 L7.0 57.7 L8.4 55.5 L10.4 53.5 L12.5 51.6 L14.1 49.8 L15.1 48.0 L15.2 45.9 L14.7 43.5 L13.8 40.9 L13.1 38.1 L13.0 35.5 L13.7 33.2 L15.3 31.5 L17.6 30.3 L20.3 29.6 L23.0 29.0 L25.4 28.3 L27.1 27.1 L28.3 25.4 L29.0 23.0 L29.6 20.3 L30.3 17.6 L31.5 15.3 L33.2 13.7 L35.5 13.0 L38.1 13.1 L40.9 13.8 L43.5 14.7 L45.9 15.2 L48.0 15.1 L49.8 14.1 L51.6 12.5 L53.5 10.4 L55.5 8.4 L57.7 7.0 L60.0 6.5 L62.3 7.0 L64.5 8.4 L66.5 10.4 L68.4 12.5 L70.2 14.1 L72.0 15.1 L74.1 15.2 L76.5 14.7 L79.1 13.8 L81.9 13.1 L84.5 13.0 L86.7 13.7 L88.5 15.3 L89.7 17.6 L90.4 20.3 L91.0 23.0 L91.7 25.4 L92.9 27.1 L94.6 28.3 L97.0 29.0 L99.7 29.6 L102.4 30.3 L104.7 31.5 L106.3 33.3 L107.0 35.5 L106.9 38.1 L106.2 40.9 L105.3 43.5 L104.8 45.9 L104.9 48.0 L105.9 49.8 L107.5 51.6 L109.6 53.5 L111.6 55.5 L113.0 57.7 Z"/></svg>
@@ -221,7 +231,7 @@
         </div>
         <div class="side-quest__copy">
           <!-- travel line art, peeking out from behind the route card's bottom-right corner -->
-          <img class="side-quest__stamp" src="assets/img/travel_stamp.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
+          <img class="side-quest__stamp" src="assets/Stamps/travel_stamp.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
           <!-- Route card: the places we travel to, joined by a dashed line -->
           <div class="route">
             <h3>Where we'll go</h3>
@@ -241,7 +251,7 @@
     <!-- ============ Instagram gallery (rendered by js/insta-grid.js) ============ -->
     <section class="section transform" id="gallery">
       <div class="container">
-        <div class="section-intro reveal">
+        <div class="section-intro">
           <h2>It's not the balloons.<br>It's the moment she walks&nbsp;in.</h2>
           <p class="lead">The second she opens that door and immediately knows she mattered enough for this to be done right — that's a reaction you can't recreate twice. Straight from our recent weekends:</p>
         </div>

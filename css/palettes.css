@@ -97,6 +97,8 @@
   --caps-accent: var(--pear-deep);     /* small caps need 4.5:1; this is 5.7:1 */
   --chat-me-bg: var(--petal);
   --confetti: #cb4987, #f8bdd8, #fde1ed, #aad9d2, #faecb6, #aad8f7;
+  /* running order: never two pink bands touching. "Her party" (pink) ->
+     dream it (mint) -> booking (blush); dream it and booking use the defaults */
 }
 
 /* ---------- 3 · Harbor & Hydrangea: one harbour-blue family, blush and sage ----------
@@ -164,7 +166,7 @@
   --line: #ebd9d6;
   --focus: #315c92;          /* harbour blue: focus + links */
 
-  /* roles: blue woven into bands, the secondary pill, route card, stickers */
+  /* roles: blue woven into bands, the secondary pill, route card */
   --hero-dot: rgba(203, 73, 135, 0.1);
   --her-party-bg: #c0d8f8;             /* hydrangea-blue band, magenta headline (4.1:1 large) */
   --her-party-heading: var(--pear-deep);
@@ -176,9 +178,12 @@
   --caps-accent: var(--pear-deep);
   --route-line: var(--coastal);
   --route-pin: var(--coastal);
-  --sticker-leaf: var(--coastal);      /* pink + blue balloons and bubbles */
   --chat-me-bg: var(--petal);
   --confetti: #cb4987, #f8bdd8, #c0d8f8, #e8f1fc, #faecb6, #aad9d2;
+  /* running order: pink and blue take turns. "Her party" (blue) ->
+     dream it (blush) -> booking (mist blue) -> ... side quest, FAQ (blush) */
+  --dream-bg: var(--petal);
+  --booking-bg: var(--seafoam);        /* pale mist blue: a light tint, so the card leads */
 }
 
 /* ---------- The switcher bar (preview only) ---------- */

@@ -8,12 +8,6 @@
 .placeholder h2 { color: var(--punch); text-wrap: balance; }
 .placeholder--petal { background: var(--petal); }
 .placeholder--petal h2 { color: var(--pear-deep); }
-/* Seafoam, not Paper, above the booking band, so the seam the seal sits on
-   is visible against its cream half (guide §9.4) */
-.placeholder--seafoam { background: var(--seafoam); }
-.placeholder--seafoam h2 { color: var(--pear-deep); }
+.placeholder--dream { background: var(--dream-bg); }
+.placeholder--dream h2 { color: var(--pear-deep); }
 
-/* the pear seal sits on the seam between the group chat band and the
-   booking band, half in each: the group chat keeps its text clear of it
-   (css/booking.css clears the other half) */
-#group-chat { padding-bottom: calc(var(--space-section) + 3.5rem); }

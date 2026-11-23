@@ -50,15 +50,9 @@
   --route-home-chip: var(--petal);
   --route-home-ink: var(--pear-deep);
   --faq-bg: var(--petal);
+  --dream-bg: var(--seafoam);             /* "you dream it" band: mint, between two pink bands */
+  --booking-bg: var(--petal);             /* booking band: a light tint, so the card leads */
   --footer-bg: var(--coastal);
-  /* booking-step stickers and sparkle trio (js/booking.js) */
-  --sticker-hot: var(--punch);
-  --sticker-pink: var(--pear);
-  --sticker-leaf: var(--seaglass);
-  --sticker-butter: var(--butter);
-  --sticker-pin: var(--butter-deep);
-  --sticker-deep: var(--pear-deep);
-  --sticker-spark2: var(--seaglass-deep);
   /* form-success confetti (js/confetti.js), comma-separated */
   --confetti: #de64a5, #f2a9cc, #a9bce6, #f5d98f, #cde9df, #8fc4b7;
 

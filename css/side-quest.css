@@ -37,8 +37,10 @@
 /* travel line art behind the route card, out past its bottom-right corner
    at full strength (the pile's stamp stays at 50%) */
 .side-quest__copy { position: relative; isolation: isolate; }
-/* nothing spills into the next band or off the screen's sides */
-.side-quest { clip-path: inset(0); }
+/* nothing spills into the next band or off the screen's sides; on desktop
+   the film strip's top end rises into Cape Cod connections above, so the
+   clip opens upward by that much (plus room for its tilt and shadow) */
+.side-quest { --film-rise: 4.5rem; clip-path: inset(calc(-1 * var(--film-rise) - 3rem) 0 0 0); }
 .side-quest__copy .route { z-index: 1; }
 .side-quest__stamp {
   position: absolute;
@@ -72,26 +74,30 @@
 
 /* The film strip: pale stock with photos edge to edge, thin gaps between
    frames and a soft row of sprocket holes down the right edge; tilted a few
-   degrees, bleeding off the left edge and the top and bottom of the band. */
+   degrees, bleeding off the left edge and the bottom of the band. Its top
+   end shows: it starts in the cream space under Cape Cod connections' copy
+   (partners.css keeps that space clear) and runs down across the seam,
+   as in the client's reference. */
 .film {
   position: absolute;
-  top: 0;
+  top: calc(-1 * var(--film-rise));
   bottom: 0;
   left: 0;
+  z-index: 1;
   width: var(--film-w);
-  clip-path: inset(0 -6rem 0 0);   /* clip top, bottom and left; the starburst may poke out to the right */
+  clip-path: inset(-3rem -6rem 0 0);   /* clip bottom and left; the tilted top end and the starburst may poke out */
   pointer-events: none;
 }
 .film__strip {
   position: absolute;
-  top: -12%;
+  top: 0;
   bottom: -12%;
   left: -1.5rem;
   right: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 10px 30px 10px 10px;
+  padding: 1.4rem 30px 10px 10px;   /* a deeper blank end on top, like the leader of a roll */
   overflow: hidden;
   background: #fdfbf7;
   box-shadow: 0 14px 34px rgba(31, 48, 71, 0.2);
@@ -118,7 +124,7 @@
    rounded tips and rounded curves between them (drawn in index.html) */
 .film__spark {
   position: absolute;
-  top: 2.5rem;                     /* up near the band's top edge, well above the headline */
+  top: calc(var(--film-rise) + 2.5rem);   /* just below the seam, well above the headline */
   right: -1.5rem;                  /* pokes out less than the gap to the text column */
   width: clamp(5.25rem, 7vw, 8rem);
   height: clamp(5.25rem, 7vw, 8rem);
@@ -127,9 +133,11 @@
 }
 @media (max-width: 63.75em) {
   /* stacked: the strip turns sideways into a band above the copy */
+  .side-quest { clip-path: inset(0); }   /* stacked: the strip stays inside the band */
   .film {
     --len: calc(100vw + 4rem);
     position: relative;
+    top: auto;
     width: auto;
     height: calc(var(--len) * 0.07 + 13.5rem);
     margin-bottom: 1rem;
