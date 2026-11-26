@@ -61,19 +61,13 @@
   color: var(--ink);
 }
 
-/* Placeholder photo: a soft Petal block with a faint pear, until real
-   photos go in. A real <img> in the same slot gets the same crop. */
+/* card photo: cropped to a fixed ratio */
 .wwd-card__photo {
   display: block;
   width: 100%;
   height: auto;   /* the crop comes from aspect-ratio, not an img's height attribute */
   aspect-ratio: 1.7;
   object-fit: cover;
-}
-div.wwd-card__photo {
-  background:
-    url('../assets/img/pear.svg') center / 2.75rem no-repeat,
-    var(--petal);
 }
 
 .wwd-card__body {
