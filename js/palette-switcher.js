@@ -33,7 +33,7 @@
   root.classList.add('has-pal-bar');
 
   // retired previews (type, tags) stored a choice; clear them
-  try { localStorage.removeItem('pp-type'); localStorage.removeItem('pp-tags'); } catch (e) {}
+  try { localStorage.removeItem('pp-type'); localStorage.removeItem('pp-tags'); localStorage.removeItem('pp-wwd'); localStorage.removeItem('pp-wwd-detail'); } catch (e) {}
 
   document.addEventListener('DOMContentLoaded', function () {
     var bar = document.createElement('div');

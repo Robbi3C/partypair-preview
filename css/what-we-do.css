@@ -13,6 +13,7 @@
    ============================================================ */
 
 .wwd {
+  overflow-x: clip;   /* icons in the side gutters may run off the screen edge */
   padding-block: var(--space-section);
   background: var(--dream-bg);
   color: var(--dream-ink);
@@ -50,6 +51,8 @@
   gap: clamp(1rem, 1.6vw, 1.375rem);
 }
 .wwd-card {
+  position: relative;
+  z-index: 1;                        /* above the drawings tucked behind */
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -140,9 +143,31 @@ div.wwd-card__photo {
 .wwd .btn:hover,
 .wwd .btn:active { background: var(--dream-btn-hover); transform: none; }
 
+/* --- detailing: two line drawings tucked behind the outer cards'
+   corners, as in the booking band. The PNGs (white on clear) are masks,
+   so currentColor is the ink. The url()s live here, not inline: a url()
+   in a custom property resolves against this stylesheet's folder. --- */
+.wwd__cards { position: relative; }
+.wwd__art {
+  position: absolute;
+  z-index: 0;
+  aspect-ratio: 1;
+  color: var(--dream-accent);
+  opacity: 0.55;
+  background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+          mask: var(--icon) center / contain no-repeat;
+  pointer-events: none;
+}
+.wwd__art--disco  { --icon: url('../assets/Stamps/icons/disco-ball.png'); width: 8.5rem; top: -3.75rem; left: -3.25rem; rotate: -14deg; }
+.wwd__art--bucket { --icon: url('../assets/Stamps/icons/champagne-bucket.png'); width: 8rem; bottom: -3.25rem; right: -3.5rem; rotate: 12deg; }
+@media (max-width: 47.5em) {
+  .wwd__art--disco  { width: 5.5rem; top: -2.5rem; left: -1.25rem; }
+  .wwd__art--bucket { width: 5.5rem; bottom: -2.25rem; right: -1.25rem; }
+}
+
 /* one column below the 1020 px breakpoint, kept to a readable width */
 @media (max-width: 63.75em) {
   .wwd__cards { grid-template-columns: minmax(0, 1fr); max-width: 34rem; margin-inline: auto; }
   .wwd-card__photo { aspect-ratio: 2; }
 }
-
