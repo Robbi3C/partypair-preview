@@ -10,12 +10,14 @@
   <link rel="icon" href="assets/img/pear.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,900,100&family=Josefin+Sans:wght@600&family=Questrial&family=Yellowtail&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,700..900,0..100&family=Josefin+Sans:wght@600&family=Questrial&family=Yellowtail&display=swap">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/placeholders.css">
+  <link rel="stylesheet" href="css/side-quest.css">
   <link rel="stylesheet" href="css/finale.css">
 </head>
 <body data-page="services">
@@ -30,7 +32,49 @@
       <p class="lead">Placeholder: bride room decor, common area styling, tablescapes, champagne towers, fridge stocking and custom extras, each with real photography, a short description and an option to inquire.</p>
     </section>
 
+    <!-- ============ PLACEHOLDER: Side quest (travel beyond the Cape) ============ -->
+    <section class="section placeholder placeholder--petal side-quest" id="side-quest">
+      <!-- Film strip flush against the left edge, gently tilted, running off the
+           top and bottom. Frames 1–2 are real photos; frames 3–6 are still a
+           PLACEHOLDER beach shot: swap for real out-of-Cape weekends. -->
+      <div class="film" aria-hidden="true">
+        <div class="film__strip">
+          <img src="assets/PP_Images/Blonde%20Women%20Aboard%20a%20Sunlit%20Boat.webp" alt="" width="1032" height="1524" loading="lazy" decoding="async">
+          <img src="assets/PP_Images/Veiled%20Bride%20Toasting%20by%20the%20Sea.webp" alt="" width="1063" height="1479" loading="lazy" decoding="async">
+          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/img/insta/DfAjtWYR1DE.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+        </div>
+        <svg class="film__spark" viewBox="-2 -2 104 104"><path d="M50.71 3.43 L54.66 22.60 Q56.89 33.37 66.08 27.33 L82.43 16.57 Q85.36 14.64 83.43 17.57 L72.67 33.92 Q66.63 43.11 77.40 45.34 L96.57 49.29 Q100.00 50.00 96.57 50.71 L77.40 54.66 Q66.63 56.89 72.67 66.08 L83.43 82.43 Q85.36 85.36 82.43 83.43 L66.08 72.67 Q56.89 66.63 54.66 77.40 L50.71 96.57 Q50.00 100.00 49.29 96.57 L45.34 77.40 Q43.11 66.63 33.92 72.67 L17.57 83.43 Q14.64 85.36 16.57 82.43 L27.33 66.08 Q33.37 56.89 22.60 54.66 L3.43 50.71 Q0.00 50.00 3.43 49.29 L22.60 45.34 Q33.37 43.11 27.33 33.92 L16.57 17.57 Q14.64 14.64 17.57 16.57 L33.92 27.33 Q43.11 33.37 45.34 22.60 L49.29 3.43 Q50.00 0.00 50.71 3.43 Z"/></svg>
+      </div>
+      <div class="side-quest__grid">
+        <div class="side-quest__head">
+          <p class="script side-quest__kicker">Side Quest</p>
+          <h2>Partying beyond the Cape? Consider it handled.</h2>
+          <p>Love our decor, but your bride's heart is set on somewhere beyond Cape Cod? No problem, babe! While the Cape is our home base, we're always up for taking the celebration on the road.</p>
+        </div>
+        <div class="side-quest__copy">
+          <!-- travel line art, peeking out from behind the route card's bottom-right corner -->
+          <img class="side-quest__stamp" src="assets/Stamps/travel_stamp.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
+          <!-- Route card: the places we travel to, joined by a dashed line -->
+          <div class="route">
+            <h3>Where we'll go</h3>
+            <ol>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">Cape Cod</span><span class="route__how">Home base</span></li>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">Nantucket</span><span class="route__how">By ferry</span></li>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">Martha's Vineyard</span><span class="route__how">By ferry</span></li>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">Newport, RI</span><span class="route__how">By car</span></li>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">Boston</span><span class="route__how">By car</span></li>
+              <li><span class="route__pin" aria-hidden="true"></span><span class="route__place">&amp; beyond</span><span class="route__how">By plane</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section finale">
+      <svg class="wave wave--top" viewBox="0 0 1248 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H1248 L1248 30.9 L1200 30.9 L1152 27.8 L1104 25 L1056 27.5 L1008 37.1 L960 50.1 L912 59.7 L880 61.5 L832 57.4 L784 49.1 L736 42.4 L688 40.1 L640 39.8 L592 37.1 L544 30 L496 21.9 L448 18.5 L400 23.7 L352 35.6 L304 47.9 L256 54.5 L208 54.2 L160 50.6 L112 48.6 L64 49.8 L0 50.4 Z"/></svg>
       <svg class="wave wave--bottom" viewBox="0 0 1248 76" preserveAspectRatio="none" aria-hidden="true"><path fill="#8FC7F4" d="M0 0 H1248 L1248 19.3 L1200 23.1 L1152 25.8 L1104 25.7 L1056 25.3 L1008 29.2 L960 38.3 L912 48.9 L864 54.7 L816 52.2 L768 43.7 L720 35 L672 30.6 L624 29.8 L576 28.8 L528 24.5 L480 18.4 L432 15.7 L384 20.4 L336 31.3 L288 42.8 L240 49 L192 48.3 L144 44.4 L96 42 L48 42.4 L0 42.5 Z"/></svg>
       <div class="container reveal">
         <h2>Tell us what she'd love.</h2>

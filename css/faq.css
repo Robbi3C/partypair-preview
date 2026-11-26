@@ -7,10 +7,13 @@
    ============================================================ */
 
 .faq {
-  padding-block: 6.5rem 9.375rem;
+  /* the page's section rhythm; less underneath because the band's colour
+     hangs into the finale as its top wave (finale.css) */
+  padding-block: var(--space-section) calc(var(--space-section) - 1.5rem);
   background: var(--faq-bg);
 }
-.faq h2 { font-size: clamp(2.5rem, 4.4vw, 3.75rem); color: var(--pear-deep); }
+.faq h2 { font-size: var(--text-h2); color: var(--pear-deep); }
+.faq__lead { max-width: 24rem; margin: 1.25rem 0 0; font-size: var(--text-lead); line-height: 1.55; text-wrap: pretty; }
 
 .faq__grid {
   display: grid;
@@ -41,6 +44,7 @@
 .faq-item .plus {
   flex: none;
   font-family: var(--font-display);
+  font-variation-settings: var(--display-axes);
   font-size: 2.125rem;
   line-height: 1;
   color: var(--pear-deep);
@@ -63,9 +67,6 @@
 
 @media (max-width: 63.75em) {
   .faq__grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
-}
-@media (max-width: 47.5em) {
-  .faq { padding-top: 4rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .faq-item .plus { transition: none; }

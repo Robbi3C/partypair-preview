@@ -2,7 +2,7 @@
    Edit here and every page's header, mobile menu and footer updates.
 
    `id` matches <body data-page="…"> so the current page is highlighted.
-   Menu = The Moment, Partners, Services, Itineraries. */
+   Menu = Home, Services, Itineraries, Partners. */
 
 export const site = {
   name: 'The Party Pair',
@@ -13,9 +13,9 @@ export const site = {
   fineprint: 'Cape Cod, Massachusetts. Styled with love and an unreasonable number of balloons.',
 
   nav: [
-    { id: 'home',      label: 'The Moment',       href: './' },
-    { id: 'partners',  label: 'Partners',         href: 'partners.html' },
+    { id: 'home',      label: 'Home',             href: './' },
     { id: 'services',  label: 'Services',         href: 'services.html' },
     { id: 'itineraries', label: 'Itineraries',    href: 'itineraries.html' },
+    { id: 'partners',  label: 'Partners',         href: 'partners.html' },
   ],
 };

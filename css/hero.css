@@ -37,7 +37,7 @@
 }
 
 .hero {
-  --hero-h1-max: 3.485rem;
+  --hero-h1-max: 4.125rem;   /* the largest heading on the page */
   --hero-h: min(100svh, 62rem);
   position: relative;
   display: grid;
@@ -58,11 +58,13 @@
 /* the copy column is the container the headline sizes against */
 .hero__copy {
   container-type: inline-size;
-  width: min(100%, 34rem);
+  width: min(100%, 41rem);
   justify-items: start;
 }
 
+/* the kicker keeps a 34rem measure so it breaks onto two lines */
 .hero__kicker {
+  max-width: 34rem;
   margin-bottom: clamp(0.5rem, 1.4svh, 0.9rem);
   text-wrap: balance;
   color: var(--ink);

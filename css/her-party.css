@@ -1,5 +1,5 @@
 /* ============================================================
-   HER KIND OF PARTY (homepage, .her-party) — PLACEHOLDER copy.
+   HER KIND OF PARTY (homepage, .her-party).
    A bold berry band: copy on the left, a pile of polaroids on the
    right that drop in one at a time (js/polaroids.js).
    ============================================================ */
@@ -16,22 +16,32 @@
   rotate: -4deg;
   padding-inline: 0.06em;
 }
-.her-party__copy p { max-width: 36em; color: var(--her-party-ink); }
+.her-party__copy p { max-width: 31em; color: var(--her-party-ink); }
 .her-party__copy p + p { margin-top: 1rem; }
 
 .her-party__grid { display: grid; gap: 3rem; align-items: center; }
 @media (min-width: 52em) {
   .her-party__grid { grid-template-columns: 1.05fr 0.95fr; gap: 4rem; }
 }
+/* wide screens: the copy column is only as wide as the copy (31em), and
+   everything else goes to the fanned prints */
+@media (min-width: 68.0625em) {
+  .her-party__grid { grid-template-columns: minmax(0, 31em) minmax(0, 1fr); }
+}
+/* 1440 px and up: a wider gap centres the bigger fan between the copy and
+   the screen edge */
+@media (min-width: 90em) {
+  .her-party__grid { gap: 7.5rem; }
+}
 
-/* Polaroid pile: smaller prints scattered around the centre of the area,
-   each pushed off by its own --x/--y (a share of the print's own size) and
-   tilted by --r, so it reads as a loose pile tossed on a table rather than
-   a neat stack. Later photos land on top. */
+/* Polaroid fan: three prints, each pushed off by its own --x/--y (a share
+   of the print's own size) and tilted by --r: left and right tipped out
+   and sitting lower, the centre print near-straight, raised and on top
+   (it's last in the markup, so it lands last). */
 .polaroids {
   position: relative;
   width: min(100%, 32rem);
-  aspect-ratio: 1 / 0.98;
+  aspect-ratio: 1 / 0.8;             /* hugs the fan, so the section's padding is the only air above and below */
   margin-inline: auto;
   container-type: inline-size;     /* prints size their frame in cqw (pile width) */
 }
@@ -39,10 +49,28 @@
 @media (max-width: 47.5em) {
   .polaroids { width: 80%; }
 }
+/* Print size by width (a share of the pile), each the largest that keeps
+   the fan on screen and clear of the copy: 55% from 1440 px (base rule
+   below), then smaller as the column narrows */
+@media (max-width: 89.99em) {
+  .polaroids .polaroid { width: 50%; }
+}
+@media (max-width: 80em) {
+  .polaroids .polaroid { width: 44%; }
+}
+@media (min-width: 68.0625em) and (max-width: 75em) {   /* small laptops: the tightest fit */
+  .polaroids .polaroid { width: 41%; }
+}
+@media (min-width: 47.5625em) and (max-width: 68em) {   /* tablets in two columns */
+  .polaroids .polaroid { width: 42%; }
+}
+@media (max-width: 47.5em) {   /* phones, stacked */
+  .polaroids .polaroid { width: 46%; }
+}
 .polaroids__stamp {
   position: absolute;
-  right: -18%;
-  bottom: -16%;
+  right: -22%;
+  bottom: -23%;
   width: 72%;
   height: auto;
   opacity: 0.5;
@@ -52,7 +80,7 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 59.8%;                    /* 15% bigger than the earlier 52% */
+  width: 55%;                      /* three prints fanned: left, right, then the centre one on top */
   aspect-ratio: 0.82;              /* a real instant print's proportions */
   margin: 0;
   padding: 3cqw 3cqw 10.5cqw;      /* thin sides and top, deep bottom lip */

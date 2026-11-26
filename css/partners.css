@@ -67,7 +67,7 @@
 .partners__badge-script { font-family: var(--font-script); font-size: clamp(1.25rem, 2vw, 1.75rem); }
 .partners__badge-name {
   font-family: var(--font-display);
-  font-variation-settings: 'SOFT' 100;
+  font-variation-settings: var(--display-axes);
   font-size: clamp(1.05rem, 1.75vw, 1.5rem);
   line-height: 0.92;
   text-transform: lowercase;
@@ -86,16 +86,11 @@
 }
 /* two lines on desktop: a set break after "connections.", sized so the
    second line fits the column; stacked layouts wrap naturally */
-.partners__copy h2 { color: var(--punch); font-size: clamp(2.5rem, 3.9vw, 3.6rem); text-wrap: balance; }
+.partners__copy h2 { color: var(--punch); font-size: clamp(2.25rem, 3.4vw, 3.125rem); text-wrap: balance; }
 @media (max-width: 63.75em) { .partners__br { display: none; } }
 .partners__caps { margin-top: 1.25rem; color: var(--caps-accent); }
 .partners__copy p:not(.caps) { max-width: 38em; margin: 1rem auto 0; color: var(--ink); text-wrap: balance; }
 .partners__btn { margin-top: 1.75rem; }   /* a Sea glass pill (components.css) */
-/* desktop: the side quest film strip rises 4.5rem into this band's bottom
-   left (side-quest.css), so the copy keeps clear space under its button */
-@media (min-width: 63.76em) {
-  .partners__copy { padding-bottom: max(clamp(4rem, 7vw, 6rem), 4.5rem + 3rem); }
-}
 @media (max-width: 63.75em) {
   .partners { grid-template-columns: minmax(0, 1fr); }
   .partners__copy { padding-top: 2.5rem; }

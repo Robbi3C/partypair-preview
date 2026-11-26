@@ -32,6 +32,9 @@
   apply(current);
   root.classList.add('has-pal-bar');
 
+  // retired previews (type, tags) stored a choice; clear them
+  try { localStorage.removeItem('pp-type'); localStorage.removeItem('pp-tags'); } catch (e) {}
+
   document.addEventListener('DOMContentLoaded', function () {
     var bar = document.createElement('div');
     bar.className = 'pal-bar';
@@ -53,10 +56,12 @@
         var url = new URL(location.href);
         if (current) url.searchParams.set('palette', current); else url.searchParams.delete('palette');
         history.replaceState(null, '', url);
-        bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        bar.querySelectorAll('[data-pal]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
       });
+      b.setAttribute('data-pal', '');
       bar.appendChild(b);
     });
+
     document.body.prepend(bar);
   });
 })();

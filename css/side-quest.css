@@ -1,5 +1,5 @@
 /* ============================================================
-   SIDE QUEST (homepage, .side-quest) — partying beyond the Cape:
+   SIDE QUEST (services page, .side-quest) — partying beyond the Cape:
    a film strip down the left edge, the headline, and a route card.
    The band also carries .placeholder--petal (placeholders.css).
    ============================================================ */
@@ -38,7 +38,7 @@
    at full strength (the pile's stamp stays at 50%) */
 .side-quest__copy { position: relative; isolation: isolate; }
 /* nothing spills into the next band or off the screen's sides; on desktop
-   the film strip's top end rises into Cape Cod connections above, so the
+   the film strip's top end rises into the page head above (services.html), so the
    clip opens upward by that much (plus room for its tilt and shadow) */
 .side-quest { --film-rise: 4.5rem; clip-path: inset(calc(-1 * var(--film-rise) - 3rem) 0 0 0); }
 .side-quest__copy .route { z-index: 1; }
@@ -75,8 +75,8 @@
 /* The film strip: pale stock with photos edge to edge, thin gaps between
    frames and a soft row of sprocket holes down the right edge; tilted a few
    degrees, bleeding off the left edge and the bottom of the band. Its top
-   end shows: it starts in the cream space under Cape Cod connections' copy
-   (partners.css keeps that space clear) and runs down across the seam,
+   end shows: it starts in the cream space under the page head's copy
+   (clear of its text) and runs down across the seam,
    as in the client's reference. */
 .film {
   position: absolute;
@@ -219,7 +219,7 @@
 .route li:first-child .route__pin { background: var(--route-home); }   /* home base */
 .route__place {
   font-family: var(--font-display);
-  font-variation-settings: 'SOFT' 100;
+  font-variation-settings: var(--display-axes);
   font-size: 1.625rem;
   line-height: 1.05;
   text-transform: lowercase;
@@ -246,3 +246,7 @@
 .side-quest h2 + p,
 .side-quest p + p { color: var(--ink); }
 .side-quest p + p { margin-top: 1rem; }
+
+/* the finale's top wave is this band's colour hanging down (finale.css
+   colours it for the homepage FAQ) */
+.side-quest + .finale .wave--top path { fill: var(--side-quest-bg); }

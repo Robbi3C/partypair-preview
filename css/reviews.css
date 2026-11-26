@@ -110,6 +110,7 @@
   overflow: hidden;
   border-radius: 50%;
   font-family: var(--font-display);
+  font-variation-settings: var(--display-axes);
   font-size: 1.6rem;
   color: var(--ink);
 }
@@ -138,7 +139,7 @@
   align-items: center;
   gap: 1rem 2rem;
 }
-.rvb-head h2 { font-size: clamp(2.5rem, 4.4vw, 3.75rem); }
+.rvb-head h2 { font-size: var(--text-h2); }
 .rvb-count { color: var(--ink); }
 
 /* desktop: the Google count sits under the headline, the burst to their right */
@@ -181,7 +182,7 @@
 }
 .rvb-burst b {
   font-family: var(--font-display);
-  font-variation-settings: 'SOFT' 100;
+  font-variation-settings: var(--display-axes);
   font-weight: 400;
   font-size: 2.25rem;
   line-height: 1;

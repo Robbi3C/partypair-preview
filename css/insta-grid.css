@@ -233,7 +233,7 @@
 /* ---------- The polaroid strip ---------- */
 
 /* the band and its heading */
-.transform { padding-block: clamp(4rem, 9vw, 6.5rem) clamp(2.75rem, 7vw, 5.25rem); }
+.transform { padding-block: var(--space-section); }   /* the page's section rhythm */
 .transform .section-intro {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
@@ -328,7 +328,7 @@
 .pol-more__seal img { width: 24px; height: auto; }
 .pol-more__title {
   font-family: var(--font-display);
-  font-variation-settings: 'SOFT' 100;
+  font-variation-settings: var(--display-axes);
   font-size: 1.625rem;
   line-height: 1.05;
   color: var(--paper);
@@ -360,7 +360,7 @@
 .pol-handle > span:last-child { display: grid; font-size: 1rem; overflow-wrap: anywhere; }
 .pol-handle strong {
   font-family: var(--font-display);
-  font-variation-settings: 'SOFT' 100;
+  font-variation-settings: var(--display-axes);
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 1.1;

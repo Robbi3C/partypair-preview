@@ -18,8 +18,22 @@
 .problem h2 { color: var(--punch); margin-bottom: 1.625rem; }
 .problem__copy p { max-width: 36em; }
 .problem__copy p + p { margin-top: 1rem; }
-.problem__cta { margin-top: 1.75rem; }
+.problem__eyebrow { margin-bottom: 0.875rem; color: var(--caps-accent); }
 
+/* "See how it works ↓": jumps to the booking steps */
+.problem__jump {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;   /* a step under the 15px caps default */
+  color: var(--ink);
+  text-decoration: none;
+}
+.problem__jump-arrow { color: var(--pear-deep); transition: transform 0.2s var(--ease-out); }
+.problem__jump:hover .problem__jump-arrow { transform: translateY(3px); }
+/* underline the words only, never the arrow */
+.problem__jump:hover .problem__jump-text { text-decoration: underline; text-underline-offset: 0.3em; }
 .problem__grid {
   display: grid;
   gap: 2.5rem;
@@ -115,7 +129,7 @@
   /* the photo measures from the whole section, so nothing between them is positioned */
   .problem { isolation: isolate; }
   .problem .problem__grid,
-  .problem .chat-stack { position: static; }
+  .problem .chat-stack { position: static; padding-block: 0; }   /* the section's padding is the only air above and below */
   .problem :is(.problem__copy, .chat-bubble) { position: relative; z-index: 1; }
   .chat-photo { inset: 0 auto 0 0; width: calc(50% - 15rem); }
 }

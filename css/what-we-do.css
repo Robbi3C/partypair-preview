@@ -1,0 +1,148 @@
+/* ============================================================
+   WHAT WE DO (homepage, .wwd) — "the good stuff, handled."
+   A solid colour block: the centred headline ("handled." in
+   the script face with a hand-drawn line under it), then
+   three paper cards (photo, display H3, body, a caps line of
+   examples), then the quote line centred with the pill below it
+   (as the band had before the cards).
+
+   Colour comes only from the --dream-* roles (tokens.css), so each
+   palette in css/palettes.css recolours the band. Cards follow the
+   design guide's card row (§ layout D): paper, 16 px radius, display
+   H3 in Punch on paper.
+   ============================================================ */
+
+.wwd {
+  padding-block: var(--space-section);
+  background: var(--dream-bg);
+  color: var(--dream-ink);
+}
+
+/* --- headline (unchanged look) --- */
+.wwd__head { max-width: 55rem; margin: 0 auto clamp(2.5rem, 4.5vw, 3.5rem); text-align: center; }
+
+.wwd h2 { color: var(--dream-ink); text-wrap: balance; }
+.wwd h2 .script {
+  position: relative;
+  display: inline-block;
+  font-size: 1.3em;
+  line-height: 0.8;
+  color: var(--dream-accent);
+  rotate: -4deg;
+  padding-inline: 0.06em;
+  white-space: nowrap;
+}
+
+/* the hand-drawn line under "handled." */
+.wwd__inkline {
+  position: absolute;
+  left: 4%;
+  bottom: -0.12em;
+  width: 92%;
+  height: 0.16em;
+  overflow: visible;
+}
+
+/* --- cards --- */
+.wwd__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 1.6vw, 1.375rem);
+}
+.wwd-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Placeholder photo: a soft Petal block with a faint pear, until real
+   photos go in. A real <img> in the same slot gets the same crop. */
+.wwd-card__photo {
+  display: block;
+  width: 100%;
+  height: auto;   /* the crop comes from aspect-ratio, not an img's height attribute */
+  aspect-ratio: 1.7;
+  object-fit: cover;
+}
+div.wwd-card__photo {
+  background:
+    url('../assets/img/pear.svg') center / 2.75rem no-repeat,
+    var(--petal);
+}
+
+.wwd-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.375rem, 2.2vw, 1.75rem);
+}
+/* card headings fit one line at every three-across width (no balancing,
+   which split "we decorate / the rental." in two); top-aligned and centred */
+.wwd-card h3 { margin-bottom: 0.875rem; text-align: center; font-size: clamp(1.375rem, 2vw, 1.75rem); color: var(--punch); line-height: 1.05; text-wrap: wrap; }
+.wwd-card__body > p:not([class]) { line-height: 1.6; }
+
+/* Examples: a quiet caps line under a hairline, the items split by the
+   sparkle glyph the marquee and postmark use (§4.3 "Label (small)").
+   Every item carries its sparkle in the --sep gap to its left; the list
+   is pulled left by --sep and clipped back to the card's text edge, so
+   the sparkle of whichever item starts a line is cut off. A wrap never
+   leaves a stray sparkle at the start of a line. */
+.wwd-card__tags {
+  --sep: 1.125rem;   /* fixed, so the sparkle centres in the gap whatever its own size */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 0.25rem;
+  margin: auto 0 0 calc(-1 * var(--sep));
+  padding: 1.1rem 0 0;
+  list-style: none;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  line-height: 1.6;
+  color: var(--ink-muted);
+  clip-path: inset(0 0 0 var(--sep));
+}
+.wwd-card__tags::before {   /* the hairline, from the text edge */
+  content: '';
+  flex: 0 0 calc(100% - var(--sep));
+  height: 1px;
+  margin: 0 0 0.9rem var(--sep);
+  background: var(--hairline);
+}
+.wwd-card__tags li { position: relative; margin-left: var(--sep); white-space: nowrap; }
+.wwd-card__tags li::before {
+  content: '\2726';   /* ✦ */
+  position: absolute;
+  right: 100%;
+  width: var(--sep);
+  text-align: center;
+  color: var(--punch);
+  font-size: 0.85em;
+  letter-spacing: 0;
+}
+
+/* --- footer: the quote line and the pill --- */
+.wwd__foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: clamp(2.25rem, 4vw, 3rem);
+  text-align: center;
+}
+.wwd__foot p { max-width: 36rem; font-size: var(--text-lead); line-height: 1.5; }
+
+.wwd .btn { flex: none; background: var(--dream-btn-bg); color: var(--dream-btn-ink); }
+/* no motion in this band (owner call): the pill only changes colour on hover */
+.wwd .btn:hover,
+.wwd .btn:active { background: var(--dream-btn-hover); transform: none; }
+
+/* one column below the 1020 px breakpoint, kept to a readable width */
+@media (max-width: 63.75em) {
+  .wwd__cards { grid-template-columns: minmax(0, 1fr); max-width: 34rem; margin-inline: auto; }
+  .wwd-card__photo { aspect-ratio: 2; }
+}
+

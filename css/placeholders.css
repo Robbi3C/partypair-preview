@@ -8,6 +8,3 @@
 .placeholder h2 { color: var(--punch); text-wrap: balance; }
 .placeholder--petal { background: var(--petal); }
 .placeholder--petal h2 { color: var(--pear-deep); }
-.placeholder--dream { background: var(--dream-bg); }
-.placeholder--dream h2 { color: var(--pear-deep); }
-

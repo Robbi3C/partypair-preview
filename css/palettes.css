@@ -98,7 +98,7 @@
   --chat-me-bg: var(--petal);
   --confetti: #cb4987, #f8bdd8, #fde1ed, #aad9d2, #faecb6, #aad8f7;
   /* running order: never two pink bands touching. "Her party" (pink) ->
-     dream it (mint) -> booking (blush); dream it and booking use the defaults */
+     what we do (dark ink wash) -> booking (blush); both use the defaults */
 }
 
 /* ---------- 3 · Harbor & Hydrangea: one harbour-blue family, blush and sage ----------
@@ -181,8 +181,7 @@
   --chat-me-bg: var(--petal);
   --confetti: #cb4987, #f8bdd8, #c0d8f8, #e8f1fc, #faecb6, #aad9d2;
   /* running order: pink and blue take turns. "Her party" (blue) ->
-     dream it (blush) -> booking (mist blue) -> ... side quest, FAQ (blush) */
-  --dream-bg: var(--petal);
+     what we do (dark navy wash) -> booking (mist blue) -> ... side quest, FAQ (blush) */
   --booking-bg: var(--seafoam);        /* pale mist blue: a light tint, so the card leads */
 }
 

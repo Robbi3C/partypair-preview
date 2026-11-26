@@ -22,6 +22,13 @@ body {
   overflow-x: clip;
 }
 
+/* desktop body copy: 16 px at 1.6 (Questrial's tall x-height reads
+   large); phones keep 17 px at 1.65 */
+@media (min-width: 64em) {
+  :root { --text-body: 1rem; }
+  body { line-height: 1.6; }
+}
+
 img, svg, video, canvas { display: block; max-width: 100%; }
 
 button, input, select, textarea {
@@ -36,7 +43,7 @@ h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 400;
   font-style: normal;
-  font-variation-settings: 'SOFT' 100;
+  font-variation-settings: var(--display-axes);
   letter-spacing: -0.01em;
   line-height: 1;
   text-transform: lowercase;
